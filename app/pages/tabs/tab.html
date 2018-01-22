@@ -1,0 +1,24 @@
+<TabView #tabview (selectedIndexChanged)="tabIndexChanged($event)" toggleNavButton>
+    <StackLayout *tabItem="{title: 'Home', iconsource:'res://ic_home_white_24dp'}" >
+        <ActionBar>
+                <ActionItem ios.systemIcon="15" android.systemIcon="ic_menu_camera"></ActionItem>
+        </ActionBar>        
+        <Label text="First tab item"></Label>
+    </StackLayout>
+
+    <StackLayout *tabItem="{title: 'Search'}" (tap)="toggleDisplay()">
+        <Label text="Second tab item"></Label>
+    </StackLayout>
+
+    <StackLayout *tabItem="{title: 'Gallery'}">
+        <Label text="Third tab item"></Label>
+    </StackLayout>
+
+    <StackLayout *tabItem="{title: 'Notification'}">
+        <Label text="Third tab item"></Label>
+    </StackLayout>
+
+    <StackLayout *tabItem="{title: 'Profile'}">
+        <Label text="Third tab item"></Label>
+    </StackLayout>
+</TabView>

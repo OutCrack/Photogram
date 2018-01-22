@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\ic_home_black_24dp.png",
+        "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-mdpi\\ic_home_black_24dp.png"
+    },
+    {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\background.png",
+        "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-mdpi\\background.png"
+    },
+    {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\icon.png",
+        "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-mdpi\\icon.png"
+    },
+    {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\logo.png",
+        "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-mdpi\\logo.png"
+    }
+]
