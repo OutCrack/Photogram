@@ -8,8 +8,24 @@
         "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\layout-v21\\notification_action.xml"
     },
     {
+        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\layout-v21\\notification_action_tombstone.xml"
+    },
+    {
         "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
         "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\layout-v21\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
+        "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\layout-v21\\notification_action.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\layout-v21\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\layout-v21\\notification_template_custom_big.xml"
     },
     {
         "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",

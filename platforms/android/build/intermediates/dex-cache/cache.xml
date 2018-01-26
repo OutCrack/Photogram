@@ -3,21 +3,21 @@
 
     <item
         is-multidex="false"
-        jar="C:\Users\Andreas\.android\build-cache\65f89ef680e6cd41c7b0ae30c012645d8160e521\output\jars\classes.jar"
+        jar="C:\Users\Kasia\.android\build-cache\ef97775a6ab0e3f58b7461e1cba7ee4b266af21b\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
-        revision="26.0.2"
+        revision="27.0.3"
         sha1="dd431d6aa9ce9dc0d429fcd239d412a82ea0e9a7">
-        <dex dex="G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_4ed984c87cefd88ce3cd186e8a83898ef5137a09.jar" />
+        <dex dex="C:\Users\Kasia\Documents\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_7ec9fb8568bff4cf715307e36ad65de2be4cfec3.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\Andreas\.android\build-cache\882bddaeba8578933e7cabd17017200da9309e0a\output\jars\classes.jar"
+        jar="C:\Users\Kasia\.android\build-cache\78d298f68254ce578164d11b69eeb33ce1109571\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
-        revision="26.0.2"
+        revision="27.0.3"
         sha1="746274223beb11b1cda7854d7eec3038695c2c93">
-        <dex dex="G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_0a4bc8438f6202d25b8f078ca692327e86ae5715.jar" />
+        <dex dex="C:\Users\Kasia\Documents\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_b24c92f7d1ce5868ca35a47bb0ffad794624ca27.jar" />
     </item>
 
 </items>

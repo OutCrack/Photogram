@@ -5,6 +5,7 @@ import { UserService } from "../../shared/user/user.service";
 import { Page } from "ui/page";
 import { Color } from "color";
 import { View } from "ui/core/view";
+import * as tnsOAuthModule from "nativescript-oauth";
 
 
 @Component({
@@ -39,6 +40,18 @@ export class LoginComponent implements OnInit {
         () => this.router.navigate(["/tab"]),
         (error) => alert("Unfortunately we could not find your account.")
       );
+  }
+
+  faceLogin() {
+    tnsOAuthModule.ensureValidToken()
+    .then((token: string) => {
+      this.router.navigate(["/tab"]);
+    })
+    .catch((error) => {
+      console.error("Error logging in");
+      console.dir(error);
+      alert("We could not log you in");
+    });
   }
 
   signUp() {

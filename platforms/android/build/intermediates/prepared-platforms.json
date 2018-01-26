@@ -9,6 +9,7 @@
     "@angular/platform-browser-dynamic": true,
     "@angular/router": true,
     "nativescript-angular": true,
+    "nativescript-oauth": true,
     "nativescript-theme-core": true,
     "reflect-metadata": true,
     "rxjs": true,
@@ -16,6 +17,9 @@
     "zone.js": true,
     "tslib": true,
     "nativescript-intl": true,
+    "querystring": true,
+    "url": true,
     "symbol-observable": true,
-    "tns-core-modules-widgets": true
+    "tns-core-modules-widgets": true,
+    "punycode": true
 }

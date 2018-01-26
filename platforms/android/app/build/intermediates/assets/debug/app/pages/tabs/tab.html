@@ -1,4 +1,4 @@
-<TabView #tabview (selectedIndexChanged)="tabIndexChanged($event)" toggleNavButton>
+<TabView>
     <StackLayout *tabItem="{title: 'Home', iconsource:'res://ic_home_white_24dp'}" >
         <ActionBar>
                 <ActionItem ios.systemIcon="15" android.systemIcon="ic_menu_camera"></ActionItem>
@@ -15,10 +15,10 @@
     </StackLayout>
 
     <StackLayout *tabItem="{title: 'Notification'}">
-        <Label text="Third tab item"></Label>
+        <Label text="Fourth tab item"></Label>
     </StackLayout>
 
     <StackLayout *tabItem="{title: 'Profile'}">
-        <Label text="Third tab item"></Label>
+        <Label text="Fifth tab item"></Label>
     </StackLayout>
 </TabView>

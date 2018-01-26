@@ -18,3 +18,8 @@ StackLayout {
     color: white;
     margin-top: 20;
   }
+
+  .faceButton {
+    background-color: #3b5998;
+    color: white;
+  }

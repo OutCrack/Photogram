@@ -1,7 +1,19 @@
 [
     {
+        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\icon.png",
+        "source": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-xxhdpi\\icon.png"
+    },
+    {
+        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\photogram.png",
+        "source": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-xxhdpi\\photogram.png"
+    },
+    {
         "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\ic_home_black_24dp.png",
         "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-xxhdpi\\ic_home_black_24dp.png"
+    },
+    {
+        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\ic_home_black_24dp.png",
+        "source": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-xxhdpi\\ic_home_black_24dp.png"
     },
     {
         "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\logo.png",
@@ -12,8 +24,16 @@
         "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-xxhdpi\\photogram.png"
     },
     {
+        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\background.png",
+        "source": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-xxhdpi\\background.png"
+    },
+    {
         "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\background.png",
         "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-xxhdpi\\background.png"
+    },
+    {
+        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\logo.png",
+        "source": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-xxhdpi\\logo.png"
     },
     {
         "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\icon.png",

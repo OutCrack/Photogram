@@ -5,6 +5,8 @@ import { UserService } from "../../shared/user/user.service";
 import { Page } from "ui/page";
 import { Color } from "color";
 import { View } from "ui/core/view";
+import * as tnsOAuthModule from "nativescript-oauth";
+import * as dialogs from "ui/dialogs";
 
 
 @Component({
@@ -14,16 +16,17 @@ import { View } from "ui/core/view";
   styleUrls: ["./pages/login/login-common.css", "./pages/login/login.css"]
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   user: User;
   isLoggingIn = true;
+  face = false;
   @ViewChild("container") container: ElementRef;
 
   constructor(private router: Router, private userService: UserService, private page: Page) {
     this.user = new User();
     this.user.email = "tests@photogram.com";
     this.user.password = "test1234";
-  }
+  } 
 
   submit() {
     if (this.isLoggingIn) {
@@ -40,6 +43,33 @@ export class LoginComponent implements OnInit {
         (error) => alert("Unfortunately we could not find your account.")
       );
   }
+
+  public faceLogin() {
+    tnsOAuthModule.ensureValidToken()
+    .then((token: string) => {
+      console.log("Token: " + token);
+      this.router.navigate(["/tab"]);
+      this.face = true;
+    })
+    .catch((er) => {
+      console.error("Error logging in");
+      console.dir(er);
+      alert("We could not log you in");
+    });
+  }
+
+  public faceLogout() {
+    tnsOAuthModule.logout()
+    .then(() => { 
+      console.log("Logged out with Facebook");
+      alert("Facebook logout succeded"); 
+      this.face = false;
+    })
+      .catch((er) => {
+          console.error("Error loging out with facebook");
+          console.dir(er);
+      });
+}
 
   signUp() {
     this.userService.register(this.user)

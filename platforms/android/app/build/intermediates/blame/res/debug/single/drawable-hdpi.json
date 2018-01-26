@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\background.png",
+        "source": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\background.png"
+    },
+    {
         "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_home_black_24dp.png",
         "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\ic_home_black_24dp.png"
     },
@@ -12,7 +16,19 @@
         "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\background.png"
     },
     {
+        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\icon.png",
+        "source": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\icon.png"
+    },
+    {
         "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\icon.png",
         "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\icon.png"
+    },
+    {
+        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_home_black_24dp.png",
+        "source": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\ic_home_black_24dp.png"
+    },
+    {
+        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\logo.png",
+        "source": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\logo.png"
     }
 ]
