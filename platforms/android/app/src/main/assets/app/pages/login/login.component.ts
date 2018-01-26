@@ -13,7 +13,7 @@ import * as dialogs from "ui/dialogs";
   selector: "my-app",
   providers: [UserService],
   templateUrl: "./pages/login/login.html",
-  styleUrls: ["./pages/login/login-common.css", "./pages/login/login.css"]
+  styleUrls: ["./pages/login/login-common.css", "./pages/login/login.css" ]
 })
 
 export class LoginComponent {
@@ -46,10 +46,9 @@ export class LoginComponent {
 
   public faceLogin() {
     tnsOAuthModule.ensureValidToken()
-    .then((token: string) => {
-      console.log("Token: " + token);
-      this.router.navigate(["/tab"]);
+    .then(() => {
       this.face = true;
+      this.router.navigate(["/tab"]);
     })
     .catch((er) => {
       console.error("Error logging in");
