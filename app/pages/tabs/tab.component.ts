@@ -28,7 +28,7 @@ export class TabComponent {
 
     }
 
-    navigateToHomeRoot() {
+    /*navigateToHomeRoot() {
         this.router.navigate([
             '/home',
             { outlets: { homeoutlet: ['home'] } }
@@ -81,5 +81,5 @@ export class TabComponent {
                 this.navigateToProfileRoot();
                 break;
         }
-    }
+    }*/
 }
