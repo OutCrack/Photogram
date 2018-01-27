@@ -82,4 +82,8 @@ export class TabComponent {
                 break;
         }
     }*/
+
+    ngOnInit() {
+        this.page.actionBarHidden = true;
+      }
 }
