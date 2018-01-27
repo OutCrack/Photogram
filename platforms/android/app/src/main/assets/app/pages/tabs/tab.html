@@ -2,7 +2,10 @@
     <ActionBar title="">
         <ActionItem *ngIf="isHome" (tap)="onCamera()" ios.systemIcon="15" ios.position="right" android.systemIcon="ic_menu_camera"></ActionItem>
 
-        <ActionItem *ngIf="isSearch" ios.systemIcon="2" android.systemIcon="ic_menu_edit" ios.position="right"></ActionItem>
+        <ActionItem *ngIf="isSearch" android.position="center">
+            <SearchBar hint="Search hint" [text]="searchPhrase" (textChange)="onTextChanged($event)" (submit)="onSubmit($event)" color="white"
+                textFieldBackgroundColor="white" textFieldHintColor="gray"></SearchBar>
+        </ActionItem>
     </ActionBar>
 
     <StackLayout *tabItem="{title: 'Home', iconSource: 'res://icon.png'}">
