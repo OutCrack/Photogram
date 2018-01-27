@@ -31,7 +31,7 @@ export class TabComponent {
     navigateToHomeRoot() {
         this.router.navigate([
             '/home',
-            { outlets: { homeoutlet: ['homeoutlet'] } }
+            { outlets: { homeoutlet: ['home'] } }
         ]);
     }
 
