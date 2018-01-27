@@ -1,16 +1,9 @@
-/*import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 
 @Component({
-    selector: "home",
-    templateUrl: "./pages/partials/home.tab.html",
-    providers: []
+    selector: "home-tab",
+    templateUrl: "./pages/tabs/home/home.tab.html"
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
-    public constructor() {}
-
-    public ngOnInit() {
-        console.log("init home");
-    }
-
-}*/
+}

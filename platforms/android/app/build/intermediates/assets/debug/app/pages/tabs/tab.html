@@ -1,24 +1,21 @@
-<TabView>
+<TabView class="tab-view">
     <StackLayout *tabItem="{title: 'Home', iconsource:'res://ic_home_white_24dp'}" >
-        <ActionBar>
-                <ActionItem ios.systemIcon="15" android.systemIcon="ic_menu_camera"></ActionItem>
-        </ActionBar>        
-        <Label text="First tab item"></Label>
+        <home-tab></home-tab>
     </StackLayout>
 
     <StackLayout *tabItem="{title: 'Search'}" (tap)="toggleDisplay()">
-        <Label text="Second tab item"></Label>
+        <search-tab></search-tab>
     </StackLayout>
 
     <StackLayout *tabItem="{title: 'Gallery'}">
-        <Label text="Third tab item"></Label>
+        <gallery-tab></gallery-tab>
     </StackLayout>
 
     <StackLayout *tabItem="{title: 'Notification'}">
-        <Label text="Fourth tab item"></Label>
+        <notification-tab></notification-tab>
     </StackLayout>
 
     <StackLayout *tabItem="{title: 'Profile'}">
-        <Label text="Fifth tab item"></Label>
+        <profile-tab></profile-tab>
     </StackLayout>
 </TabView>

@@ -12,12 +12,12 @@
         "source": "C:\\Users\\Andreas\\.android\\build-cache\\cb2839dfbcf64e06b3604f0504b91b6b546b4311\\output\\res\\color\\design_error.xml"
     },
     {
-        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_btn_colored_text_material.xml",
-        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_btn_colored_text_material.xml"
-    },
-    {
         "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_search_url_text.xml",
         "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\color\\abc_search_url_text.xml"
+    },
+    {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_btn_colored_text_material.xml",
+        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_btn_colored_text_material.xml"
     },
     {
         "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_seek_thumb.xml",

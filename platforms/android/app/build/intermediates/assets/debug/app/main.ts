@@ -11,3 +11,5 @@ var facebookInitOptions : tnsOAuthModule.ITnsOAuthOptionsFacebook = {
     clientSecret: '985db09d1d265f6b13ab1266cf72cf5e',
     scope: ['email']
 };
+
+tnsOAuthModule.initFacebook(facebookInitOptions);

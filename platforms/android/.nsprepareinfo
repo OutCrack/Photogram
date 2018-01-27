@@ -1,9 +1,9 @@
 {
-	"time": "Sat Jan 27 2018 01:42:47 GMT+0100 (W. Europe Standard Time)",
+	"time": "Sat Jan 27 2018 02:00:12 GMT+0100 (W. Europe Standard Time)",
 	"nativePlatformStatus": "3",
 	"bundle": false,
 	"release": false,
 	"changesRequireBuild": false,
 	"projectFileHash": "f80b3409dc272aeb6318c4331dbf3ce0744c8228fa2f58625f41bec7dec6c5d3",
-	"changesRequireBuildTime": "Fri Jan 26 2018 19:44:32 GMT+0100 (Vest-Europa (normaltid))"
+	"changesRequireBuildTime": "Sat Jan 27 2018 01:46:30 GMT+0100 (W. Europe Standard Time)"
 }
