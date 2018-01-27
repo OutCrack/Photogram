@@ -1,5 +1,11 @@
-<TabView class="tab-view">
-    <StackLayout *tabItem="{title: 'Home', iconsource:'res://ic_home_white_24dp'}" >
+<TabView #tabView [(ngModel)]="selectedIndex" (selectedIndexChanged)="tabViewIndexChange(tabView.selectedIndex)">
+    <ActionBar title="">
+        <ActionItem *ngIf="isHome" (tap)="onCamera()" ios.systemIcon="15" ios.position="right" android.systemIcon="ic_menu_camera"></ActionItem>
+
+        <ActionItem *ngIf="isSearch" ios.systemIcon="2" android.systemIcon="ic_menu_edit" ios.position="right"></ActionItem>
+    </ActionBar>
+
+    <StackLayout *tabItem="{title: 'Home', iconSource: 'res://icon.png'}">
         <home-tab></home-tab>
     </StackLayout>
 

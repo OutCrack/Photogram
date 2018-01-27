@@ -16,6 +16,11 @@ export class TabComponent {
     public items: Array<DataItem>;
     public activeTab: string;
     public selectedIndex: number = 0;
+    isHome: boolean = true;
+    isSearch: boolean = false;
+    isGallery: boolean = false;
+    isNotification: boolean = false;
+    isProfile: boolean = false;
 
     constructor(private router: Router, private page: Page) {
         this.items = new Array<DataItem>();
@@ -24,66 +29,75 @@ export class TabComponent {
         }
     }
 
-    toggleDisplay() {
-
+    onCamera() {
+        console.log("Camera tapped.");
+        //Kjører kamera funksjon------
+        this.isSearch = true;
+        this.isHome = false;
     }
 
-    /*navigateToHomeRoot() {
-        this.router.navigate([
-            '/home',
-            { outlets: { homeoutlet: ['home'] } }
-        ]);
+    onHome() {
+        console.log("Home-tab tapped.");
+        this.isHome = true;
+        this.isSearch = false;
+        this.isGallery = false;
+        this.isNotification = false;
+        this.isProfile = false;
     }
 
-    navigateToSearchRoot() {
-        this.router.navigate([
-            '/search',
-            { outlets: { searchoutlet: ['search'] } }
-        ]);
+    onSearch() {
+        console.log("Search-tab tapped.");
+        this.isHome = false;
+        this.isSearch = true;
+        this.isGallery = false;
+        this.isNotification = false;
+        this.isProfile = false;
     }
 
-    navigateToGalleryRoot() {
-        this.router.navigate([
-            '/gallery',
-            { outlets: { galleryoutlet: ['gallery'] } }
-        ]);
+    onGallery() {
+        console.log("Gallery-tab tapped.");
+        this.isHome = false;
+        this.isSearch = false;
+        this.isGallery = true;
+        this.isNotification = false;
+        this.isProfile = false;           
     }
 
-    navigateToNotificationRoot() {
-        this.router.navigate([
-            '/notification',
-            { outlets: { notificationoutlet: ['notification'] } }
-        ]);
+    onNotification() {
+        console.log("Notification-tab tapped.");
+        this.isHome = false;
+        this.isSearch = false;
+        this.isGallery = false;
+        this.isNotification = true;
+        this.isProfile = false;   
     }
 
-    navigateToProfileRoot() {
-        this.router.navigate([
-            '/profile',
-            { outlets: { profileoutlet: ['profile'] } }
-        ]);
+    onProfile() {
+        console.log("Profile-tab tapped.");
+        this.isHome = false;
+        this.isSearch = false;
+        this.isGallery = false;
+        this.isNotification = false;
+        this.isProfile = true;   
     }
 
     tabViewIndexChange(index: number) {
         switch (index) {
             case 0:
-                this.navigateToProfileRoot();
+                this.onHome();
                 break;
             case 1:
-                this.navigateToSearchRoot();
+                this.onSearch();
                 break;
             case 2:
-                this.navigateToGalleryRoot();
+                this.onGallery();
                 break;
             case 3:
-                this.navigateToNotificationRoot();
+                this.onNotification();
                 break;
             case 4:
-                this.navigateToProfileRoot();
+                this.onProfile();
                 break;
         }
-    }*/
-
-    ngOnInit() {
-        this.page.actionBarHidden = true;
-      }
+    }
 }
