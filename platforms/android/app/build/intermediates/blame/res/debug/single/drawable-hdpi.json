@@ -28,6 +28,10 @@
         "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\ic_account_box_black_24dp.png"
     },
     {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_home_black_48dp.png",
+        "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\ic_home_black_48dp.png"
+    },
+    {
         "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_notifications_black_24dp.png",
         "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\ic_notifications_black_24dp.png"
     },
