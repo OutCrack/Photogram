@@ -1,14 +1,13 @@
-<TabView #tabView [(ngModel)]="selectedIndex" (selectedIndexChanged)="tabViewIndexChange(tabView.selectedIndex)">
+<TabView #tabView [(ngModel)]="selectedIndex" (selectedIndexChanged)="tabViewIndexChange(tabView.selectedIndex)" iosIconRenderingMode="alwaysTemplate">
     <ActionBar title="">
         <ActionItem *ngIf="isHome" (tap)="onCamera()" ios.systemIcon="15" ios.position="right" android.systemIcon="ic_menu_camera"></ActionItem>
 
         <ActionItem *ngIf="isSearch" android.position="center">
-            <SearchBar hint="Search hint" [text]="searchPhrase" (textChange)="onTextChanged($event)" (submit)="onSubmit($event)" color="white"
-                textFieldBackgroundColor="white" textFieldHintColor="gray"></SearchBar>
+            
         </ActionItem>
     </ActionBar>
 
-    <StackLayout *tabItem="{title: 'Home', iconSource: 'res://icon.png'}">
+    <StackLayout *tabItem="homeTabItem">
         <home-tab></home-tab>
     </StackLayout>
 

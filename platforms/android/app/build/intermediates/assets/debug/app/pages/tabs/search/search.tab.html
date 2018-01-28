@@ -1,3 +1,5 @@
 <StackLayout>
-    <Label text="Second tab item"></Label>
+
+        <SearchBar hint="Search hint" [text]="searchPhrase" (textChange)="onTextChanged($event)" (submit)="onSubmit($event)" color="white"
+                textFieldBackgroundColor="white" textFieldHintColor="gray"></SearchBar>
 </StackLayout>

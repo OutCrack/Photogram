@@ -16,7 +16,7 @@ export class SearchComponent {
     }
 
     public onTextChanged(args) {
-        let searchBar = <SearchBar>args.object;
-        console.log("SearchBar text changed! New value: " + searchBar.text);
+        //let searchBar = <SearchBar>args.object;
+        //console.log("SearchBar text changed! New value: " + searchBar.text);
     }
 }

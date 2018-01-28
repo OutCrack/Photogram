@@ -16,6 +16,9 @@ export class TabComponent {
     public items: Array<DataItem>;
     public activeTab: string;
     public selectedIndex: number = 0;
+
+    public homeTabItem: any;
+
     isHome: boolean = true;
     isSearch: boolean = false;
     isGallery: boolean = false;
@@ -23,17 +26,17 @@ export class TabComponent {
     isProfile: boolean = false;
 
     constructor(private router: Router, private page: Page) {
-        this.items = new Array<DataItem>();
+        /*this.items = new Array<DataItem>();
         for (let i = 0; i < 5; i++) {
             this.items.push(new DataItem("item " + i));
-        }
+        }*/
+
+        this.homeTabItem = {iconSource:"~/images/ic_home_black_24dp.png"};
     }
 
     onCamera() {
         console.log("Camera tapped.");
         //Kjører kamera funksjon------
-        this.isSearch = true;
-        this.isHome = false;
     }
 
     onHome() {
