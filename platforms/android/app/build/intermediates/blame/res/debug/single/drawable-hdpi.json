@@ -12,12 +12,28 @@
         "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\logo.png"
     },
     {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_search_black_24dp.png",
+        "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\ic_search_black_24dp.png"
+    },
+    {
         "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\background.png",
         "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\background.png"
     },
     {
         "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\icon.png",
         "source": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\icon.png"
+    },
+    {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_account_box_black_24dp.png",
+        "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\ic_account_box_black_24dp.png"
+    },
+    {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_notifications_black_24dp.png",
+        "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\ic_notifications_black_24dp.png"
+    },
+    {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_image_black_24dp.png",
+        "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\ic_image_black_24dp.png"
     },
     {
         "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\icon.png",

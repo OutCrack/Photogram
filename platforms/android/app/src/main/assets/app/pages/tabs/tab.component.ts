@@ -16,9 +16,6 @@ export class TabComponent {
     public items: Array<DataItem>;
     public activeTab: string;
     public selectedIndex: number = 0;
-
-    public homeTabItem: any;
-
     isHome: boolean = true;
     isSearch: boolean = false;
     isGallery: boolean = false;
@@ -30,8 +27,6 @@ export class TabComponent {
         for (let i = 0; i < 5; i++) {
             this.items.push(new DataItem("item " + i));
         }*/
-
-        this.homeTabItem = {iconSource:"~/images/ic_home_black_24dp.png"};
     }
 
     onCamera() {
