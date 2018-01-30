@@ -46,6 +46,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+*.js.map
 app/**/*.js
 hooks/
 lib/
