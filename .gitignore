@@ -215,3 +215,4 @@ platforms/android/app/src/main/assets/app/pages/login/login.css
 platforms/android/app/src/main/java/com/tns/gen/android/webkit/WebViewClient_frnal_ts_helpers_l58_c38__TnsOAuthWebViewHelper.java
 platforms/android/build-tools/android-static-binding-generator/bindings.txt
 platforms/android/build-tools/android-static-binding-generator/jsFilesParameters.txt
+platforms/android/.nsprepareinfo
