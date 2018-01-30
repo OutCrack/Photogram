@@ -1,136 +1,136 @@
 -- Merging decision tree log ---
 manifest
-ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:2:1-43:12
+ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:2:1-43:12
 	package
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:3:2-38
-		INJECTED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
-		INJECTED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:3:2-38
+		INJECTED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
 	android:versionName
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:5:2-27
-		INJECTED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
-		INJECTED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:5:2-27
+		INJECTED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
 	android:versionCode
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:4:2-25
-		INJECTED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
-		INJECTED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:4:2-25
+		INJECTED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:2:11-69
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:2:11-69
 supports-screens
-ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:7:2-11:33
+ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:7:2-11:33
 	android:largeScreens
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:10:3-30
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:10:3-30
 	android:smallScreens
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:8:3-30
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:8:3-30
 	android:normalScreens
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:9:3-31
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:9:3-31
 	android:xlargeScreens
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:11:3-31
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:11:3-31
 uses-sdk
-ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:13:2-15:34
-MERGED from [:nativescript-optimized:] C:\Users\Andreas\.android\build-cache\882bddaeba8578933e7cabd17017200da9309e0a\output\AndroidManifest.xml:7:5-9:41
-MERGED from [:widgets-release:] C:\Users\Andreas\.android\build-cache\65f89ef680e6cd41c7b0ae30c012645d8160e521\output\AndroidManifest.xml:7:5-9:41
-MERGED from [com.android.support:design:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\cb2839dfbcf64e06b3604f0504b91b6b546b4311\output\AndroidManifest.xml:21:5-23:62
-MERGED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\output\AndroidManifest.xml:21:5-23:78
-MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\cae47de51fc47669933aab8a705448facbf0aac3\output\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\00d84f8e6818b57724c6215eaa13d46df53d1d49\output\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:recyclerview-v7:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\2d9d02b28fc3bae5a646979d7a3bdbcfa5e66d75\output\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:transition:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\98011b015150a3bde9a3fa74eef3ffe5736cd1dc\output\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-v4:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\2f434eda3c02df2ded3403f36fe5fab14d42d50e\output\AndroidManifest.xml:21:5-23:54
-MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\4124babb9699b4662416f2edad1db635e01aee1c\output\AndroidManifest.xml:21:5-23:63
-MERGED from [com.android.support:support-fragment:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\ad9fd2bba7bd097403d71ad560c0963d5d806e21\output\AndroidManifest.xml:21:5-23:60
-MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\7d5adac4c3e79794315b03b306c4a07a8c4026ed\output\AndroidManifest.xml:21:5-23:58
-MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\6f3cfc09fc952772d38f38fb1baac9edefd5504f\output\AndroidManifest.xml:21:5-23:61
-MERGED from [com.android.support:support-compat:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\69885fae9bcbb7a2ded8656932a91b9abb06a2b6\output\AndroidManifest.xml:21:5-23:58
+ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:13:2-15:34
+MERGED from [:nativescript-optimized:] C:\Users\andre\.android\build-cache\2f61f79ad7c410834d1915a7615f11c93b07a5d0\output\AndroidManifest.xml:7:5-9:41
+MERGED from [:widgets-release:] C:\Users\andre\.android\build-cache\0f54bb1c067b549ab7c02a75725c8c492a33bc3e\output\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:design:25.3.1] C:\Users\andre\.android\build-cache\d55a0ae199774cc8bc5fa2fec58bd425d2367a2c\output\AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\andre\.android\build-cache\f88bb042d7955232b6f0c7792448014bf4a4dbf0\output\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\andre\.android\build-cache\1de1c41b6b6f42fabe0b05318fe8c2ab795e8605\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\andre\.android\build-cache\fb18466bfb8c5aed85369ef6d7a009868afaa4c9\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.3.1] C:\Users\andre\.android\build-cache\0ed4cde7d8c3c26a657246662a3b91a6a890e187\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:transition:25.3.1] C:\Users\andre\.android\build-cache\1cdca08f099833d16ecf966dc61e636badc48565\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\andre\.android\build-cache\8dc0bd42b2309ccf5839e910f677fafd5f659b3c\output\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\andre\.android\build-cache\999517a1a232c4f855e6042ce8e6211dab3e1c14\output\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\andre\.android\build-cache\f4b63aa93babae1518e28340773c9398ff93cb67\output\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\andre\.android\build-cache\42dba62b77ebff2fbe61953bb183fe9c70e59db2\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\andre\.android\build-cache\6ca834b04bcae85a43d3af14072ee76cee85c85b\output\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\andre\.android\build-cache\8d3c29a2a5fd2e2de84fecea60e56b8bb78232c2\output\AndroidManifest.xml:21:5-23:58
 	tools:overrideLibrary
-		ADDED from [com.android.support:design:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\cb2839dfbcf64e06b3604f0504b91b6b546b4311\output\AndroidManifest.xml:23:9-59
+		ADDED from [com.android.support:design:25.3.1] C:\Users\andre\.android\build-cache\d55a0ae199774cc8bc5fa2fec58bd425d2367a2c\output\AndroidManifest.xml:23:9-59
 	android:targetSdkVersion
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:15:3-32
-		INJECTED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
-		INJECTED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:15:3-32
+		INJECTED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:14:3-29
-		INJECTED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
-		INJECTED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:14:3-29
+		INJECTED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:17:2-76
+ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:17:2-76
 	android:name
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:17:19-74
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:17:19-74
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:18:2-77
+ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:18:2-77
 	android:name
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:18:19-75
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:18:19-75
 uses-permission#android.permission.INTERNET
-ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:19:2-63
+ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:19:2-63
 	android:name
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:19:19-61
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:19:19-61
 application
-ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:21:2-42:16
-MERGED from [:widgets-release:] C:\Users\Andreas\.android\build-cache\65f89ef680e6cd41c7b0ae30c012645d8160e521\output\AndroidManifest.xml:11:5-12:19
-MERGED from [com.android.support:design:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\cb2839dfbcf64e06b3604f0504b91b6b546b4311\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\cae47de51fc47669933aab8a705448facbf0aac3\output\AndroidManifest.xml:26:5-20
-MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\00d84f8e6818b57724c6215eaa13d46df53d1d49\output\AndroidManifest.xml:26:5-20
-MERGED from [com.android.support:transition:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\98011b015150a3bde9a3fa74eef3ffe5736cd1dc\output\AndroidManifest.xml:26:5-20
-MERGED from [com.android.support:support-v4:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\2f434eda3c02df2ded3403f36fe5fab14d42d50e\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\4124babb9699b4662416f2edad1db635e01aee1c\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-fragment:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\ad9fd2bba7bd097403d71ad560c0963d5d806e21\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\7d5adac4c3e79794315b03b306c4a07a8c4026ed\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\6f3cfc09fc952772d38f38fb1baac9edefd5504f\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-compat:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\69885fae9bcbb7a2ded8656932a91b9abb06a2b6\output\AndroidManifest.xml:29:5-20
+ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:21:2-42:16
+MERGED from [:widgets-release:] C:\Users\andre\.android\build-cache\0f54bb1c067b549ab7c02a75725c8c492a33bc3e\output\AndroidManifest.xml:11:5-12:19
+MERGED from [com.android.support:design:25.3.1] C:\Users\andre\.android\build-cache\d55a0ae199774cc8bc5fa2fec58bd425d2367a2c\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\andre\.android\build-cache\f88bb042d7955232b6f0c7792448014bf4a4dbf0\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\andre\.android\build-cache\1de1c41b6b6f42fabe0b05318fe8c2ab795e8605\output\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\andre\.android\build-cache\fb18466bfb8c5aed85369ef6d7a009868afaa4c9\output\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:transition:25.3.1] C:\Users\andre\.android\build-cache\1cdca08f099833d16ecf966dc61e636badc48565\output\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\andre\.android\build-cache\8dc0bd42b2309ccf5839e910f677fafd5f659b3c\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\andre\.android\build-cache\999517a1a232c4f855e6042ce8e6211dab3e1c14\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\andre\.android\build-cache\f4b63aa93babae1518e28340773c9398ff93cb67\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\andre\.android\build-cache\42dba62b77ebff2fbe61953bb183fe9c70e59db2\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\andre\.android\build-cache\6ca834b04bcae85a43d3af14072ee76cee85c85b\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\andre\.android\build-cache\8d3c29a2a5fd2e2de84fecea60e56b8bb78232c2\output\AndroidManifest.xml:29:5-20
 	android:label
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:25:3-35
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:25:3-35
 	android:allowBackup
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:23:3-29
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:23:3-29
 	android:icon
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:24:3-32
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:24:3-32
 	android:theme
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:26:3-34
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:26:3-34
 	android:name
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:22:3-49
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:22:3-49
 activity#com.tns.NativeScriptActivity
-ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:28:3-40:14
+ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:28:3-40:14
 	android:label
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:30:4-49
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:30:4-49
 	android:configChanges
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:31:4-65
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:31:4-65
 	android:theme
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:32:4-44
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:32:4-44
 	android:name
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:29:4-47
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:29:4-47
 meta-data#SET_THEME_ON_LAUNCH
-ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:34:4-87
+ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:34:4-87
 	android:resource
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:34:50-84
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:34:50-84
 	android:name
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:34:15-49
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:34:15-49
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:36:4-39:20
+ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:36:4-39:20
 action#android.intent.action.MAIN
-ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:37:5-57
+ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:37:5-57
 	android:name
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:37:13-54
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:37:13-54
 category#android.intent.category.LAUNCHER
-ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:38:5-65
+ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:38:5-65
 	android:name
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:38:15-62
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:38:15-62
 activity#com.tns.ErrorReportActivity
-ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:41:3-57
+ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:41:3-57
 	android:name
-		ADDED from G:\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:41:13-55
+		ADDED from C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\src\main\AndroidManifest.xml:41:13-55
 meta-data#android.support.VERSION
-ADDED from [com.android.support:design:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\cb2839dfbcf64e06b3604f0504b91b6b546b4311\output\AndroidManifest.xml:25:5-27:41
-MERGED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\output\AndroidManifest.xml:25:5-27:41
-MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\cae47de51fc47669933aab8a705448facbf0aac3\output\AndroidManifest.xml:22:5-24:41
-MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\00d84f8e6818b57724c6215eaa13d46df53d1d49\output\AndroidManifest.xml:22:5-24:41
-MERGED from [com.android.support:recyclerview-v7:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\2d9d02b28fc3bae5a646979d7a3bdbcfa5e66d75\output\AndroidManifest.xml:22:5-24:41
-MERGED from [com.android.support:transition:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\98011b015150a3bde9a3fa74eef3ffe5736cd1dc\output\AndroidManifest.xml:22:5-24:41
-MERGED from [com.android.support:support-v4:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\2f434eda3c02df2ded3403f36fe5fab14d42d50e\output\AndroidManifest.xml:25:5-27:41
-MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\4124babb9699b4662416f2edad1db635e01aee1c\output\AndroidManifest.xml:25:5-27:41
-MERGED from [com.android.support:support-fragment:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\ad9fd2bba7bd097403d71ad560c0963d5d806e21\output\AndroidManifest.xml:25:5-27:41
-MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\7d5adac4c3e79794315b03b306c4a07a8c4026ed\output\AndroidManifest.xml:25:5-27:41
-MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\6f3cfc09fc952772d38f38fb1baac9edefd5504f\output\AndroidManifest.xml:25:5-27:41
-MERGED from [com.android.support:support-compat:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\69885fae9bcbb7a2ded8656932a91b9abb06a2b6\output\AndroidManifest.xml:25:5-27:41
+ADDED from [com.android.support:design:25.3.1] C:\Users\andre\.android\build-cache\d55a0ae199774cc8bc5fa2fec58bd425d2367a2c\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\andre\.android\build-cache\f88bb042d7955232b6f0c7792448014bf4a4dbf0\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\andre\.android\build-cache\1de1c41b6b6f42fabe0b05318fe8c2ab795e8605\output\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\andre\.android\build-cache\fb18466bfb8c5aed85369ef6d7a009868afaa4c9\output\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:recyclerview-v7:25.3.1] C:\Users\andre\.android\build-cache\0ed4cde7d8c3c26a657246662a3b91a6a890e187\output\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:transition:25.3.1] C:\Users\andre\.android\build-cache\1cdca08f099833d16ecf966dc61e636badc48565\output\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\andre\.android\build-cache\8dc0bd42b2309ccf5839e910f677fafd5f659b3c\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\andre\.android\build-cache\999517a1a232c4f855e6042ce8e6211dab3e1c14\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\andre\.android\build-cache\f4b63aa93babae1518e28340773c9398ff93cb67\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\andre\.android\build-cache\42dba62b77ebff2fbe61953bb183fe9c70e59db2\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\andre\.android\build-cache\6ca834b04bcae85a43d3af14072ee76cee85c85b\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\andre\.android\build-cache\8d3c29a2a5fd2e2de84fecea60e56b8bb78232c2\output\AndroidManifest.xml:25:5-27:34
 	android:value
-		ADDED from [com.android.support:design:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\cb2839dfbcf64e06b3604f0504b91b6b546b4311\output\AndroidManifest.xml:27:9-38
+		ADDED from [com.android.support:design:25.3.1] C:\Users\andre\.android\build-cache\d55a0ae199774cc8bc5fa2fec58bd425d2367a2c\output\AndroidManifest.xml:27:9-31
 	android:name
-		ADDED from [com.android.support:design:26.0.0-alpha1] C:\Users\Andreas\.android\build-cache\cb2839dfbcf64e06b3604f0504b91b6b546b4311\output\AndroidManifest.xml:26:9-47
+		ADDED from [com.android.support:design:25.3.1] C:\Users\andre\.android\build-cache\d55a0ae199774cc8bc5fa2fec58bd425d2367a2c\output\AndroidManifest.xml:26:9-47

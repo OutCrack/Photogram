@@ -8,24 +8,32 @@
         "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_primary_text_disable_only_material_light.xml"
     },
     {
-        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\design_error.xml",
-        "source": "C:\\Users\\Andreas\\.android\\build-cache\\cb2839dfbcf64e06b3604f0504b91b6b546b4311\\output\\res\\color\\design_error.xml"
+        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_search_url_text.xml",
+        "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\color\\abc_search_url_text.xml"
     },
     {
         "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_btn_colored_text_material.xml",
         "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_btn_colored_text_material.xml"
     },
     {
-        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_search_url_text.xml",
-        "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\color\\abc_search_url_text.xml"
-    },
-    {
         "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_seek_thumb.xml",
         "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\color\\abc_tint_seek_thumb.xml"
     },
     {
-        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_dark.xml",
-        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_primary_text_material_dark.xml"
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_btn_colored_text_material.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\abc_btn_colored_text_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_disable_only_material_light.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_btn_checkable.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\abc_tint_btn_checkable.xml"
+    },
+    {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\design_error.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\d55a0ae199774cc8bc5fa2fec58bd425d2367a2c\\output\\res\\color\\design_error.xml"
     },
     {
         "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_disable_only_material_light.xml",
@@ -52,28 +60,28 @@
         "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\color\\abc_tint_default.xml"
     },
     {
-        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_edittext.xml",
-        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_tint_edittext.xml"
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_light.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_hint_foreground_material_light.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\abc_hint_foreground_material_light.xml"
     },
     {
         "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_btn_colored_text_material.xml",
         "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\color\\abc_btn_colored_text_material.xml"
     },
     {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_light.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\abc_secondary_text_material_light.xml"
+    },
+    {
         "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_switch_track.xml",
         "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\color\\abc_tint_switch_track.xml"
     },
     {
-        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_default.xml",
-        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_tint_default.xml"
-    },
-    {
-        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_light.xml",
-        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_secondary_text_material_light.xml"
-    },
-    {
-        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_light.xml",
-        "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\color\\abc_secondary_text_material_light.xml"
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\switch_thumb_material_light.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\switch_thumb_material_light.xml"
     },
     {
         "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_search_url_text.xml",
@@ -82,14 +90,6 @@
     {
         "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_light.xml",
         "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_primary_text_material_light.xml"
-    },
-    {
-        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_btn_colored_borderless_text_material.xml",
-        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_btn_colored_borderless_text_material.xml"
-    },
-    {
-        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_dark.xml",
-        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_secondary_text_material_dark.xml"
     },
     {
         "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_dark.xml",
@@ -112,6 +112,98 @@
         "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\color\\abc_btn_colored_borderless_text_material.xml"
     },
     {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_disable_only_material_dark.xml",
+        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_switch_track.xml",
+        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_switch_thumb.xml",
+        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_tint_switch_thumb.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_dark.xml",
+        "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\color\\abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_btn_colored_borderless_text_material.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_light.xml",
+        "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\color\\abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\design_tint_password_toggle.xml",
+        "source": "C:\\Users\\Kasia\\.android\\build-cache\\085d1f6efba6acdc26e3da67f43796e2dac9a05a\\output\\res\\color\\design_tint_password_toggle.xml"
+    },
+    {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\design_error.xml",
+        "source": "C:\\Users\\Andreas\\.android\\build-cache\\cb2839dfbcf64e06b3604f0504b91b6b546b4311\\output\\res\\color\\design_error.xml"
+    },
+    {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_edittext.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\abc_tint_edittext.xml"
+    },
+    {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_spinner.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\abc_tint_spinner.xml"
+    },
+    {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_switch_thumb.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\abc_tint_switch_thumb.xml"
+    },
+    {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_dark.xml",
+        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\switch_thumb_material_dark.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\switch_thumb_material_dark.xml"
+    },
+    {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\design_tint_password_toggle.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\d55a0ae199774cc8bc5fa2fec58bd425d2367a2c\\output\\res\\color\\design_tint_password_toggle.xml"
+    },
+    {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_default.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\abc_tint_default.xml"
+    },
+    {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_edittext.xml",
+        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_tint_edittext.xml"
+    },
+    {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_disable_only_material_dark.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_dark.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_default.xml",
+        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_tint_default.xml"
+    },
+    {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_light.xml",
+        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_light.xml",
+        "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\color\\abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_btn_colored_borderless_text_material.xml",
+        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_dark.xml",
+        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_secondary_text_material_dark.xml"
+    },
+    {
         "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\switch_thumb_material_dark.xml",
         "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\switch_thumb_material_dark.xml"
     },
@@ -120,44 +212,40 @@
         "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\color\\abc_tint_switch_thumb.xml"
     },
     {
-        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_disable_only_material_dark.xml",
-        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
-    },
-    {
         "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_edittext.xml",
         "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\color\\abc_tint_edittext.xml"
     },
     {
-        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_switch_thumb.xml",
-        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_tint_switch_thumb.xml"
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_hint_foreground_material_dark.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\abc_hint_foreground_material_dark.xml"
     },
     {
-        "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_switch_track.xml",
-        "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\abc_tint_switch_track.xml"
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_seek_thumb.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\abc_tint_seek_thumb.xml"
     },
     {
         "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\switch_thumb_material_light.xml",
         "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\color\\switch_thumb_material_light.xml"
     },
     {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_search_url_text.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\abc_search_url_text.xml"
+    },
+    {
         "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\switch_thumb_material_light.xml",
         "source": "C:\\Users\\Andreas\\.android\\build-cache\\bb20f7a3e18a6d8ea7edbed623f0bc5a2c6d4290\\output\\res\\color\\switch_thumb_material_light.xml"
-    },
-    {
-        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_dark.xml",
-        "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\color\\abc_secondary_text_material_dark.xml"
-    },
-    {
-        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_light.xml",
-        "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\color\\abc_primary_text_material_light.xml"
     },
     {
         "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_disable_only_material_dark.xml",
         "source": "C:\\Users\\Kasia\\.android\\build-cache\\64438c35a9a32d3ac443923c966a5b02ba782a19\\output\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
     },
     {
-        "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\design_tint_password_toggle.xml",
-        "source": "C:\\Users\\Kasia\\.android\\build-cache\\085d1f6efba6acdc26e3da67f43796e2dac9a05a\\output\\res\\color\\design_tint_password_toggle.xml"
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_dark.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_switch_track.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\f88bb042d7955232b6f0c7792448014bf4a4dbf0\\output\\res\\color\\abc_tint_switch_track.xml"
     },
     {
         "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_spinner.xml",

@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="17"
-        android:targetSdkVersion="26" />
+        android:targetSdkVersion="25" />
 
     <supports-screens
         android:largeScreens="true"
@@ -20,7 +20,7 @@
 
     <meta-data
         android:name="android.support.VERSION"
-        android:value="26.0.0-alpha1" />
+        android:value="25.3.1" />
 
     <application
         android:name="com.tns.NativeScriptApplication"

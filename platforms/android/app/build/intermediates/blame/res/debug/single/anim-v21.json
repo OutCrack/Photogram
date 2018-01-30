@@ -14,5 +14,13 @@
     {
         "merged": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_out.xml",
         "source": "C:\\Users\\Kasia\\.android\\build-cache\\085d1f6efba6acdc26e3da67f43796e2dac9a05a\\output\\res\\anim-v21\\design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_out.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\d55a0ae199774cc8bc5fa2fec58bd425d2367a2c\\output\\res\\anim-v21\\design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_in.xml",
+        "source": "C:\\Users\\andre\\.android\\build-cache\\d55a0ae199774cc8bc5fa2fec58bd425d2367a2c\\output\\res\\anim-v21\\design_bottom_sheet_slide_in.xml"
     }
 ]

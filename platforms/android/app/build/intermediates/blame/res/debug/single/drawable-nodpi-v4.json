@@ -4,6 +4,10 @@
         "source": "C:\\Users\\Kasia\\Documents\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-nodpi\\splash_screen.xml"
     },
     {
+        "merged": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-nodpi-v4\\splash_screen.xml",
+        "source": "C:\\Users\\andre\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-nodpi\\splash_screen.xml"
+    },
+    {
         "merged": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-nodpi-v4\\splash_screen.xml",
         "source": "G:\\OneDrive\\HIOA\\Bachelorproject\\Photogram\\platforms\\android\\app\\src\\main\\res\\drawable-nodpi\\splash_screen.xml"
     }

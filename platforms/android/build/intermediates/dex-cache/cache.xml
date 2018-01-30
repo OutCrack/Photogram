@@ -3,21 +3,138 @@
 
     <item
         is-multidex="false"
-        jar="C:\Users\Kasia\.android\build-cache\ef97775a6ab0e3f58b7461e1cba7ee4b266af21b\output\jars\classes.jar"
+        jar="C:\Users\andre\.android\build-cache\6ca834b04bcae85a43d3af14072ee76cee85c85b\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
-        revision="27.0.3"
-        sha1="dd431d6aa9ce9dc0d429fcd239d412a82ea0e9a7">
-        <dex dex="C:\Users\Kasia\Documents\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_7ec9fb8568bff4cf715307e36ad65de2be4cfec3.jar" />
+        revision="25.0.2"
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_4f0d5aba622b2719f0a02f27898345b6092ee6c3.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\Kasia\.android\build-cache\78d298f68254ce578164d11b69eeb33ce1109571\output\jars\classes.jar"
+        jar="C:\Users\andre\.android\build-cache\999517a1a232c4f855e6042ce8e6211dab3e1c14\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
-        revision="27.0.3"
+        revision="25.0.2"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_cf1f2410efb0a89d30457cb44d5739b3c5dfb875.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\andre\.android\build-cache\0ed4cde7d8c3c26a657246662a3b91a6a890e187\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="95519720620b553f63afc789beba9ad582807f7c">
+        <dex dex="C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_bf4413cd6f922a506cf251ee4e385ddcbf004db8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\andre\.android\build-cache\fb18466bfb8c5aed85369ef6d7a009868afaa4c9\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="efb8cb62d47d157c29d1521daac7eefd4cb881ee">
+        <dex dex="C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_3aeb67a27ad2f73cfaf2ef2f2dfd993a57d03af1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\andre\.android\build-cache\8d3c29a2a5fd2e2de84fecea60e56b8bb78232c2\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
+        <dex dex="C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_54ce07c7da9d24e0891709b51e591757cb992b3e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\andre\.android\build-cache\f4b63aa93babae1518e28340773c9398ff93cb67\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_a1c46a60794b6fea859013fb8f4b2dee71130dda.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\andre\.android\build-cache\0f54bb1c067b549ab7c02a75725c8c492a33bc3e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="dd431d6aa9ce9dc0d429fcd239d412a82ea0e9a7">
+        <dex dex="C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_fef697d12642702faa703e1b218b59cf73c4efb3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\andre\.android\build-cache\8dc0bd42b2309ccf5839e910f677fafd5f659b3c\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_88fd01478f84b72cf235994987646f22913388ef.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\andre\.android\build-cache\1cdca08f099833d16ecf966dc61e636badc48565\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d4cf6227dd6a2ceff0f7dcf0c324380b7abf2c28">
+        <dex dex="C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_ba21455a414e49d1b2a67584fae43d92519720be.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\andre\.android\build-cache\2f61f79ad7c410834d1915a7615f11c93b07a5d0\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
         sha1="746274223beb11b1cda7854d7eec3038695c2c93">
-        <dex dex="C:\Users\Kasia\Documents\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_b24c92f7d1ce5868ca35a47bb0ffad794624ca27.jar" />
+        <dex dex="C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_d37009b22a0beca17845ffdc231e5646b1b1761a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\andre\.android\build-cache\f88bb042d7955232b6f0c7792448014bf4a4dbf0\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="150252b33b00274cc868578ade018fda0d43a3eb">
+        <dex dex="C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_d7459902cd98605b44b2d1ceffafe98e57094980.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\android-sdk\extras\android\m2repository\com\android\support\support-annotations\25.3.1\support-annotations-25.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\support-annotations-25.3.1_07cc1bdab6386cc71ca9e51c0b2d242e9420314e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\andre\.android\build-cache\1de1c41b6b6f42fabe0b05318fe8c2ab795e8605\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="47635644d0d5c103c1dd8360549eb9ba3225c7d3">
+        <dex dex="C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_f30980f257529dc2db526bb252af3e4615b6f9e5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\andre\.android\build-cache\42dba62b77ebff2fbe61953bb183fe9c70e59db2\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_2e65eb00b6aef831da76d55bb6185c1ff272e6b9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\andre\.android\build-cache\d55a0ae199774cc8bc5fa2fec58bd425d2367a2c\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="38789e20ace9ab7dbd00554bd2673ab424478d3b">
+        <dex dex="C:\Users\andre\OneDrive\HIOA\Bachelorproject\Photogram\platforms\android\app\build\intermediates\pre-dexed\debug\classes_8962835fb3503a7c7d35dc59e59ff0918987359c.jar" />
     </item>
 
 </items>
