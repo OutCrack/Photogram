@@ -1,5 +1,7 @@
-<StackLayout>
-        
-        <Label text="First tab item"></Label>
-
-</StackLayout>
+<GridLayout>
+        <ListView [items]="eventList" class="small-spacing">
+                <ng-template let-item="item">
+                        <Label [text]="item.name" class="medium-spacing"></Label>
+                </ng-template>
+        </ListView>
+</GridLayout>
