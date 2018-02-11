@@ -8,5 +8,5 @@
     <Button [text]="isLoggingIn ? 'Sign in' : 'Sign up'" class="submit-button" (tap)="submit()"></Button>
     <Button [text]="isLoggingIn ? 'Sign up' : 'Back to login'" (tap)="toggleDisplay()"></Button>
     <Button [text]="face ? 'Continue' : 'Log in with Facebook'" class="face-button" (tap)="faceLogin()"></Button>
-    <Button *ngIf="face" text="Facebook logout" (tap)="faceLogout()"></Button>
+    <Button text="Facebook logout" (tap)="faceLogout()"></Button>
   </StackLayout>

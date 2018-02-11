@@ -5,8 +5,8 @@ import { UserService } from "../../shared/user/user.service";
 import { Page } from "ui/page";
 import { Color } from "color";
 import { View } from "ui/core/view";
-import * as tnsOAuthModule from "nativescript-oauth";
 import * as dialogs from "ui/dialogs";
+const firebase = require("nativescript-plugin-firebase");
 
 
 @Component({
@@ -45,30 +45,26 @@ export class LoginComponent {
   }
 
   public faceLogin() {
-    tnsOAuthModule.ensureValidToken()
-    .then(() => {
-      this.face = true;
-      this.router.navigate(["/tab"]);
-    })
-    .catch((er) => {
-      console.error("Error logging in");
-      console.dir(er);
-      alert("We could not log you in");
-    });
+      firebase.login({
+        type: firebase.LoginType.FACEBOOK,
+        facebookOptions: {
+          scope: ['public_profile', 'email']
+        }
+      }).then(
+        function(fb_result) {
+          console.log("Facebook login");
+          //var fb_access_token = fb_result.providers[1].token;
+        },
+        function(err) {
+          console.log("Error logging to Facebook" + err);
+        }
+      );
   }
 
   public faceLogout() {
-    tnsOAuthModule.logout()
-    .then(() => { 
-      console.log("Logged out with Facebook");
-      alert("Facebook logout succeded"); 
-      this.face = false;
-    })
-      .catch((er) => {
-          console.error("Error loging out with facebook");
-          console.dir(er);
-      });
+    firebase.logout();
 }
+
 
   signUp() {
     this.userService.register(this.user)

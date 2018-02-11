@@ -7,6 +7,14 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { AppComponent } from "./app.component";
 import { routes, navigatableComponents } from "./app.routing";
 
+import firebase = require("nativescript-plugin-firebase");
+
+firebase.init({
+  persist: true,
+})
+.then(() => console.log("Firebase initialized"))
+.catch(error => console.error(Error));
+
 @NgModule({
   imports: [
     NativeScriptModule,
