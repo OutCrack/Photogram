@@ -61,7 +61,22 @@ export class LoginComponent {
       );
   }
 
-  public faceLogout() {
+  public googleLogin() {5
+  firebase.login({
+    type: firebase.LoginType.GOOGLE
+  }).then(
+    function (result) {
+      JSON.stringify(result);
+      console.log("Google login succeded")
+    },
+    function(error) {
+      console.log(error);
+    }
+  );
+}
+
+//logs out from both Google+ and Facebook accounts
+  public socialLogout() {
     firebase.logout();
 }
 
