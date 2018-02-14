@@ -1,14 +1,14 @@
 {
     "using_ios": true,
     "using_android": true,
-    "firestore": true,
-    "realtimedb": true,
-    "remote_config": true,
-    "messaging": true,
-    "crash_reporting": true,
-    "storage": true,
+    "firestore": false,
+    "realtimedb": false,
+    "remote_config": false,
+    "messaging": false,
+    "crash_reporting": false,
+    "storage": false,
     "facebook_auth": true,
     "google_auth": true,
     "admob": false,
-    "invites": true
+    "invites": false
 }
