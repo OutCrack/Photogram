@@ -16,10 +16,9 @@ const firebase = require("nativescript-plugin-firebase");
   styleUrls: ["./pages/login/login-common.css", "./pages/login/login.css" ]
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   user: User;
   isLoggingIn = true;
-  face = false;
   @ViewChild("container") container: ElementRef;
 
   constructor(private router: Router, private userService: UserService, private page: Page) {
@@ -44,7 +43,8 @@ export class LoginComponent {
       );
   }
 
-  public faceLogin() {
+  faceLogin() {
+      var router = this.router;
       firebase.login({
         type: firebase.LoginType.FACEBOOK,
         facebookOptions: {
@@ -53,6 +53,8 @@ export class LoginComponent {
       }).then(
         function(fb_result) {
           console.log("Facebook login");
+          router.navigate(["/tab"]);
+          
           //var fb_access_token = fb_result.providers[1].token;
         },
         function(err) {
@@ -61,13 +63,15 @@ export class LoginComponent {
       );
   }
 
-  public googleLogin() {5
-  firebase.login({
+  googleLogin() {
+    var router = this.router;
+    firebase.login({
     type: firebase.LoginType.GOOGLE
-  }).then(
-    function (result) {
-      JSON.stringify(result);
-      console.log("Google login succeded")
+    }).then(
+      function (result) {
+        JSON.stringify(result);
+        console.log("Google login succeded")
+        router.navigate(["/tab"]);
     },
     function(error) {
       console.log(error);
@@ -76,7 +80,7 @@ export class LoginComponent {
 }
 
 //logs out from both Google+ and Facebook accounts
-  public socialLogout() {
+  socialLogout() {
     firebase.logout();
 }
 
