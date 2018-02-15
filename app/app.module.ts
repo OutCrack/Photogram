@@ -10,7 +10,12 @@ import { routes, navigatableComponents } from "./app.routing";
 import firebase = require("nativescript-plugin-firebase");
 
 firebase.init({
-  persist: true,
+  onAuthStateChanged: function(data) { 
+    console.log(data.loggedIn ? "Logged in to firebase" : "Logged out from firebase");
+    if (data.loggedIn) { 
+      console.log("user's email adress is " + (data.user.email ? data.user.email : "N/A"));
+    }
+  }
 })
 .then(() => console.log("Firebase initialized"))
 .catch(error => console.error(Error));
