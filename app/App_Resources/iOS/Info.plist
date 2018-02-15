@@ -46,38 +46,35 @@
 	</array>
 
 	<key>CFBundleURLTypes</key>
-<array>
-  <dict>
-
-	<key>CFBundleTypeRole</key>
-   		<string>Editor</string>
-   		<key>CFBundleURLName</key>
-   		<string>REVERSED_CLIENT_ID</string>
-   		<key>CFBundleURLSchemes</key>
-   		<array>
-   			<string>com.googleusercontent.apps.716416607535-09cq30s9k6c4mtdc6pj2f5ks29p9l13l</string>
-   		</array>
+		<array>
+  		<dict>
+				<key>CFBundleTypeRole</key>
+   			<string>Editor</string>
+   			<key>CFBundleURLName</key>
+   			<string>REVERSED_CLIENT_ID</string>
+   			<key>CFBundleURLSchemes</key>
+   			<array>
+   				<string>com.googleusercontent.apps.716416607535-09cq30s9k6c4mtdc6pj2f5ks29p9l13l</string>
+   			</array>
 			</dict>
 
 			<dict>
-
-    <key>CFBundleURLSchemes</key>
-    <array>
-      <string>fb163605604272974</string>
-    </array>
-  </dict>
-</array>
-<key>FacebookAppID</key>
-<string>163605604272974</string>
-<key>FacebookDisplayName</key>
-<string>Photogram</string>
-<key>LSApplicationQueriesSchemes</key>
-<array>
-  <string>fbapi</string>
-  <string>fb-messenger-share-api</string>
-  <string>fbauth2</string>
-  <string>fbshareextension</string>
-</array>
-
+    	<key>CFBundleURLSchemes</key>
+    	<array>
+      	<string>fb163605604272974</string>
+    	</array>
+  		</dict>
+		</array>
+	<key>FacebookAppID</key>
+	<string>163605604272974</string>
+	<key>FacebookDisplayName</key>
+	<string>Photogram</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+  	<string>fbapi</string>
+  	<string>fb-messenger-share-api</string>
+  	<string>fbauth2</string>
+  	<string>fbshareextension</string>
+	</array>
 </dict>
 </plist>
