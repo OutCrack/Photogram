@@ -1,5 +1,5 @@
 <StackLayout>
-    <Image src="res://photogram" stretch="none" horizontalAlignment="center"></Image>
+    <Image src="~/images/photogram.png" stretch="none" horizontalAlignment="center"></Image>
   
     <TextField hint="Email Address" keyboardType="email" [(ngModel)]="user.email"
       autocorrect="false" autocapitalizationType="none"></TextField>
@@ -9,5 +9,4 @@
     <Button [text]="isLoggingIn ? 'Sign up' : 'Back to login'" (tap)="toggleDisplay()"></Button>
     <Button [text]="face ? 'Continue' : 'Log in with Facebook'" class="face-button" (tap)="faceLogin()"></Button>
     <Button text="Login with Google" (tap)="googleLogin()"></Button>
-    <Button text="Social logout" (tap)="socialLogout()"></Button>
   </StackLayout>
