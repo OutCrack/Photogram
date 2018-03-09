@@ -1,0 +1,13 @@
+.action-image {
+    width: 10;
+    height: 10;
+    vertical-align: center;
+}
+
+.action-label {
+    color: #3C5AFD;
+    font-size: 24;
+    font-weight: bold;
+    vertical-align: center;
+}
+

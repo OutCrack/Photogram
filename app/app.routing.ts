@@ -8,6 +8,7 @@ import { ProfileComponent } from "./pages/tabs/profile/profile.component";
 
 export const routes = [
   { path: "", component: LoginComponent },
+  { path: "login", component: LoginComponent },
   { path: "tab", component: TabComponent, children: [
     { path: "home", component: HomeComponent, outlet: 'homeoutlet'},
     { path: "search", component: SearchComponent, outlet: 'searchoutlet'},
