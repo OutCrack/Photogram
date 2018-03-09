@@ -17,14 +17,15 @@ const firebase = require("nativescript-plugin-firebase");
 })
 
 export class LoginComponent implements OnInit{
-  user: User;
+  user: any;
   isLoggingIn = true;
   @ViewChild("container") container: ElementRef;
 
   constructor(private router: Router, private userService: UserService, private page: Page) {
-    this.user = new User();
-    this.user.email = "tests@photogram.com";
-    this.user.password = "test1234";
+    this.user = {
+      "email" : "test@photogram.com",
+      "password" : "123456"
+    }
   } 
 
   submit() {
@@ -36,15 +37,25 @@ export class LoginComponent implements OnInit{
   }
 
   login() {
-    this.userService.login(this.user)
-      .subscribe(
-        () => this.router.navigate(["/tab"]),
-        (error) => alert("Unfortunately we could not find your account.")
-      );
+    if (this.user.email && this.user.password) {
+      firebase.login({
+        type: firebase.LoginType.PASSWORD,
+        passwordOptions: {
+          email: this.user.email,
+          password: this.user.password
+        }
+      })
+      .then(
+        () => {
+          console.log("Logged inn");
+          this.router.navigate(["/tab"]);
+        })
+      .catch(error => console.log(error));
+    }
   }
 
   faceLogin() {
-      var router = this.router;
+    var router = this.router;
       firebase.login({
         type: firebase.LoginType.FACEBOOK,
         facebookOptions: {
@@ -79,21 +90,16 @@ export class LoginComponent implements OnInit{
   );
 }
 
-//logs out from both Google+ and Facebook accounts
-  socialLogout() {
-    firebase.logout();
-}
-
-
   signUp() {
-    this.userService.register(this.user)
-      .subscribe(
-        () => {
-          alert("Your account was successfully created.");
-          this.toggleDisplay();
-        },
-        () => alert("Unfortunately we were unable to create your account.")
-      );
+    if (this.user.email && this.user.password) {
+      firebase.createUser({
+        email: this.user.email,
+          password: this.user.password
+      }).then(
+        (result) => alert("User created"),
+        (error) => alert(error)
+      )
+    }
   }
 
   toggleDisplay() {
@@ -107,5 +113,8 @@ export class LoginComponent implements OnInit{
 
   ngOnInit() {
     this.page.actionBarHidden = true;
+    firebase.getCurrentUser()
+    .then(user => this.router.navigate(["/tab"]))
+    .catch(error => console.log("Not logged in " + error));
   }
 }
