@@ -1,5 +1,11 @@
+<ScrollView>
 <StackLayout>
         
         <Label text="First tab item"></Label>
+        
+        <!-- <Image src="{{image}}"></Image>
+        <Image src="{{image1}}"></Image> -->
+        <Image *ngFor="let photo of photos" src="{{photo.url}}"></Image>
 
-</StackLayout>
+</StackLayout> 
+</ScrollView>>
