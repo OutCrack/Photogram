@@ -10,7 +10,7 @@ export class DataItem {
     selector: "tab",
     moduleId: module.id,
     templateUrl: "./tab.html",
-    styleUrls: ["./tab-common.css", "./tab.css" ]
+    styleUrls: [ "./tab.css" ]
 })
 export class TabComponent {
     public items: Array<DataItem>;
