@@ -23,6 +23,7 @@
 		"@angular/platform-browser-dynamic": "~5.2.0",
 		"@angular/router": "~5.2.0",
 		"nativescript-angular": "~5.2.0",
+		"nativescript-background-http": "^3.2.2",
 		"nativescript-imagepicker": "^5.0.1",
 		"nativescript-oauth": "^2.0.1",
 		"nativescript-plugin-firebase": "^5.1.7",
