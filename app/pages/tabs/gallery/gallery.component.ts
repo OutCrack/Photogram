@@ -1,10 +1,10 @@
 import { Component, ChangeDetectorRef } from "@angular/core";
 import * as imagepicker from "nativescript-imagepicker";
 import { ImageAsset } from "tns-core-modules/image-asset/image-asset";
-import { Params } from "@angular/router/src/shared";
 var bghttp = require("nativescript-background-http");
 var session = bghttp.session("image-upload");
 var http = require("http");
+import { Data } from "../../../shared/Data";
 
 @Component({
     selector: "gallery-tab",
@@ -13,12 +13,15 @@ var http = require("http");
 export class GalleryComponent {
 
     items = [];
+    public id: any;
 
-    constructor(private _changeDetectionRef: ChangeDetectorRef) {
+    constructor(private _changeDetectionRef: ChangeDetectorRef, private data: Data) {
     }
 
     openGallery() {
+        this.id = this.data.storage["id"];
         console.log(this.getTimeStamp());
+        console.log("Id" + this.id);
         let context = imagepicker.create({
             mode: "single" //"multiple"
         });
@@ -58,20 +61,20 @@ export class GalleryComponent {
                 "Content-Type": "application/octet-stream",
                 "File-Name": fileName
             },
-            description: "{ 'uploading': 'bigpig.jpg' }"
+            description: "{ 'uploading': fileUrl }"
         };
 
         var task = session.uploadFile(fileUrl, request);
 
         task.on("progress", logEvent);
         task.on("error", logEvent);
-        task.on("complete", logEvent);
-
-        this.updateDb(fileName);
+        //only when uploading is complete, update the database
+        task.on("complete", this.updateDb(fileName));
+        task.on("complete", alert("Uploading complete"))
  
         function logEvent(e) {
             console.log(e.eventName);       
-        }       
+        }  
 
     }
 
@@ -82,7 +85,7 @@ export class GalleryComponent {
             url: "http://188.166.127.207:5555/api.php/files",
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            content: JSON.stringify({ user_Id : "13", file_Name : name, file_URL : name, 
+            content: JSON.stringify({ user_Id : this.id, file_Name : name, file_URL : name, 
             file_Permission : "Public"})
         }).then(function(response) {
             result = response.content.toJSON();

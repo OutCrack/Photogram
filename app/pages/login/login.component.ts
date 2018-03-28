@@ -1,17 +1,16 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
-import { User } from "../../shared/user/user";
-import { UserService } from "../../shared/user/user.service";
 import { Page } from "ui/page";
 import { Color } from "color";
 import { View } from "ui/core/view";
 import * as dialogs from "ui/dialogs";
+import { Data } from "../../shared/Data";
 const firebase = require("nativescript-plugin-firebase");
+var http = require("http");
 
 
 @Component({
   selector: "my-app",
-  providers: [UserService],
   templateUrl: "./pages/login/login.html",
   styleUrls: ["./pages/login/login-common.css", "./pages/login/login.css" ]
 })
@@ -20,12 +19,16 @@ export class LoginComponent implements OnInit{
   user: any;
   isLoggingIn = true;
   @ViewChild("container") container: ElementRef;
+  site: string = "http://188.166.127.207:5555/api.php/";
+  userId: any;
 
-  constructor(private router: Router, private userService: UserService, private page: Page) {
+
+  constructor(private router: Router, private page: Page, private data: Data) {
     this.user = {
-      "email" : "test@photogram.com",
-      "password" : "123456"
+      "email" : "kasia.zubowicz@gmail.com",
+      "password" : "qwerty123"
     }
+    this.userId = 0;
   } 
 
   submit() {
@@ -47,6 +50,7 @@ export class LoginComponent implements OnInit{
       })
       .then(
         () => {
+          this.findUser();
           console.log("Logged inn");
           this.router.navigate(["/tab"]);
         })
@@ -81,7 +85,7 @@ export class LoginComponent implements OnInit{
     }).then(
       function (result) {
         JSON.stringify(result);
-        console.log("Google login succeded")
+        console.log("Google login succeded");
         router.navigate(["/tab"]);
     },
     function(error) {
@@ -111,10 +115,41 @@ export class LoginComponent implements OnInit{
     });
   }
 
+  findUser() {
+    firebase.getCurrentUser()
+    .then(user => {
+        console.log("TABBBBBBB Users email is " + user.email);
+        var query: string = this.site + "users?transform=1&filter=email,eq,"+user.email;
+        //alert(query);
+        http.getJSON(query)
+        .then((r) => { 
+            if (r.users.length > 0) {
+                //alert("User found " + r.users[0].user_Id + r.users[0].email);
+                this.userId = r.users[0].user_Id;
+                this.data.storage = {
+                  "firstName" : r.users[0].first_Name,
+                  "lastName" : r.users[0].last_Name,
+                  "email" : r.users[0].email,
+                  "id" : r.users[0].user_Id
+                }
+            } else {
+                alert("User not found " + user.email); 
+            }
+        })
+        
+    })
+    
+    .catch(error => console.error(error));
+    console.log("Users id " + this.userId);
+    
+}
+
   ngOnInit() {
     this.page.actionBarHidden = true;
     firebase.getCurrentUser()
-    .then(user => this.router.navigate(["/tab"]))
+    .then( () => {
+      this.findUser();
+      this.router.navigate(["/tab"])}) 
     .catch(error => console.log("Not logged in " + error));
   }
 }

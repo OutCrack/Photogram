@@ -1,5 +1,10 @@
 <StackLayout>
     
-    <Label text="Fifth tab item"></Label>
+    <Label text="Profile"></Label>
+    <GridLayout *ngIf="show" columns="auto, 60, *" rows="40, 40">
+        <Label text="Name: " col="0" row="0"></Label><Label text="{{firstName}}" col="1" row="0"></Label><Label text="{{lastName}}" col="2" row="0"></Label>
+        <Label text="Email address: " col="0" row="2"></Label><Label text="{{email}}" col="1" row="2" colSpan="2"></Label>
+    </GridLayout>
     <Button text="Logout" (tap)="logout()"></Button>
+    <Button [text]="show ? 'Hide profile' : 'Show profile'" (tap)="showInfo()"></Button>
 </StackLayout>

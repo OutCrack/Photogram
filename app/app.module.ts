@@ -1,13 +1,15 @@
+import { NativeScriptModule } from "nativescript-angular/nativescript.module";
+import { platformNativeScriptDynamic } from "nativescript-angular";
 import { NgModule } from "@angular/core";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptHttpModule } from "nativescript-angular/http";
-import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 
 import { AppComponent } from "./app.component";
 import { routes, navigatableComponents } from "./app.routing";
 
 import firebase = require("nativescript-plugin-firebase");
+import { Data } from "./shared/Data";
 
 firebase.init({
   onAuthStateChanged: function(data) { 
@@ -32,6 +34,7 @@ firebase.init({
     AppComponent,
     ...navigatableComponents
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [Data]
 })
 export class AppModule {}

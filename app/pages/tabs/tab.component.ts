@@ -1,6 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Page } from "ui/page";
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HomeComponent } from "./home/home.component";
+const firebase = require("nativescript-plugin-firebase");
+
 
 export class DataItem {
     constructor(public itemDesc: string) { }
@@ -12,6 +15,7 @@ export class DataItem {
     templateUrl: "./tab.html",
     styleUrls: [ "./tab.css" ]
 })
+
 export class TabComponent {
     public items: Array<DataItem>;
     public activeTab: string;
@@ -21,12 +25,18 @@ export class TabComponent {
     isGallery: boolean = false;
     isNotification: boolean = false;
     isProfile: boolean = false;
+    public firstName: string;
+    //public lastName: string;
 
-    constructor(private router: Router, private page: Page) {
+    constructor(private router: Router, private page: Page, private route: ActivatedRoute) {
         /*this.items = new Array<DataItem>();
         for (let i = 0; i < 5; i++) {
             this.items.push(new DataItem("item " + i));
         }*/
+        this.route.params.subscribe((params) => {
+            this.firstName = params["name"];
+        });
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!/n!!!!!!!!" + this.firstName);
     }
 
     onCamera() {
@@ -50,6 +60,8 @@ export class TabComponent {
         this.isGallery = false;
         this.isNotification = false;
         this.isProfile = false;
+        console.log("Users name" + this.firstName);
+        //console.log("Last name" + this.lastName);
     }
 
     onGallery() {
@@ -76,7 +88,7 @@ export class TabComponent {
         this.isSearch = false;
         this.isGallery = false;
         this.isNotification = false;
-        this.isProfile = true;   
+        this.isProfile = true;  
     }
 
     tabViewIndexChange(index: number) {

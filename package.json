@@ -5,11 +5,11 @@
 	"repository": "<fill-your-repository-here>",
 	"nativescript": {
 		"id": "org.nativescript.Photogram",
-		"tns-android": {
-			"version": "3.4.1"
-		},
 		"tns-ios": {
 			"version": "3.4.1"
+		},
+		"tns-android": {
+			"version": "3.4.2"
 		}
 	},
 	"dependencies": {
@@ -27,6 +27,7 @@
 		"nativescript-imagepicker": "^5.0.1",
 		"nativescript-oauth": "^2.0.1",
 		"nativescript-plugin-firebase": "^5.1.7",
+		"nativescript-pulltorefresh": "^2.1.0",
 		"nativescript-theme-core": "~1.0.4",
 		"reflect-metadata": "~0.1.8",
 		"rxjs": "~5.5.2",

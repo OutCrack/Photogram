@@ -1,8 +1,11 @@
 import { Component } from "@angular/core";
-import { Photo } from "../model/Photo";
-import { User } from "../model/User";
+import { Photo } from "../../../shared/Photo";
+import { User } from "../../../shared/User";
 var http = require("http");
+import { registerElement } from "nativescript-angular/element-registry";
 
+registerElement("PullToRefresh" , ()=> require("nativescript-pulltorefresh").PullToRefresh);
+ 
 @Component({
     selector: "home-tab",
     templateUrl: "./pages/tabs/home/home.tab.html",
@@ -14,22 +17,32 @@ export class HomeComponent {
     //for storing fetched photos
     public photos: Array<Photo>;
 
+    
+
     constructor() {
         console.log("In home constructor");
         this.getPhotos();
     }
 
+    refreshFeed(args) {
+        this.getPhotos();
+        var pullRefresh = args.object;
+        setTimeout(function() {
+            pullRefresh.refreshing = false;
+        }, 1000);
+        
+    }
     //get photos from db, put them in photos array
     getPhotos() {
         //testing
-        console.log("In getPhotos");
+        //console.log("In getPhotos");
         this.photos = new Array();
         //get public photos that are not connected to a event
         var query: string = this.site + "files?transform=1&filter[]=file_Permission,eq,public&filter[]=event_Id,is,null&order=created_at,desc";
         http.getJSON(query)
         .then((r) => {
             //testing
-            console.log("Files.length is" + r.files.length);
+            //console.log("Files.length is" + r.files.length);
             for (var i = 0; i < r.files.length; i++) {
                 console.log("teller " + i);
                 this.photos.push(
@@ -41,13 +54,13 @@ export class HomeComponent {
                     )
                 )
                 //testing
-                console.log(r.files[i].file_URL);
+                //console.log(r.files[i].file_URL);
             }
         }, function (e) {
             console.log(e);
         }).then(() => {
             //testing
-            console.log("There are " + this.photos.length + " photos in photos");
+            //console.log("There are " + this.photos.length + " photos in photos");
         })
         
     }
