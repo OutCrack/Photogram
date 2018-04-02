@@ -1,0 +1,14 @@
+Label {
+    font-size: 20dp;
+    text-align: center
+}
+
+.date {
+    font-size: 4dp;
+}
+
+Image {
+    margin: 5dp;
+    width: 50dp;
+    height: 50dp;
+} 

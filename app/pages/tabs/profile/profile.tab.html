@@ -1,10 +1,19 @@
 <StackLayout>
     
-    <Label text="Profile"></Label>
-    <GridLayout *ngIf="show" columns="auto, 60, *" rows="40, 40">
+    <Label class="header" text="Profile"></Label>
+    <Button [text]="profile ? 'Hide profile' : 'Show profile'" (tap)="showInfo()"></Button>
+    <GridLayout *ngIf="profile" columns="auto, 60, *" rows="40, 40">
         <Label text="Name: " col="0" row="0"></Label><Label text="{{firstName}}" col="1" row="0"></Label><Label text="{{lastName}}" col="2" row="0"></Label>
         <Label text="Email address: " col="0" row="2"></Label><Label text="{{email}}" col="1" row="2" colSpan="2"></Label>
     </GridLayout>
+    <Button [text]="photos ? 'Hide gallery' : 'Show gallery'" (tap)="showPhotos()"></Button>
     <Button text="Logout" (tap)="logout()"></Button>
-    <Button [text]="show ? 'Hide profile' : 'Show profile'" (tap)="showInfo()"></Button>
+    <ScrollView *ngIf="photos">
+        <WrapLayout id="photoView" width="300" orientaton="vertical">
+            <StackLayout *ngFor="let myPhoto of myPhotos">
+                <!--<Label class="date" text="{{myPhoto.created}}"></Label>-->
+                <Image  src="{{myPhoto.url}}" width="50dp" height="50dp" margin="5" id="{{myPhoto.id}}" (tap)="selectPhoto($event)"></Image>
+            </StackLayout>
+        </WrapLayout>
+    </ScrollView>
 </StackLayout>

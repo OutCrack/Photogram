@@ -1,8 +1,12 @@
 import { Component } from "@angular/core";
+import { Photo } from "../../../shared/Photo";
 import { Router, ActivatedRoute } from "@angular/router";
 import { TabComponent } from "../tab.component";
 import { User } from "../../../shared/User";
 import { Data } from "../../../shared/Data";
+import { GestureEventData } from "tns-core-modules/ui/gestures/gestures";
+var http = require("http");
+var layout = require("ui/layouts/grid-layout");
 
 
 const firebase = require("nativescript-plugin-firebase");
@@ -19,18 +23,22 @@ export class ProfileComponent {
     public lastName: string;
     public email: string;
     public id: any;
-    public show: boolean;
+    public profile: boolean;
+    public photos: boolean;
+    site: string = "http://188.166.127.207:5555/api.php/";
+    public myPhotos: Array<Photo>;
 
     constructor(private router: Router, private data: Data) {
         console.log(JSON.stringify("OooooooooooOooooooooOOOOOOOOOOOOOOOOOOOO" + this.data.storage));
-        this.show = false;
+        this.profile = false;
+        this.photos = false;
     }
 
     showInfo() {
-        if (this.show) {
-            this.show = false;
+        if (this.profile) {
+            this.profile = false;
         } else {
-            this.show = true;
+            this.profile = true;
         }
         
         this.firstName = this.data.storage["firstName"];
@@ -38,6 +46,54 @@ export class ProfileComponent {
         this.id = this.data.storage["id"];
         this.email = this.data.storage["email"];
         console.log("Users name" + this.firstName + " " + this.lastName + " " + this.id);
+    }
+
+    showPhotos() {
+        this.showInfo();
+        this.profile = false;
+        if (this.photos) {
+            this.photos = false;
+        } else {
+            this.photos = true;
+            this.getPhotos();
+        }
+    }
+
+    private getPhotos() {
+        //get all photos uploaded by current user
+        this.myPhotos = new Array();
+        var query: string = this.site + "files?transform=1&filter=user_Id,eq," + this.id;
+        http.getJSON(query)
+        .then((r) => {
+            //testing
+            console.log("Files length is " + r.files.length);
+            for (var i = 0; i < r.files.length; i++) {
+                this.myPhotos.push(
+                    new Photo(
+                        r.files[i].file_Id,
+                        "users/" + r.files[i].file_URL, //need to adjust when photo is in event catalog
+                        this.id,
+                        r.files[i].created_at
+                    )
+                )
+            }
+        }, function (e) {
+            console.log(e);
+        }).then(() => {
+            //testing
+            console.log("There are " + this.myPhotos.length + " photos in my photos");
+            /*for (var i = 0; i < this.myPhotos.length; i++) {
+                let image = new Image();
+                image.src = this.myPhotos.pop().url;
+                this.gridLayout.addChild(image);
+            }*/
+        })
+    }
+
+    selectPhoto(args: GestureEventData) {
+        
+        console.log("The id is " + args.view.id);
+        console.log("The event name is " + args.eventName);
     }
 
 

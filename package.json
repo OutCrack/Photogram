@@ -5,11 +5,11 @@
 	"repository": "<fill-your-repository-here>",
 	"nativescript": {
 		"id": "org.nativescript.Photogram",
-		"tns-ios": {
-			"version": "3.4.1"
-		},
 		"tns-android": {
 			"version": "3.4.2"
+		},
+		"tns-ios": {
+			"version": "3.4.1"
 		}
 	},
 	"dependencies": {
@@ -24,6 +24,7 @@
 		"@angular/router": "~5.2.0",
 		"nativescript-angular": "~5.2.0",
 		"nativescript-background-http": "^3.2.2",
+		"nativescript-grid-view": "^3.4.0",
 		"nativescript-imagepicker": "^5.0.1",
 		"nativescript-oauth": "^2.0.1",
 		"nativescript-plugin-firebase": "^5.1.7",
@@ -31,7 +32,7 @@
 		"nativescript-theme-core": "~1.0.4",
 		"reflect-metadata": "~0.1.8",
 		"rxjs": "~5.5.2",
-		"tns-core-modules": "~3.4.0",
+		"tns-core-modules": "^3.4.1",
 		"zone.js": "~0.8.2"
 	},
 	"devDependencies": {
