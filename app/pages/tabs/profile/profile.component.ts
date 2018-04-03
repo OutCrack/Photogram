@@ -68,7 +68,7 @@ export class ProfileComponent {
     private getPhotos() {
         //get all photos uploaded by current user
         this.myPhotos = new Array();
-        var query: string = this.site + "files?transform=1&filter=user_Id,eq," + this.id;
+        var query: string = this.site + "files?transform=1&filter=user_Id,eq," + this.id + "&order=created_at,desc";
         http.getJSON(query)
         .then((r) => {
             //testing

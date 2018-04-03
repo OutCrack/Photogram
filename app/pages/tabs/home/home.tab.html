@@ -5,7 +5,7 @@
         <Label text="Latest photos" class="title"></Label>
         
         <StackLayout *ngFor="let photo of photos">
-                <Label text="User:"></Label><Label text="{{photo.user.firstN}} {{photo.user.lastN}}" class="user"></Label>
+                <!--<Label text="User:"></Label><Label text="{{photo.user.firstN}} {{photo.user.lastN}}" class="user"></Label>-->
                 <Label text="Uploaded:"></Label><Label text="{{photo.created}}" class="user"></Label>
                 <Image  src="{{photo.url}}"></Image>
         </StackLayout>

@@ -1,2 +1,0 @@
-// album objektS 
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZXZlbnQuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJldmVudC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxnQkFBZ0IiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBhbGJ1bSBvYmpla3RTIl19

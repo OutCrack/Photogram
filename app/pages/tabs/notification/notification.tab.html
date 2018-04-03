@@ -1,4 +1,14 @@
 <StackLayout>
     
     <Label text="Fourth tab item"></Label>
+    <Button text="Events" (tap)="fetchParticipEvents()"></Button>
+    <ScrollView *ngIf="pEvents">
+        <StackLayout>
+                <StackLayout *ngFor="let event of participEvents">
+                        <Label text="{{event.id}}"></Label>
+                        <Label text="{{event.name}}"></Label>
+                        <Label text="{{event.role}}"></Label>
+                </StackLayout>
+        </StackLayout>
+    </ScrollView>
 </StackLayout>
