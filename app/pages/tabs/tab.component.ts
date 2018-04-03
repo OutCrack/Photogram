@@ -4,9 +4,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HomeComponent } from "./home/home.component";
 const firebase = require("nativescript-plugin-firebase");
 
-
 export class DataItem {
-    constructor(public itemDesc: string) { }
+    constructor(public itemDesc: string) { 
+    }
 }
 
 @Component({

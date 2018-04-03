@@ -7,8 +7,6 @@ import { Data } from "../../../shared/Data";
 import { GestureEventData } from "tns-core-modules/ui/gestures/gestures";
 var http = require("http");
 var layout = require("ui/layouts/grid-layout");
-
-
 const firebase = require("nativescript-plugin-firebase");
 
 @Component({
@@ -25,13 +23,19 @@ export class ProfileComponent {
     public id: any;
     public profile: boolean;
     public photos: boolean;
+    public selected: boolean;
+    public selectedPhoto: string;
     site: string = "http://188.166.127.207:5555/api.php/";
     public myPhotos: Array<Photo>;
+    public photoUrl: string;
+    public photoCreated: string;
+    
 
     constructor(private router: Router, private data: Data) {
         console.log(JSON.stringify("OooooooooooOooooooooOOOOOOOOOOOOOOOOOOOO" + this.data.storage));
         this.profile = false;
         this.photos = false;
+        this.selected = false;
     }
 
     showInfo() {
@@ -55,7 +59,9 @@ export class ProfileComponent {
             this.photos = false;
         } else {
             this.photos = true;
-            this.getPhotos();
+            if (this.myPhotos == null) {
+                this.getPhotos();
+            }
         }
     }
 
@@ -82,18 +88,23 @@ export class ProfileComponent {
         }).then(() => {
             //testing
             console.log("There are " + this.myPhotos.length + " photos in my photos");
-            /*for (var i = 0; i < this.myPhotos.length; i++) {
-                let image = new Image();
-                image.src = this.myPhotos.pop().url;
-                this.gridLayout.addChild(image);
-            }*/
         })
     }
 
     selectPhoto(args: GestureEventData) {
-        
+        this.selected = true;
+        this.photos = false;
+        this.profile = false;
         console.log("The id is " + args.view.id);
         console.log("The event name is " + args.eventName);
+        var photo: Photo = this.myPhotos.find(i => i.id === parseInt(args.view.id));
+        this.photoUrl = photo.url;
+        this.photoCreated = photo.created;
+    }
+
+    closePhoto() {
+        this.selected = false;
+        this.photos = true;
     }
 
 
