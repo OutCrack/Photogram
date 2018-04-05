@@ -13,7 +13,7 @@ export class Photo {
         this.url = "http://188.166.127.207:8000/uploads/" + url;
         this.userId = userId;
         this.created = created;
-        this.getUser();
+        //this.getUser();
     }
 
     public getUser() {

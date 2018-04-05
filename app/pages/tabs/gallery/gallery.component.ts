@@ -54,12 +54,14 @@ export class GalleryComponent {
 
     private uploadPhoto(fileUrl: string) {
         var fileName = this.getTimeStamp();
+        var that = this;
         var request = {
             url: "http://188.166.127.207:8888/Server.js",
             method: "POST",
             headers: {
                 "Content-Type": "application/octet-stream",
-                "File-Name": fileName
+                "File-Name": fileName,
+                "User-id": this.id
             },
             description: "{ 'uploading': fileUrl }"
         };
@@ -69,10 +71,13 @@ export class GalleryComponent {
         task.on("progress", logEvent);
         task.on("error", logEvent);
         //only when uploading is complete, update the database
-        task.on("complete", this.updateDb(fileName));
-        task.on("complete", alert("Uploading complete"))
+        task.on("complete", logEvent); 
  
         function logEvent(e) {
+            if (e.eventName == "complete") {
+                that.updateDb(fileName);
+                alert("Upload complete");
+            }
             console.log(e.eventName);       
         }  
 
@@ -82,9 +87,11 @@ export class GalleryComponent {
         var result;
         var name = "img" + fileName + ".jpg";
         http.request({
-            url: "http://188.166.127.207:5555/api.php/files",
+            //testing on wrong port nr, checking if it will update db
+            url: "http://188.166.127.207:5555/api.php/files/13",
             method: "POST",
             headers: { "Content-Type": "application/json" },
+            //put file url instead of just name
             content: JSON.stringify({ user_Id : this.id, file_Name : name, file_URL : name, 
             file_Permission : "Public"})
         }).then(function(response) {

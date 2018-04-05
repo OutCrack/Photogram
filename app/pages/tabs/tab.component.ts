@@ -38,7 +38,7 @@ export class TabComponent {
         });
         console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!/n!!!!!!!!" + this.firstName);
     }
-
+n 
     onCamera() {
         console.log("Camera tapped.");
         //Kjører kamera funksjon------

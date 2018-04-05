@@ -1,13 +1,38 @@
 import { Event } from "../Event";
+import { Photo } from "../Photo";
 var http = require("http");
 
 export class Server {
 
     db: string = "http://188.166.127.207:5555/api.php/";
 
-    constructor() {}
+    constructor() {
+        console.log("In server constructor!!!!!!!!!!!!!!!!!!!!!!/n")
+    }
 
-    public getPublicEvents() {
+    public getPublicPhotos() {
+        var query: string = this.db + "files?transform=1&filter[]=file_Permission,eq,public&filter[]=event_Id,is,null&order=created_at,desc";
+        var publicPhotos: Array<Photo> = [];
+        http.getJSON(query)
+        .then((r) => {
+            for (var i = 0; i < r.files.lenght; i++) {
+                publicPhotos.push(
+                    new Photo(
+                        r.files[i].file_Id,
+                        "users/" + r.files[i].file_URL,
+                        r.files[i].user_Id,
+                        r.files[i].created_at
+
+                    )
+                )
+            }
+        }, function(e) {
+            console.log(e);
+        })
+        return publicPhotos;
+    }
+
+    getPublicEvents() {
         //files?transform=1&filter[]=file_Permission,eq,public&filter[]=event_Id,is,null&order=created_at,desc
         var query: string =  this.db + "events?transform=1&filter=event_Privacy,eq,public"; 
         var publicEvents: Array<Event> = [];
