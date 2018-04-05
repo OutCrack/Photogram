@@ -4,37 +4,37 @@ var http = require("http");
 export class Server {
 
     db: string = "http://188.166.127.207:5555/api.php/";
-    public myEvents: Array<Event>;
 
     constructor() {}
 
     public getPublicEvents() {
         //files?transform=1&filter[]=file_Permission,eq,public&filter[]=event_Id,is,null&order=created_at,desc
-        var query: string =  this.db + "events?transform=1"; 
+        var query: string =  this.db + "events?transform=1&filter=event_Privacy,eq,public"; 
+        var publicEvents: Array<Event> = [];
         http.getJSON(query)
         .then((r) => {
             //testing
-            
-            for (var i = 0; i < r.files.length; i++) {
-                /*this.myPhotos.push(
-                    new Photo(
-                        r.files[i].file_Id,
-                        "users/" + r.files[i].file_URL, //need to adjust when photo is in event catalog
-                        this.id,
-                        r.files[i].created_at
+            console.log("Got " + r.events.lenght + " public events");
+            for (var i = 0; i < r.events.length; i++) {
+                publicEvents.push(
+                    new Event(
+                        r.event[i].event_Id,
+                        r.event[i].event_Name,
+                        null
                     )
-                )*/
+                )
             }
         }, function (e) {
             console.log(e);
         })
+        return publicEvents;
     }
 
     getMyEvents(id: number) {
-        this.myEvents = [];
+        var myEvents: Array<Event> = [];
         console.log("In get my events function");
         var query: string = this.db + "participants?transform=1&filter=user_Id,eq," + id;
-        this.myEvents = [];
+        myEvents = [];
         http.getJSON(query)
         .then((r) => {
             //testing
@@ -46,7 +46,7 @@ export class Server {
                 http.getJSON(queryEvents)
                 .then((res) => {
                     console.log(JSON.stringify(res));
-                    this.myEvents.push(
+                    myEvents.push(
                         new Event(
                             res.events[0].event_Id,
                             res.events[0].event_Name,
@@ -58,6 +58,6 @@ export class Server {
         }, function (e) {
             console.log(e);
         })
-        return this.myEvents;
+        return myEvents;
     }
 }
