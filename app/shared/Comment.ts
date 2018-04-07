@@ -1,26 +1,15 @@
 import { User } from "./User";
-import { Comment } from "./Comment";
-import { Server } from "./Server/Server";
 var http = require("http");
-var server = new Server();
 
-export class Photo {
-    id: number;
+export class Comment {
     userId: number;
+    text: string;
     user: User;
-    created: string;
-    url: string;
-    description: string;
-    comments: Array<Comment>;
 
-    constructor(id: number, url:string, userId: number, created: string, description: string) {
-        this.id = id;
-        this.url = "http://188.166.127.207:8000/uploads/" + url;
+    constructor(userId: number, text: string) {
         this.userId = userId;
-        this.created = created;
-        this.description = description;
+        this.text = text;
         this.getUser();
-        this.getComments();
     }
 
     public getUser() {
@@ -50,10 +39,4 @@ export class Photo {
         })
         //return JSON.stringify(this.user);
     }
-
-    public getComments() {
-        this.comments = [];
-        this.comments = server.getComments(this.id);
-    
-    }
-} 
+}

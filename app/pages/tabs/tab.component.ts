@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Page } from "ui/page";
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { HomeComponent } from "./home/home.component";
+import { Data } from "../../shared/Data";
 const firebase = require("nativescript-plugin-firebase");
 
 export class DataItem {
@@ -26,19 +27,18 @@ export class TabComponent {
     isNotification: boolean = false;
     isProfile: boolean = false;
     public firstName: string;
-    //public lastName: string;
+    public lastName: string;
 
-    constructor(private router: Router, private page: Page, private route: ActivatedRoute) {
+    constructor(private router: Router, private page: Page, protected data: Data) {
         /*this.items = new Array<DataItem>();
         for (let i = 0; i < 5; i++) {
             this.items.push(new DataItem("item " + i));
         }*/
-        this.route.params.subscribe((params) => {
-            this.firstName = params["name"];
-        });
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!/n!!!!!!!!" + this.firstName);
+        
+        console.log("----------------------------");
+        console.log("----------------------------");
+        console.log("----------------------------");
     }
-n 
     onCamera() {
         console.log("Camera tapped.");
         //Kjører kamera funksjon------
@@ -89,6 +89,8 @@ n
         this.isGallery = false;
         this.isNotification = false;
         this.isProfile = true;  
+        this.firstName = this.data.storage["firstName"];
+        this.lastName = this.data.storage["lastName"];
     }
 
     tabViewIndexChange(index: number) {

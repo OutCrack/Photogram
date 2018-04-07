@@ -34,8 +34,6 @@ export class ProfileComponent {
     constructor(private router: Router, private data: Data) {
         console.log(JSON.stringify("OooooooooooOooooooooOOOOOOOOOOOOOOOOOOOO" + this.data.storage));
         this.profile = false;
-        this.photos = false;
-        this.selected = false;
     }
 
     showInfo() {
@@ -44,68 +42,13 @@ export class ProfileComponent {
         } else {
             this.profile = true;
         }
-        
+        console.log()
         this.firstName = this.data.storage["firstName"];
         this.lastName = this.data.storage["lastName"];
         this.id = this.data.storage["id"];
         this.email = this.data.storage["email"];
         console.log("Users name" + this.firstName + " " + this.lastName + " " + this.id);
     }
-
-    showPhotos() {
-        this.showInfo();
-        this.profile = false;
-        if (this.photos) {
-            this.photos = false;
-        } else {
-            this.photos = true;
-            if (this.myPhotos == null) {
-                this.getPhotos();
-            }
-        }
-    }
-
-    private getPhotos() {
-        this.myPhotos = new Array();
-        var query: string = this.site + "files?transform=1&filter=user_Id,eq," + this.id + "&order=created_at,desc";
-        http.getJSON(query)
-        .then((r) => {
-            //testing
-            console.log("Files length is " + r.files.length);
-            for (var i = 0; i < r.files.length; i++) {
-                this.myPhotos.push(
-                    new Photo(
-                        r.files[i].file_Id,
-                        "users/" + this.id + "/" + r.files[i].file_URL, //need to adjust when photo is in event catalog
-                        this.id,
-                        r.files[i].created_at
-                    )
-                )
-            }
-        }, function (e) {
-            console.log(e);
-        }).then(() => {
-            //testing
-            console.log("There are " + this.myPhotos.length + " photos in my photos");
-        })
-    }
-
-    selectPhoto(args: GestureEventData) {
-        this.selected = true;
-        this.photos = false;
-        this.profile = false;
-        console.log("The id is " + args.view.id);
-        console.log("The event name is " + args.eventName);
-        var photo: Photo = this.myPhotos.find(i => i.id === parseInt(args.view.id));
-        this.photoUrl = photo.url;
-        this.photoCreated = photo.created;
-    }
-
-    closePhoto() {
-        this.selected = false;
-        this.photos = true;
-    }
-
 
     //logs out from both Google+ and Facebook accounts
   logout() {

@@ -6,21 +6,5 @@
         <Label text="Name: " col="0" row="0"></Label><Label text="{{firstName}}" col="1" row="0"></Label><Label text="{{lastName}}" col="2" row="0"></Label>
         <Label text="Email address: " col="0" row="2"></Label><Label text="{{email}}" col="1" row="2" colSpan="2"></Label>
     </GridLayout>
-    <Button [text]="photos ? 'Hide gallery' : 'Show gallery'" *ngIf="!selected" (tap)="showPhotos()"></Button>
     <Button text="Logout" (tap)="logout()" *ngIf="!selected"></Button>
-    <ScrollView *ngIf="photos">
-        <WrapLayout id="photoView" width="300" orientaton="vertical">
-            <StackLayout *ngFor="let myPhoto of myPhotos">
-                <!--<Label class="date" text="{{myPhoto.created}}"></Label>-->
-                <Image  src="{{myPhoto.url}}" width="50dp" height="50dp" margin="5" id="{{myPhoto.id}}" (tap)="selectPhoto($event)"></Image>
-            </StackLayout>
-        </WrapLayout>
-    </ScrollView>
-    <ScrollView *ngIf="selected">
-        <StackLayout>
-            <Label text="Uploaded: {{photoCreated}}"></Label>
-            <Image src="{{photoUrl}}" width="300dp" height="200dp"></Image>
-            <Button text="Close" (tap)="closePhoto()"></Button>
-        </StackLayout>
-    </ScrollView>
 </StackLayout>

@@ -1,4 +1,38 @@
 <StackLayout>
-    <Label text="My photos"></Label> 
-    <Button text="To gallery" (tap)="openGallery()"></Button>
+    <Label text="My gallery" *ngIf="!selected"></Label> 
+    <Button [text]="photos ? 'Hide photos' : 'My pictures'" *ngIf="!selected" (tap)="getPhotos()"></Button>
+    <Button text="My events" *ngIf="!selected" (tap)="getEvents()"></Button>
+    <Button text="Upload photo" *ngIf="!selected" (tap)="openGallery()"></Button>
+    <ScrollView *ngIf="photos && !selected">
+        <WrapLayout id="photoView" width="300" orientaton="vertical">
+            <StackLayout *ngFor="let myPhoto of myPhotos">
+                <!--<Label class="date" text="{{myPhoto.created}}"></Label>-->
+                <Image  src="{{myPhoto.url}}" width="50dp" height="50dp" margin="5" id="{{myPhoto.id}}" (tap)="selectPhoto($event)"></Image>
+            </StackLayout>
+        </WrapLayout>
+    </ScrollView>
+    <ScrollView *ngIf="selected">
+        <StackLayout>
+            <Label text="{{photoCreated}}"></Label>
+            <Label *ngFor="let user of users" text={{user.firstN}}></Label>
+            <Label text="{{username}}"></Label>
+            <Label text="{{photoDescription}}"></Label>
+            <Button text="X" class="close" (tap)="closePhoto()"></Button>
+            <Image src="{{photoUrl}}"></Image>
+            <Label *ngFor="let comment of photoComments" text="{{comment.user.firstN}} {{comment.user.lastN}} : {{comment.text}}"></Label>
+                <GridLayout columns="250, 80">
+                <TextField #newComment hint="comment" width="80%" height="50dp" col="0"></TextField>
+                <Button text="Add" (tap)="addComment(newComment)" col="1"></Button>
+                </GridLayout>
+        </StackLayout>
+    </ScrollView>
+    <ScrollView *ngIf="pEvents">
+        <StackLayout>
+                <StackLayout *ngFor="let event of participEvents">
+                        <Label text="{{event.id}}"></Label>
+                        <Label text="{{event.name}}"></Label>
+                        <Label text="{{event.role}}"></Label>
+                </StackLayout>
+        </StackLayout>
+    </ScrollView>
 </StackLayout>

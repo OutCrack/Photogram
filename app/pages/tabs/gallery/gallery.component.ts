@@ -4,18 +4,121 @@ import { ImageAsset } from "tns-core-modules/image-asset/image-asset";
 var bghttp = require("nativescript-background-http");
 var session = bghttp.session("image-upload");
 var http = require("http");
+import { GestureEventData } from "tns-core-modules/ui/gestures/gestures";
 import { Data } from "../../../shared/Data";
+import { Photo } from "../../../shared/Photo";
+import { Server } from "../../../shared/Server/Server";
+import { Event } from "../../../shared/Event";
+import { Comment } from "../../../shared/Comment";
 
 @Component({
     selector: "gallery-tab",
-    templateUrl: "./pages/tabs/gallery/gallery.tab.html"
+    templateUrl: "./pages/tabs/gallery/gallery.tab.html",
+    styleUrls: [ "./pages/tabs/gallery/gallery.tab.css" ]
 })
 export class GalleryComponent {
 
     items = [];
     public id: any;
+    public selected: boolean;
+    public selectedPhoto: string;
+    site: string = "http://188.166.127.207:5555/api.php/";
+    public photos: boolean;
+    public myPhotos: Array<Photo>;
+    public photoUrl: string;
+    public photoCreated: string;
+    public myEvents: Array<Event>;
+    public participEvents: Array<Event>;
+    public photoId: number;
+    public username: string;
+    public photoDescription: string;
+    public photoComments: Array<Comment>;
+    server: Server;
+    pEvents: boolean;
 
     constructor(private _changeDetectionRef: ChangeDetectorRef, private data: Data) {
+        //this.getPhotos();
+        this.selected = false;
+        console.log("In gallery constructor"); 
+        this.server = new Server;
+        this.pEvents = true;
+        this.photos = false;
+    }
+
+    public getPhotos() {
+        if (this.photos) {
+            this.photos = false;
+        }
+        else {
+            this.photos = true;
+            this.id = this.data.storage["id"];
+        this.myPhotos = new Array();
+        var query: string = this.site + "files?transform=1&filter=user_Id,eq," + "13" + "&order=created_at,desc";
+        http.getJSON(query)
+        .then((r) => {
+            //testing
+            console.log("Files length is " + r.files.length);
+            for (var i = 0; i < r.files.length; i++) {
+                this.myPhotos.push(
+                    new Photo(
+                        r.files[i].file_Id,
+                        "users/" + this.id + "/" + r.files[i].file_URL, //need to adjust when photo is in event catalog
+                        this.id,
+                        r.files[i].created_at,
+                        r.files[i].file_Description
+                    )
+                )
+                console.log("There are " + this.myPhotos.length + " photos in my photos");
+            }
+        }, function (e) {
+            console.log(e);
+        }).then(() => {
+            //testing
+            console.log("There are " + this.myPhotos.length + " photos in my photos");
+        })
+        }
+        
+    }
+
+    selectPhoto(args: GestureEventData) {
+        this.selected = true;
+        console.log("The id is " + args.view.id);
+        console.log("The event name is " + args.eventName);
+        var photo: Photo = this.myPhotos.find(i => i.id === parseInt(args.view.id));
+        this.username = photo.user.firstN + " " + photo.user.lastN;
+        this.photoId = photo.id;
+        this.photoUrl = photo.url;
+        this.photoCreated = photo.created;
+        this.photoDescription = photo.description;
+        this.photoComments = photo.comments;
+    }
+
+    closePhoto() {
+        this.selected = false;
+        this.photoUrl = "";
+        this.photoCreated = "";
+    }
+
+    addComment(result) {
+        console.log("Comment " + result.text);
+        if (result.text.length < 1) {
+            alert("Cannot insert empty comment");
+        } else {
+            this.server.updateComment(this.photoId, this.data.storage["id"], result.text);
+            this.photoComments.push(
+                new Comment(this.data.storage["id"], result.text)
+            );
+            result.text = "";
+        }
+    }
+
+    getEvents() {
+        if (this.pEvents) {
+            this.participEvents = this.server.getMyEvents(13)    
+            this.pEvents = true;
+            console.log("Events " + this.participEvents.length);
+        }      
+        
     }
 
     openGallery() {
@@ -87,7 +190,6 @@ export class GalleryComponent {
         var result;
         var name = "img" + fileName + ".jpg";
         http.request({
-            //testing on wrong port nr, checking if it will update db
             url: "http://188.166.127.207:5555/api.php/files/13",
             method: "POST",
             headers: { "Content-Type": "application/json" },

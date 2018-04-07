@@ -1,29 +1,28 @@
 <TabView #tabView [(ngModel)]="selectedIndex" (selectedIndexChanged)="tabViewIndexChange(tabView.selectedIndex)" iosIconRenderingMode="alwaysTemplate">
     <ActionBar title="">
-        <ActionItem *ngIf="isHome" (tap)="onCamera()" ios.systemIcon="15" ios.position="right" android.systemIcon="ic_menu_camera"></ActionItem>
-
-        <ActionItem *ngIf="isSearch" android.position="center">
-            
+        <ActionItem *ngIf="isGallery" (tap)="onCamera()" ios.systemIcon="15" ios.position="right" android.systemIcon="ic_menu_camera"></ActionItem>
+        
+        <ActionItem *ngIf="isSearch" android.position="center">  
         </ActionItem>
     </ActionBar>
-
-    <StackLayout *tabItem="{iconSource:'res://ic_home_black'}">
+    <StackLayout *tabItem="{iconSource:'res://ic_home'}">
         <home-tab></home-tab>
     </StackLayout>
 
-    <StackLayout *tabItem="{iconSource:'res://ic_search_black'}">
+    <StackLayout *tabItem="{iconSource:'res://ic_search'}">
         <search-tab></search-tab>
     </StackLayout>
 
-    <StackLayout *tabItem="{iconSource:'res://ic_image_black'}">
+    <StackLayout *tabItem="{iconSource:'res://ic_image'}">
         <gallery-tab></gallery-tab>
     </StackLayout>
 
-    <StackLayout *tabItem="{iconSource:'res://ic_notifications_black'}">
+    <StackLayout *tabItem="{iconSource:'res://ic_notifications'}">
         <notification-tab></notification-tab>
     </StackLayout>
 
-    <StackLayout *tabItem="{iconSource:'res://ic_account_box_black'}">
+    <StackLayout *tabItem="{iconSource:'res://ic_account_box'}">
         <profile-tab></profile-tab>
     </StackLayout>
+    <Label text="Logged in as: {{firstName}} {{lastName}}" class="name"></Label> 
 </TabView>

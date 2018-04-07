@@ -1,5 +1,7 @@
 import { Event } from "../Event";
 import { Photo } from "../Photo";
+import { User } from "../User";
+import { Comment } from "../Comment";
 var http = require("http");
 
 export class Server {
@@ -21,7 +23,8 @@ export class Server {
                         r.files[i].file_Id,
                         "users/" + r.files[i].file_URL,
                         r.files[i].user_Id,
-                        r.files[i].created_at
+                        r.files[i].created_at,
+                        r.files[i].description
 
                     )
                 )
@@ -85,4 +88,82 @@ export class Server {
         })
         return myEvents;
     }
+
+    /*getUser(id: number) {
+        var users: Array<User> = [];
+        console.log("In server get user " + id);
+        var query = this.db + "users?transform=1&filter=user_Id,eq," + id;
+        console.log(query);
+        http.getJSON(query)
+        .then((r) => {
+            for (let i = 0; i < r.users.length; i++)  {
+                users.push(new User(
+                r.users[0].user_Id,
+                r.users[0].first_Name,
+                r.users[0].last_Name
+                ));
+            }
+            console.log(r.users[0].user_Id);
+            console.log(r.users[0].first_Name);
+            console.log(r.users[0].last_Name);
+            users.push(new User(0, "", ""));      
+        }, function (e) {
+            console.log(e);
+        }).then(() => {
+            console.log("Got " + users.length);
+        })
+        return users;
+    }*/
+
+    getComments(id: number) {
+        console.log("Getting comments for id " + id);
+        var comments: Array<Comment> = [];
+        var query: string = this.db + "comments?transform=1&filter=file_Id,eq," + id;
+        console.log("The query " + query);
+        http.getJSON(query).
+        then((r) => {
+            for (let i = 0; i < r.comments.length; i++) {
+                comments.push(
+                    new Comment(
+                        r.comments[i].user_Id,
+                        r.comments[i].comment_Text
+                    )
+                );
+            }
+        }, function(e) {
+            console.log(e);
+        })
+        return comments;
+    }
+
+    getUsername(id: number) {
+        var username: string;
+        var query = this.db + "users?transform=1&filter=user_Id,eq," + id;
+        console.log("QUERY GETTING USERNAMR " + query);
+        http.getJSON(query)
+        .then((r) => {
+            username = r.users[0].firstName + " " + r.users[0].lastName;
+        }, function(e) {
+            console.log(e);
+        })
+        return username;
+    }
+
+    updateComment(photoId: number, userId: number, text: string) {
+            var result;
+            http.request({
+                url: "http://188.166.127.207:5555/api.php/comments",
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                //put file url instead of just name
+                content: JSON.stringify({ file_Id : photoId, user_Id : userId,  
+                comment_Text : text})
+            }).then(function(response) {
+                result = response.content.toJSON();
+                console.log(result);
+            }, function(e) {
+                console.log("Error occured " + e);
+            });
+    
+        }
 }

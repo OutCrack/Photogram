@@ -1,9 +1,13 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectorRef } from "@angular/core";
 import { Photo } from "../../../shared/Photo";
 import { User } from "../../../shared/User";
 import { Server } from "../../../shared/Server/Server";
+import { Comment } from "../../../shared/Comment";
 var http = require("http");
 import { registerElement } from "nativescript-angular/element-registry";
+import { GestureEventData } from "tns-core-modules/ui/gestures/gestures";
+import { Data } from "../../../shared/Data";
+import { TextField } from "ui/text-field";
 
 registerElement("PullToRefresh" , ()=> require("nativescript-pulltorefresh").PullToRefresh);
  
@@ -18,12 +22,20 @@ export class HomeComponent {
     //for storing fetched photos
     public photos: Array<Photo>;
     public server: Server;
+    public selected: boolean;
+    public photoId: number;
+    public photoUrl: string;
+    public photoCreated: string;
+    public username: string;
+    public photoDescription: string;
+    public photoComments: Array<Comment>;
+    public userId: number;
 
-    
-
-    constructor() {
+    constructor(private _changeDetectionRef: ChangeDetectorRef, private data: Data) {
         console.log("In home constructor");
         this.getPhotos();
+        this.selected = false;
+        this.photoId = 0;
         this.server = new Server();
     }
 
@@ -59,7 +71,8 @@ export class HomeComponent {
                         r.files[i].file_Id,
                         "users/" + r.files[i].user_Id +"/" + r.files[i].file_URL,
                         r.files[i].user_Id,
-                        r.files[i].created_at
+                        (r.files[i].created_at).slice(0,10),
+                        r.files[i].file_Description
                     )
                 )
                 //testing
@@ -90,12 +103,42 @@ export class HomeComponent {
             } else {
                 dateString += date.getDay();
             }
-            
-            
             console.log("The date " + dateString);
             return dateString;
         }
        
+    }
+
+    selectPhoto(args: GestureEventData) {
+        this.selected = true;
+        console.log("The id is " + args.view.id);
+        console.log("The event name is " + args.eventName);
+        var photo: Photo = this.photos.find(i => i.id === parseInt(args.view.id));
+        this.username = photo.user.firstN + " " + photo.user.lastN;
+        this.photoId = photo.id;
+        this.photoUrl = photo.url;
+        this.photoCreated = photo.created;
+        this.photoDescription = photo.description;
+        this.photoComments = photo.comments;
+    }
+
+    closePhoto() {
+        this.selected = false;
+        this.photoUrl = "";
+        this.photoCreated = "";
+    }
+
+    addComment(result) {
+        console.log("Comment " + result.text);
+        if (result.text.length < 1) {
+            alert("Cannot insert empty comment");
+        } else {
+            this.server.updateComment(this.photoId, this.data.storage["id"], result.text);
+            this.photoComments.push(
+                new Comment(this.data.storage["id"], result.text)
+            );
+            result.text = "";
+        }
     }
 
 }
