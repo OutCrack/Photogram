@@ -12,7 +12,7 @@ var http = require("http");
 @Component({
   selector: "my-app",
   templateUrl: "./pages/login/login.html",
-  styleUrls: ["./pages/login/login-common.css", "./pages/login/login.css" ]
+  styleUrls: ["./pages/login/login-common.css" ]
 })
 
 export class LoginComponent implements OnInit{

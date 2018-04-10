@@ -1,7 +1,7 @@
 <StackLayout>
     <Label text="My gallery" *ngIf="!selected"></Label> 
     <Button [text]="photos ? 'Hide photos' : 'My pictures'" *ngIf="!selected" (tap)="getPhotos()"></Button>
-    <Button text="My events" *ngIf="!selected" (tap)="getEvents()"></Button>
+    <Button [text]="mEvents ? 'Hide events' : 'Show my events'" *ngIf="!selected" (tap)="getEvents()"></Button>
     <Button text="Upload photo" *ngIf="!selected" (tap)="openGallery()"></Button>
     <ScrollView *ngIf="photos && !selected">
         <WrapLayout id="photoView" width="300" orientaton="vertical">
@@ -26,13 +26,25 @@
                 </GridLayout>
         </StackLayout>
     </ScrollView>
-    <ScrollView *ngIf="pEvents">
+    <ScrollView *ngIf="mEvents">
         <StackLayout>
-                <StackLayout *ngFor="let event of participEvents">
+                <StackLayout id="{{event.id}}" *ngFor="let event of participEvents" (tap)="selectEvent($event)">
                         <Label text="{{event.id}}"></Label>
                         <Label text="{{event.name}}"></Label>
                         <Label text="{{event.role}}"></Label>
+                        <Label text="{{event.type}}"></Label>
+                        <Label text="{{event.description}}"></Label>
                 </StackLayout>
         </StackLayout>
     </ScrollView>
+    <ScrollVIew *ngIf="eventSelected">
+        <StackLayout>
+            <Label text="Event participants"></Label>
+            <WrapLayout *ngFor="let participant of participants">
+                <Label text="{{participant.firstN}}"></Label>
+                <Label text="{{participant.lastN}}"></Label>
+                <Label text="{{participant.role}}"></Label>
+            </WrapLayout>
+        </StackLayout>
+    </ScrollVIew>
 </StackLayout>

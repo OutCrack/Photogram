@@ -2,14 +2,17 @@ import { User } from "./User";
 var http = require("http");
 
 export class Comment {
+    id: number;
     userId: number;
     text: string;
     user: User;
+    rights: boolean;
 
     constructor(userId: number, text: string) {
         this.userId = userId;
         this.text = text;
         this.getUser();
+        this.rights = false;
     }
 
     public getUser() {

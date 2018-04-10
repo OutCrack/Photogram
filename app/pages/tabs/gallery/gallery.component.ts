@@ -10,6 +10,7 @@ import { Photo } from "../../../shared/Photo";
 import { Server } from "../../../shared/Server/Server";
 import { Event } from "../../../shared/Event";
 import { Comment } from "../../../shared/Comment";
+import { User } from "../../../shared/User";
 
 @Component({
     selector: "gallery-tab",
@@ -33,16 +34,20 @@ export class GalleryComponent {
     public username: string;
     public photoDescription: string;
     public photoComments: Array<Comment>;
-    server: Server;
-    pEvents: boolean;
+    public server: Server;
+    public mEvents: boolean;
+    public participants: Array<User>
+    public eventSelected: boolean;
 
     constructor(private _changeDetectionRef: ChangeDetectorRef, private data: Data) {
         //this.getPhotos();
         this.selected = false;
         console.log("In gallery constructor"); 
         this.server = new Server;
-        this.pEvents = true;
+        this.mEvents = false;
         this.photos = false;
+        this.eventSelected = false;
+        this.participants = [];
     }
 
     public getPhotos() {
@@ -53,7 +58,7 @@ export class GalleryComponent {
             this.photos = true;
             this.id = this.data.storage["id"];
         this.myPhotos = new Array();
-        var query: string = this.site + "files?transform=1&filter=user_Id,eq," + "13" + "&order=created_at,desc";
+        var query: string = this.site + "files?transform=1&filter=user_Id,eq," + this.id + "&order=created_at,desc";
         http.getJSON(query)
         .then((r) => {
             //testing
@@ -113,18 +118,19 @@ export class GalleryComponent {
     }
 
     getEvents() {
-        if (this.pEvents) {
-            this.participEvents = this.server.getMyEvents(13)    
-            this.pEvents = true;
+        this.mEvents = !this.mEvents;
+        this.id = this.data.storage["id"];
+        if (this.mEvents) {
+            this.participEvents = this.server.getMyEvents(this.id)    
+            this.mEvents = true;
             console.log("Events " + this.participEvents.length);
-        }      
-        
+        } 
     }
 
     openGallery() {
         this.id = this.data.storage["id"];
         console.log(this.getTimeStamp());
-        console.log("Id" + this.id);
+        console.log("Id " + this.id);
         let context = imagepicker.create({
             mode: "single" //"multiple"
         });
@@ -183,14 +189,14 @@ export class GalleryComponent {
             }
             console.log(e.eventName);       
         }  
-
     }
 
     private updateDb(fileName: string) {
         var result;
         var name = "img" + fileName + ".jpg";
+        console.log("The id " + this.id);
         http.request({
-            url: "http://188.166.127.207:5555/api.php/files/13",
+            url: "http://188.166.127.207:5555/api.php/files/",
             method: "POST",
             headers: { "Content-Type": "application/json" },
             //put file url instead of just name
@@ -202,16 +208,24 @@ export class GalleryComponent {
         }, function(e) {
             console.log("Error occured " + e);
         });
-
     }
 
     private getTimeStamp() {
         var date = new Date(); 
-        var string = date.getFullYear().toString() + date.getMonth().toString() + date.getDay().toString()
+        var string = date.getFullYear().toString() + date.getMonth().toString() + date.getDate().toString()
             + date.getHours().toString() + date.getMinutes().toString() +
             + date.getSeconds().toString() + date.getMilliseconds().toString();
         return string;
     }
 
-
+    selectEvent(args: GestureEventData) {
+        var eventId = parseInt(args.view.id);
+        if (this.participants.length == 0) {
+            this.participants = this.server.getEventParticipants(eventId);
+        }
+        console.log("Event id " + eventId);
+        console.log("Participants " + this.participants.length);
+        this.eventSelected = !this.eventSelected;
+        
+    }
 }

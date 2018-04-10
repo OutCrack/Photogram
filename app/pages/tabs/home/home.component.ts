@@ -58,18 +58,24 @@ export class HomeComponent {
         this.photos = new Array();
         //get public photos that are not connected to a event, are not in an album and are max 2 days old
         var limitDate: string = getLimitDate();
-        var query: string = this.site + "files?transform=1&filter[]=file_Permission,eq,public&filter[]=event_Id,is,null&filter[]=created_at,gt," + limitDate +"&filter[]=album_Name,is,null&order=created_at,desc";
+        var query: string = this.site + "files?transform=1&filter[]=file_Permission,eq,public&filter[]=event_Id,is,null&filter[]=created_at,gt," + limitDate + "&order=created_at,desc";
         console.log("LIMIT DATE IN QUERY " + query);
         http.getJSON(query)
         .then((r) => {
             //testing
             //console.log("Files.length is" + r.files.length);
             for (var i = 0; i < r.files.length; i++) {
-                console.log("teller " + i);
+                var albumName = "";
+                if (r.files[i].album_Name != null) {
+                    let album = r.files[i].album_Name;
+                    var replace = / /gi;
+                    albumName = "/" + album.replace(replace, "%20");
+                }
+                console.log("Album name " + albumName);
                 this.photos.push(
                     new Photo(
                         r.files[i].file_Id,
-                        "users/" + r.files[i].user_Id +"/" + r.files[i].file_URL,
+                        "users/" + r.files[i].user_Id + albumName + "/" + r.files[i].file_URL,
                         r.files[i].user_Id,
                         (r.files[i].created_at).slice(0,10),
                         r.files[i].file_Description
@@ -89,7 +95,8 @@ export class HomeComponent {
         function getLimitDate() {
             var date = new Date();
             console.log("Date is " + date.toDateString());
-            date.setDate(date.getDate()-1);
+            date.setDate(date.getDate()-2);
+            console.log("Date new date is " + date.toDateString());
             var dateString = date.getFullYear() + "-";
             var month: number = date.getMonth() + 1;
             if (month < 10) {
@@ -98,10 +105,11 @@ export class HomeComponent {
                 dateString += date.getMonth();
             }
             dateString += "-";
+            console.log("Day " + date.getDate())
             if (date.getDay() < 10) {
-                dateString += "0" + date.getDay();
+                dateString += "0" + date.getDate();
             } else {
-                dateString += date.getDay();
+                dateString += date.getDate();
             }
             console.log("The date " + dateString);
             return dateString;
@@ -111,6 +119,7 @@ export class HomeComponent {
 
     selectPhoto(args: GestureEventData) {
         this.selected = true;
+        this.userId = this.data.storage["id"];
         console.log("The id is " + args.view.id);
         console.log("The event name is " + args.eventName);
         var photo: Photo = this.photos.find(i => i.id === parseInt(args.view.id));
@@ -120,6 +129,15 @@ export class HomeComponent {
         this.photoCreated = photo.created;
         this.photoDescription = photo.description;
         this.photoComments = photo.comments;
+        for (let c of this.photoComments) {
+            console.log("Checking rights for comments");
+            console.log("comment user id " + c.userId + " loggen in as " + this.userId);
+            if (c.userId == this.userId) {
+                c.rights = true;
+                console.log("Rights changed to true");
+            }
+        }
+        console.log("URL " + this.photoUrl);
     }
 
     closePhoto() {
@@ -134,11 +152,15 @@ export class HomeComponent {
             alert("Cannot insert empty comment");
         } else {
             this.server.updateComment(this.photoId, this.data.storage["id"], result.text);
-            this.photoComments.push(
-                new Comment(this.data.storage["id"], result.text)
-            );
+            var comment = new Comment(this.data.storage["id"], result.text);
+            comment.rights = true;
+            this.photoComments.push(comment);
             result.text = "";
         }
+    }
+
+    removeComment(result) {
+
     }
 
 }

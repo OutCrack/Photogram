@@ -21,7 +21,7 @@ export class NotificationComponent {
 
     fetchParticipEvents() {
         if (this.pEvents) {
-            this.participEvents = this.server.getMyEvents(13)    
+            this.participEvents = this.server.getMyEvents(13);    
             this.pEvents = true;
             console.log("Events " + this.participEvents.length);
         }      

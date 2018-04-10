@@ -46,9 +46,11 @@ export class Server {
             for (var i = 0; i < r.events.length; i++) {
                 publicEvents.push(
                     new Event(
-                        r.event[i].event_Id,
-                        r.event[i].event_Name,
-                        null
+                        r.events[i].event_Id,
+                        r.events[i].event_Name,
+                        null,
+                        r.events[i].event_Description,
+                        r.events[i].event_Type
                     )
                 )
             }
@@ -62,6 +64,7 @@ export class Server {
         var myEvents: Array<Event> = [];
         console.log("In get my events function");
         var query: string = this.db + "participants?transform=1&filter=user_Id,eq," + id;
+        console.log("QUERY for events " + query);
         myEvents = [];
         http.getJSON(query)
         .then((r) => {
@@ -74,11 +77,15 @@ export class Server {
                 http.getJSON(queryEvents)
                 .then((res) => {
                     console.log(JSON.stringify(res));
+                    console.log("Descritpion " + res.events[0].event_Description);
+                    console.log("Type " + res.events[0].event_Type);
                     myEvents.push(
                         new Event(
                             res.events[0].event_Id,
                             res.events[0].event_Name,
-                            r.participants[i].participant_Role
+                            r.participants[i].participant_Role,
+                            res.events[0].event_Description,
+                            res.events[0].event_Type
                         )
                     )     
                 })
@@ -163,7 +170,37 @@ export class Server {
                 console.log(result);
             }, function(e) {
                 console.log("Error occured " + e);
-            });
-    
-        }
+            }
+        );
+    }
+
+    getEventParticipants(id: number) {
+        var participants: Array<User> = [];
+        var query = this.db + "participants?transform=1&filter=event_Id,eq," + id;
+        console.log(query);
+        http.getJSON(query)
+        .then((r) => {
+            for (let i = 0; i < r.participants.length; i++) {
+                var userQuery = this.db + "users?transform=1&filter=user_Id,eq," + r.participants[i].user_Id;
+                console.log("userQuery " + userQuery);
+                http.getJSON(userQuery)
+                .then((res) => {
+                    var user: User = new User(r.participants[i].user_Id, res.users[0].first_Name, res.users[0].last_Name);
+                    user.role = r.participants[i].participant_Role;
+                    console.log(JSON.stringify(user));
+                    participants.push(user);
+                }, function(e) {
+                    console.log(e);
+                })
+            }
+        }, function(e) {
+            console.log(e);
+        })
+        return participants;
+    }
+
+    getEventPhotos(id: number) {
+
+    }
+
 }

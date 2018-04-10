@@ -32,7 +32,6 @@ export class ProfileComponent {
     
 
     constructor(private router: Router, private data: Data) {
-        console.log(JSON.stringify("OooooooooooOooooooooOOOOOOOOOOOOOOOOOOOO" + this.data.storage));
         this.profile = false;
     }
 
@@ -47,7 +46,6 @@ export class ProfileComponent {
         this.lastName = this.data.storage["lastName"];
         this.id = this.data.storage["id"];
         this.email = this.data.storage["email"];
-        console.log("Users name" + this.firstName + " " + this.lastName + " " + this.id);
     }
 
     //logs out from both Google+ and Facebook accounts
