@@ -2,9 +2,19 @@
     
     <Label class="header" text="Profile" *ngIf="!selected"></Label>
     <Button [text]="profile ? 'Hide profile' : 'Show profile'"  *ngIf="!selected" (tap)="showInfo()"></Button>
-    <GridLayout *ngIf="profile" columns="auto, 60, *" rows="40, 40">
-        <Label text="Name: " col="0" row="0"></Label><Label text="{{firstName}}" col="1" row="0"></Label><Label text="{{lastName}}" col="2" row="0"></Label>
-        <Label text="Email address: " col="0" row="2"></Label><Label text="{{email}}" col="1" row="2" colSpan="2"></Label>
-    </GridLayout>
+    <ScrollView>
+        <WrapLayout *ngIf="profile">
+            <Image src="{{avatar}}" width="100" height="100"></Image>"
+            <GridLayout columns="auto, 60, *" rows="40, 40, 40, 40, 40, 40. 40, 40, 40">
+                <Label text="Name: " col="0" row="0"></Label><Label text="{{firstName}}" col="1" row="0"></Label><Label text="{{lastName}}" col="2" row="0"></Label>
+                <Label text="Email address: " col="0" row="1"></Label><Label text="{{email}}" col="1" row="1" colSpan="2"></Label>
+                <Label text="Gender: " col="0" row="2"></Label><Label text ="{{gender}}" col="1" row="2" colSpan="2"></Label>
+                <Label text="Birth date: " col="0" row="3"></Label><Label text="{{birthDate}}" col="1" row="3" colSpan="2"></Label>
+                <Label text="Location: " col="0" row="4"></Label><Label text="{{location}}" col="1" row="4" colSpan="2"></Label>
+                <Label text="Hobby:" col="0" row="5"></Label><Label text="{{hobby}}" col="1" row="5" colSpan="2"></Label>
+                <Label text="Profession: " col="0" row="6"></Label><Label text="{{profession}}" col="1" row="6" colSpan="2"></Label>
+            </GridLayout>
+        </WrapLayout>
+    </ScrollView>   
     <Button text="Logout" (tap)="logout()" *ngIf="!selected"></Button>
 </StackLayout>

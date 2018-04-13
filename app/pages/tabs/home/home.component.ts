@@ -45,8 +45,8 @@ export class HomeComponent {
         setTimeout(function() {
             pullRefresh.refreshing = false;
         }, 1000);
-        
     }
+
     //get photos from db, put them in photos array
     getPhotos() {
         //var _server = new Server();
@@ -58,19 +58,15 @@ export class HomeComponent {
         this.photos = new Array();
         //get public photos that are not connected to a event, are not in an album and are max 2 days old
         var limitDate: string = getLimitDate();
-        var query: string = this.site + "files?transform=1&filter[]=file_Permission,eq,public&filter[]=event_Id,is,null&filter[]=created_at,gt," + limitDate + "&order=created_at,desc";
+        var query: string = this.site + "files?transform=1&filter[]=file_Permission,eq,public&filter[]=event_Id,is,null&filter[]=created_at,gt," + limitDate + "&filter[]=album_Id,is,null&order=created_at,desc";
         console.log("LIMIT DATE IN QUERY " + query);
         http.getJSON(query)
         .then((r) => {
             //testing
             //console.log("Files.length is" + r.files.length);
             for (var i = 0; i < r.files.length; i++) {
-                var albumName = "";
-                if (r.files[i].album_Name != null) {
-                    let album = r.files[i].album_Name;
-                    var replace = / /gi;
-                    albumName = "/" + album.replace(replace, "%20");
-                }
+                var albumName = getAlbumName(r.files[i].album_Id, this.site);
+                
                 console.log("Album name " + albumName);
                 this.photos.push(
                     new Photo(
@@ -78,7 +74,9 @@ export class HomeComponent {
                         "users/" + r.files[i].user_Id + albumName + "/" + r.files[i].file_URL,
                         r.files[i].user_Id,
                         (r.files[i].created_at).slice(0,10),
-                        r.files[i].file_Description
+                        r.files[i].file_Description,
+                        r.files[i].album_id,
+                        r.files[i].file_Name
                     )
                 )
                 //testing
@@ -86,10 +84,22 @@ export class HomeComponent {
             }
         }, function (e) {
             console.log(e);
-        }).then(() => {
-            //testing
-            //console.log("There are " + this.photos.length + " photos in photos");
-        })
+        });
+
+        function getAlbumName(albumId: number, site: string) {
+            var albumName = "";
+        if (albumId != null) {
+            var albumQuery = site + "albums?transform=1&filter=album_Id,eq," + albumId;
+            console.log("QQQQQQQQQ" + albumQuery);
+            http.getJSON(albumQuery)
+            .then((res) => {
+                albumName += res.albums[0].album_Name;
+            }, function(e) { console.log(e);});
+            var replace = / /gi;
+            albumName = "/" + albumName.replace(replace, "%20");
+        }
+            return albumName;
+        }
 
         //get string that represents the day before yesterday
         function getLimitDate() {

@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { Server } from "../../../shared/Server/Server";
 import { Event } from "../../../shared/Event";
+import { Data } from "../../../shared/Data";
 
 @Component({
     selector: "notification-tab",
@@ -8,23 +9,22 @@ import { Event } from "../../../shared/Event";
 })
 export class NotificationComponent {
 
-    public myEvents: Array<Event>;
-    public participEvents: Array<Event>;
+    public publicEvents: Array<Event>;
     server: Server;
     pEvents: boolean;
 
-    constructor() {
+    constructor(private data: Data) {
         this.server = new Server;
-        this.pEvents = true;
-        
+        this.pEvents = true;  
+        this.publicEvents = [];  
     }
 
-    fetchParticipEvents() {
+    fetchPublicEvents() {
         if (this.pEvents) {
-            this.participEvents = this.server.getMyEvents(13);    
-            this.pEvents = true;
-            console.log("Events " + this.participEvents.length);
-        }      
+            this.publicEvents = this.server.getPublicEvents(this.data.storage["id"]);   
+            console.log("Events " + this.publicEvents.length);
+        }  
+        this.pEvents = !this.pEvents; 
         
     }
 }

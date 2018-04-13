@@ -24,8 +24,9 @@ export class Server {
                         "users/" + r.files[i].file_URL,
                         r.files[i].user_Id,
                         r.files[i].created_at,
-                        r.files[i].description
-
+                        r.files[i].description,
+                        r.files[i].album_Id,
+                        r.files[i].file_Name
                     )
                 )
             }
@@ -35,7 +36,7 @@ export class Server {
         return publicPhotos;
     }
 
-    getPublicEvents() {
+    /*getPublicEvents() {
         //files?transform=1&filter[]=file_Permission,eq,public&filter[]=event_Id,is,null&order=created_at,desc
         var query: string =  this.db + "events?transform=1&filter=event_Privacy,eq,public"; 
         var publicEvents: Array<Event> = [];
@@ -58,7 +59,7 @@ export class Server {
             console.log(e);
         })
         return publicEvents;
-    }
+    }*/
 
     getMyEvents(id: number) {
         var myEvents: Array<Event> = [];
@@ -197,6 +198,42 @@ export class Server {
             console.log(e);
         })
         return participants;
+    }
+
+    getPublicEvents(userId: number) {
+        var publicEvents: Array<Event> = [];
+        var query: string = this.db + "events?transform=1&filter=event_Privacy,eq,public"; 
+        console.log("QUERY for events " + query);
+        publicEvents = [];
+        http.getJSON(query)
+        .then((r) => {
+            //testing
+            console.log("Got " + r.events.length + " events");
+            for (let i = 0; i < r.events.length; i++) {
+                console.log("Event id" + r.events[i].event_Id);
+                var query2: string = this.db + "participants?transform=1&filter[]=event_Id,eq," + r.events[i].event_Id + "&filter[]=user_Id,eq," + userId;
+                console.log("query " + query2);
+                http.getJSON(query2)
+                .then((res) => {
+                    console.log(JSON.stringify(res));
+                    //show only events that the user hasn't joined yet
+                    if (res.participants.length == 0) {
+                        publicEvents.push(
+                            new Event(
+                                r.events[i].event_Id,
+                                r.events[i].event_Name,
+                                null,
+                                r.events[i].event_Description,
+                                r.events[i].event_Type
+                            )
+                        )  
+                    }   
+                })
+            }
+        }, function (e) {
+            console.log(e);
+        })
+        return publicEvents;
     }
 
     getEventPhotos(id: number) {

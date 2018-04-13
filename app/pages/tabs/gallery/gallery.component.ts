@@ -70,7 +70,9 @@ export class GalleryComponent {
                         "users/" + this.id + "/" + r.files[i].file_URL, //need to adjust when photo is in event catalog
                         this.id,
                         r.files[i].created_at,
-                        r.files[i].file_Description
+                        r.files[i].file_Description,
+                        r.files[i].album_Id,
+                        r.files[i].file_Name
                     )
                 )
                 console.log("There are " + this.myPhotos.length + " photos in my photos");
@@ -220,9 +222,7 @@ export class GalleryComponent {
 
     selectEvent(args: GestureEventData) {
         var eventId = parseInt(args.view.id);
-        if (this.participants.length == 0) {
-            this.participants = this.server.getEventParticipants(eventId);
-        }
+        this.participants = this.server.getEventParticipants(eventId);
         console.log("Event id " + eventId);
         console.log("Participants " + this.participants.length);
         this.eventSelected = !this.eventSelected;

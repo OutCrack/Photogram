@@ -25,8 +25,8 @@ export class LoginComponent implements OnInit{
 
   constructor(private router: Router, private page: Page, private data: Data) {
     this.user = {
-      "email" : "kasia.zubowicz@gmail.com",
-      "password" : "qwerty123"
+      "email" : "test@photogram.com",
+      "password" : "123456"
     }
     this.userId = 0;
   } 
@@ -130,7 +130,14 @@ export class LoginComponent implements OnInit{
                   "firstName" : r.users[0].first_Name,
                   "lastName" : r.users[0].last_Name,
                   "email" : r.users[0].email,
-                  "id" : r.users[0].user_Id
+                  "id" : r.users[0].user_Id,
+                  "gender" : r.users[0].gender,
+                  "dob" : r.users[0].DOB,
+                  "avatar" : r.users[0].avatar,
+                  "profession" : r.users[0].profession,
+                  "location" : r.users[0].location,
+                  "hobby" : r.users[0].hobby
+
                 }
             } else {
                 alert("User not found " + user.email); 

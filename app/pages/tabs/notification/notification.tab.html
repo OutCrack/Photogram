@@ -1,10 +1,10 @@
 <StackLayout>
     
     <Label text="Fourth tab item"></Label>
-    <Button text="Events" (tap)="fetchParticipEvents()"></Button>
+    <Button text="Events" (tap)="fetchPublicEvents()"></Button>
     <ScrollView *ngIf="pEvents">
         <StackLayout>
-                <StackLayout *ngFor="let event of participEvents">
+                <StackLayout *ngFor="let event of publicEvents">
                         <Label text="{{event.id}}"></Label>
                         <Label text="{{event.name}}"></Label>
                         <Label text="{{event.role}}"></Label>

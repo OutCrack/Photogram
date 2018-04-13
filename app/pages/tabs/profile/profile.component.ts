@@ -20,6 +20,12 @@ export class ProfileComponent {
     public firstName: string;
     public lastName: string;
     public email: string;
+    public profession: string;
+    public location: string;
+    public hobby: string;
+    public avatar: string;
+    public birthDate: string;
+    public gender: string;
     public id: any;
     public profile: boolean;
     public photos: boolean;
@@ -41,11 +47,16 @@ export class ProfileComponent {
         } else {
             this.profile = true;
         }
-        console.log()
         this.firstName = this.data.storage["firstName"];
         this.lastName = this.data.storage["lastName"];
         this.id = this.data.storage["id"];
         this.email = this.data.storage["email"];
+        this.profession = this.data.storage["profession"];
+        this.location = this.data.storage["location"];
+        this.gender = this.data.storage["gender"];
+        this.avatar = "http://188.166.127.207:8000/uploads/avatars/" + this.data.storage["avatar"];
+        this.birthDate = this.data.storage["dob"];
+        this.hobby = this.data.storage["hobby"];
     }
 
     //logs out from both Google+ and Facebook accounts
