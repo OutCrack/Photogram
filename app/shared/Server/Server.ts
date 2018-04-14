@@ -236,6 +236,25 @@ export class Server {
         return publicEvents;
     }
 
+    saveUser(firstName: string, lastName: string, location: string, profession: string, email: string) {
+        var result;
+        http.request({
+            url: this.db + "users",
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            //put file url instead of just name
+            content: JSON.stringify({ first_Name : firstName, last_Name : lastName, email: email, 
+            location: location, profession: profession})
+        }).then(function(response) {
+            result = response.content.toJSON();
+            console.log(result);
+        }, function(e) {
+            console.log("Error occured " + e);
+        }
+    );
+    return result;
+    }
+
     getEventPhotos(id: number) {
 
     }

@@ -5,9 +5,14 @@ import { Color } from "color";
 import { View } from "ui/core/view";
 import * as dialogs from "ui/dialogs";
 import { Data } from "../../shared/Data";
+import { Server } from "../../shared/Server/Server";
 const firebase = require("nativescript-plugin-firebase");
 var http = require("http");
 
+
+//continue here
+//when a user logs in with facebook or google for the first time
+//create the user in db
 
 @Component({
   selector: "my-app",
@@ -17,27 +22,24 @@ var http = require("http");
 
 export class LoginComponent implements OnInit{
   user: any;
-  isLoggingIn = true;
+  newUser: any;
+  userData: any;
+  userCreated = false;
+  signingUp = false;
   @ViewChild("container") container: ElementRef;
   site: string = "http://188.166.127.207:5555/api.php/";
   userId: any;
+  server: Server;
 
 
   constructor(private router: Router, private page: Page, private data: Data) {
     this.user = {
-      "email" : "test@photogram.com",
-      "password" : "123456"
+      "email" : "kasia.zubowicz@gmail.com",
+      "password" : "qwerty123"
     }
     this.userId = 0;
+    this.server = new Server();
   } 
-
-  submit() {
-    if (this.isLoggingIn) {
-      this.login();
-    } else {
-      this.signUp();
-    }
-  }
 
   login() {
     if (this.user.email && this.user.password) {
@@ -95,24 +97,55 @@ export class LoginComponent implements OnInit{
 }
 
   signUp() {
-    if (this.user.email && this.user.password) {
+    this.signingUp = true;
+    this.newUser = {
+      "email" : "newUser@user.com",
+      "password" : "newPassword"
+    }
+
+  }
+
+  signUpToFirebase() {
+    if (this.newUser.email && this.newUser.password) {
       firebase.createUser({
-        email: this.user.email,
-          password: this.user.password
+          email: this.newUser.email,
+          password: this.newUser.password
       }).then(
-        (result) => alert("User created"),
-        (error) => alert(error)
+        (result) =>  {
+          alert("User created");
+          this.userCreated = true;
+          this.signingUp = false;
+          this.server = new Server();
+          this.userData = {
+            "firstName" : "",
+            "lastName" : "",
+            "location" : "",
+            "profession" : ""
+          }
+     },
+        (error) =>  {
+          alert(error);
+          this.newUser = {
+            "email" : "",
+            "password" : "" }
+          }
       )
     }
   }
 
-  toggleDisplay() {
-    this.isLoggingIn = !this.isLoggingIn;
-    let container = <View>this.container.nativeElement;
-    container.animate({
-      backgroundColor: this.isLoggingIn ? new Color("white") : new Color("#301217"),
-      duration: 200
-    });
+  saveData() {
+      if (this.userData.firstName && this.userData.lastName) {
+          var ok = this.server.saveUser(this.userData.firstName, this.userData.lastName, this.userData.location, this.userData.profession, this.newUser.email)
+          this.signingUp = false;
+          this.userCreated = false;
+      } else {
+        alert("Fields first and last name can't be empty!");
+      }
+      firebase.getCurrentUser()
+      .then( () => {
+        this.findUser();
+        this.router.navigate(["/tab"])}) 
+      .catch(error => console.log("Not logged in " + error));
   }
 
   findUser() {

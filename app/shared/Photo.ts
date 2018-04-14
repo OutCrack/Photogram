@@ -2,7 +2,6 @@ import { User } from "./User";
 import { Comment } from "./Comment";
 import { Server } from "./Server/Server";
 var http = require("http");
-var server = new Server();
 
 export class Photo {
     id: number;
@@ -14,6 +13,7 @@ export class Photo {
     url: string;
     description: string;
     comments: Array<Comment>;
+    server: Server = new Server();
 
     constructor(id: number, url:string, userId: number, created: string, description: string, albumId: number, fileName: string) {
         this.id = id;
@@ -71,7 +71,7 @@ export class Photo {
 
     public getComments() {
         this.comments = [];
-        this.comments = server.getComments(this.id);
+        this.comments = this.server.getComments(this.id);
     
     }
 } 

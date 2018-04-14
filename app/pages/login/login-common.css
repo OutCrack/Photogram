@@ -9,14 +9,24 @@ StackLayout {
     margin-bottom: 20;
   }
 
+  .logo-img {
+    height: 30;
+    width: 30;
+    margin: 0;
+    padding: 5;
+  }
+
   Button, TextField {
     margin-left: 16;
     margin-right: 16;
     margin-bottom: 10;
+    border-radius: 5;
+    margin: 10;
   }
 
   TextField {
-    color: ivory;
+    color: black;
+    background-color: ivory;
   }
 
   .submit-button {
@@ -26,6 +36,36 @@ StackLayout {
   }
 
   .face-button {
+    width: 40%;
+    border-radius: 5;
+    border-width: 1;
+    margin: 10;
+    border-color: #2b3c6a;
     background-color: #3b5998;
     color: white;
+  }
+
+  .ggl-btn {
+    width: 40%;
+    border-radius: 5;
+    border-width: 1;
+    margin: 10;
+    border-color: whitesmoke;
+    background-color: antiquewhite;
+    color: gray;
+  }
+
+  .sign-up-btn {
+    background-color: #2f2f2f;
+    color: antiquewhite;
+    position: relative;
+    bottom: 10;
+  }
+
+  .radio-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    border-width: 2px;
+    border-color: black;
   }
