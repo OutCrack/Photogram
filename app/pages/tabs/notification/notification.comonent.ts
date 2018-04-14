@@ -15,16 +15,18 @@ export class NotificationComponent {
 
     constructor(private data: Data) {
         this.server = new Server;
-        this.pEvents = true;  
-        this.publicEvents = [];  
+        this.pEvents = false;    
     }
 
     fetchPublicEvents() {
+        this.pEvents = !this.pEvents; 
         if (this.pEvents) {
             this.publicEvents = this.server.getPublicEvents(this.data.storage["id"]);   
             console.log("Events " + this.publicEvents.length);
         }  
-        this.pEvents = !this.pEvents; 
-        
+    }
+
+    joinEvent(eventId: number) {
+        console.log("You clicked " + eventId);
     }
 }

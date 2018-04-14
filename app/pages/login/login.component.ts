@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit{
         () => {
           this.findUser();
           console.log("Logged inn");
-          this.router.navigate(["/tab"]);
+          //this.router.navigate(["/tab"]);
         })
       .catch(error => console.log(error));
     }
@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit{
 
   faceLogin() {
     var router = this.router;
+    var that = this;
       firebase.login({
         type: firebase.LoginType.FACEBOOK,
         facebookOptions: {
@@ -70,7 +71,8 @@ export class LoginComponent implements OnInit{
       }).then(
         function(fb_result) {
           console.log("Facebook login");
-          router.navigate(["/tab"]);
+          that.findUser();
+          //router.navigate(["/tab"]);
           
           //var fb_access_token = fb_result.providers[1].token;
         },
@@ -82,13 +84,15 @@ export class LoginComponent implements OnInit{
 
   googleLogin() {
     var router = this.router;
+    var that = this;
     firebase.login({
     type: firebase.LoginType.GOOGLE
     }).then(
       function (result) {
         JSON.stringify(result);
         console.log("Google login succeded");
-        router.navigate(["/tab"]);
+        that.findUser();
+        //router.navigate(["/tab"]);
     },
     function(error) {
       console.log(error);
@@ -135,22 +139,26 @@ export class LoginComponent implements OnInit{
 
   saveData() {
       if (this.userData.firstName && this.userData.lastName) {
-          var ok = this.server.saveUser(this.userData.firstName, this.userData.lastName, this.userData.location, this.userData.profession, this.newUser.email)
+          console.log("This.user.email is " + this.user.email);
+          var ok = this.server.saveUser(this.userData.firstName, this.userData.lastName, this.userData.location, this.userData.profession, this.user.email)
           this.signingUp = false;
           this.userCreated = false;
+          this.findUser();
       } else {
         alert("Fields first and last name can't be empty!");
       }
-      firebase.getCurrentUser()
-      .then( () => {
-        this.findUser();
-        this.router.navigate(["/tab"])}) 
-      .catch(error => console.log("Not logged in " + error));
+      //firebase.getCurrentUser()
+      //.then( () => {
+        
+        //this.router.navigate(["/tab"])
+      //}) 
+      //.catch(error => console.log("Not logged in " + error));
   }
 
   findUser() {
     firebase.getCurrentUser()
     .then(user => {
+        this.user.email = user.email;
         console.log("TABBBBBBB Users email is " + user.email);
         var query: string = this.site + "users?transform=1&filter=email,eq,"+user.email;
         //alert(query);
@@ -172,9 +180,21 @@ export class LoginComponent implements OnInit{
                   "hobby" : r.users[0].hobby
 
                 }
+                this.router.navigate(["/tab"]);
             } else {
-                alert("User not found " + user.email); 
+              this.userData = {
+                "firstName" : "",
+                "lastName" : "",
+                "location" : "",
+                "profession" : ""
+              }
+                alert("User not found in db " + user.email); 
+                this.userCreated = true;
+                this.signingUp = false;
+                this.server = new Server();
             }
+        }, function(e) {
+          alert("User not found");
         })
         
     })
@@ -189,7 +209,8 @@ export class LoginComponent implements OnInit{
     firebase.getCurrentUser()
     .then( () => {
       this.findUser();
-      this.router.navigate(["/tab"])}) 
+      //this.router.navigate(["/tab"])
+    }) 
     .catch(error => console.log("Not logged in " + error));
   }
 }

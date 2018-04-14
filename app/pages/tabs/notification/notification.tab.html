@@ -4,10 +4,12 @@
     <Button text="Events" (tap)="fetchPublicEvents()"></Button>
     <ScrollView *ngIf="pEvents">
         <StackLayout>
-                <StackLayout *ngFor="let event of publicEvents">
+                <StackLayout *ngFor="let event of publicEvents" orientation="horizontal">
+                    <StackLayout>
                         <Label text="{{event.id}}"></Label>
                         <Label text="{{event.name}}"></Label>
-                        <Label text="{{event.role}}"></Label>
+                    </StackLayout>
+                    <Button text="join" id="{{event.id}}" (tap)="joinEvent(event.id)"></Button>
                 </StackLayout>
         </StackLayout>
     </ScrollView>
