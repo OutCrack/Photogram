@@ -241,7 +241,7 @@ export class Server {
         http.request({
             url: this.db + "users",
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type" : "application/json" },
             //put file url instead of just name
             content: JSON.stringify({ first_Name : firstName, last_Name : lastName, email: email, 
             location: location, profession: profession})
@@ -253,6 +253,52 @@ export class Server {
         }
     );
     return result;
+    }
+
+    joinEvent(eventId: number, userId: number) {
+        var result;
+        http.request({
+            url: this.db + "participants",
+            method: "POST",
+            headers: { "Content-Type" : "application/json" },
+            content: JSON.stringify({ event_Id : eventId, user_Id : userId, participant_Role: "User" })
+        }).then(function(response) {
+            result = response.content.toJSON();
+            console.log(result);
+        }, function(e) {
+            console.log(e);
+        });
+        return result;
+    }
+
+    leaveEvent(eventId: number, userId: number) {
+        var participId: number;
+        var query = this.db + "participants?transform=1&filter[]=event_Id,eq," + eventId + "&filter[]=user_Id,eq," + userId;
+        http.getJSON(query)
+        .then((r) => {
+            if (r.participants == 0) {
+                return null;
+            }
+            var result;
+            http.request({
+            url: this.db + "participants/" + r.participants[0].participant_Id,
+            method : "DELETE",
+            headers : { "Content-Type" : "application/json" },
+            //where : JSON.stringify({ event_Id : eventId, user_Id : userId, participant_Role : "User" })
+        }).then(function(response) {
+            result = response.content.toJSON();
+            console.log(JSON.stringify(response));
+        }, function(e) {
+            console.log(e);
+        });
+        return result;
+
+
+        }, function(e) {
+            console.log(e);
+            return null;
+        });
+        
     }
 
     getEventPhotos(id: number) {

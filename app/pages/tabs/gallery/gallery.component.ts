@@ -121,12 +121,13 @@ export class GalleryComponent {
 
     getEvents() {
         this.mEvents = !this.mEvents;
-        this.id = this.data.storage["id"];
         if (this.mEvents) {
-            this.participEvents = this.server.getMyEvents(this.id)    
-            this.mEvents = true;
+            this.participEvents = this.server.getMyEvents(this.data.storage["id"]);
             console.log("Events " + this.participEvents.length);
-        } 
+        }
+           
+        
+
     }
 
     openGallery() {
@@ -226,6 +227,13 @@ export class GalleryComponent {
         console.log("Event id " + eventId);
         console.log("Participants " + this.participants.length);
         this.eventSelected = !this.eventSelected;
-        
+    }
+
+    leaveEvent(eventId: number) {
+        console.log("Evnet id tapped " + eventId + " user id " + this.data.storage["id"]);
+        this.server.leaveEvent(eventId, this.data.storage["id"]);
+        alert("Event removed");
+        this.mEvents = false;
+        this.getEvents();
     }
 }

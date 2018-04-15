@@ -14,7 +14,7 @@ export class NotificationComponent {
     pEvents: boolean;
 
     constructor(private data: Data) {
-        this.server = new Server;
+        this.server = new Server();
         this.pEvents = false;    
     }
 
@@ -27,6 +27,10 @@ export class NotificationComponent {
     }
 
     joinEvent(eventId: number) {
-        console.log("You clicked " + eventId);
+        console.log("You clicked " + eventId + "your id " + this.data.storage["id"]);
+        var ok = this.server.joinEvent(eventId, this.data.storage["id"]);
+        this.pEvents = false;
+        this.fetchPublicEvents();
+
     }
 }

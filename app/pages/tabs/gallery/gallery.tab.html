@@ -28,12 +28,15 @@
     </ScrollView>
     <ScrollView *ngIf="mEvents">
         <StackLayout>
-                <StackLayout id="{{event.id}}" *ngFor="let event of participEvents" (tap)="selectEvent($event)">
+                <StackLayout id="{{event.id}}" *ngFor="let event of participEvents" (tap)="selectEvent($event)" orientation="horizontal">
+                    <StackLayout>
                         <Label text="{{event.id}}"></Label>
                         <Label text="{{event.name}}"></Label>
                         <Label text="{{event.role}}"></Label>
                         <Label text="{{event.type}}"></Label>
                         <Label text="{{event.description}}"></Label>
+                    </StackLayout>
+                    <Button text="leaveEvent" *ngIf="event.role=='User'" (tap)="leaveEvent(event.id)"></Button>
                 </StackLayout>
         </StackLayout>
     </ScrollView>
