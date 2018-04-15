@@ -21,7 +21,7 @@
         <Image src="{{photoUrl}}"></Image>
         <GridLayout *ngFor="let comment of photoComments" columns="*, 40">
                 <Label text="{{comment.user.firstN}} {{comment.user.lastN}} : {{comment.text}}" col="0"></Label>
-                <Button text="x" *ngIf="comment.rights" col="1"></Button>
+                <Button text="x" *ngIf="comment.rights" col="1" (tap)="removeComment(comment.id)"></Button>
         </GridLayout>
         <GridLayout columns="250, 80">
                 <TextField #newComment hint="comment" width="80%" height="50dp" col="0"></TextField>

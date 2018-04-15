@@ -98,6 +98,15 @@ export class GalleryComponent {
         this.photoCreated = photo.created;
         this.photoDescription = photo.description;
         this.photoComments = photo.comments;
+        for (let c of this.photoComments) {
+            //testing
+            //console.log("Checking rights for comments");
+            //console.log("comment user id " + c.userId + " loggen in as " + this.userId);
+            if (c.userId == this.data.storage["id"]) {
+                c.rights = true;
+                console.log("Rights changed to true");
+            }
+        }
     }
 
     closePhoto() {
@@ -111,9 +120,9 @@ export class GalleryComponent {
         if (result.text.length < 1) {
             alert("Cannot insert empty comment");
         } else {
-            this.server.updateComment(this.photoId, this.data.storage["id"], result.text);
+            var commentId = this.server.updateComment(this.photoId, this.data.storage["id"], result.text);
             this.photoComments.push(
-                new Comment(this.data.storage["id"], result.text)
+                new Comment(commentId, this.data.storage["id"], result.text)
             );
             result.text = "";
         }
@@ -125,9 +134,6 @@ export class GalleryComponent {
             this.participEvents = this.server.getMyEvents(this.data.storage["id"]);
             console.log("Events " + this.participEvents.length);
         }
-           
-        
-
     }
 
     openGallery() {

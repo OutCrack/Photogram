@@ -8,7 +8,8 @@ export class Comment {
     user: User;
     rights: boolean;
 
-    constructor(userId: number, text: string) {
+    constructor(id: number, userId: number, text: string) {
+        this.id = id;
         this.userId = userId;
         this.text = text;
         this.getUser();

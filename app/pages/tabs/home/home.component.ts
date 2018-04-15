@@ -130,8 +130,9 @@ export class HomeComponent {
     selectPhoto(args: GestureEventData) {
         this.selected = true;
         this.userId = this.data.storage["id"];
-        console.log("The id is " + args.view.id);
-        console.log("The event name is " + args.eventName);
+        //testing
+        //console.log("The id is " + args.view.id);
+        //console.log("The event name is " + args.eventName);
         var photo: Photo = this.photos.find(i => i.id === parseInt(args.view.id));
         this.username = photo.user.firstN + " " + photo.user.lastN;
         this.photoId = photo.id;
@@ -140,8 +141,9 @@ export class HomeComponent {
         this.photoDescription = photo.description;
         this.photoComments = photo.comments;
         for (let c of this.photoComments) {
-            console.log("Checking rights for comments");
-            console.log("comment user id " + c.userId + " loggen in as " + this.userId);
+            //testing
+            //console.log("Checking rights for comments");
+            //console.log("comment user id " + c.userId + " loggen in as " + this.userId);
             if (c.userId == this.userId) {
                 c.rights = true;
                 console.log("Rights changed to true");
@@ -161,16 +163,17 @@ export class HomeComponent {
         if (result.text.length < 1) {
             alert("Cannot insert empty comment");
         } else {
-            this.server.updateComment(this.photoId, this.data.storage["id"], result.text);
-            var comment = new Comment(this.data.storage["id"], result.text);
+            var commentId = this.server.updateComment(this.photoId, this.data.storage["id"], result.text);
+            var comment = new Comment(commentId, this.data.storage["id"], result.text);
             comment.rights = true;
             this.photoComments.push(comment);
             result.text = "";
         }
     }
 
-    removeComment(result) {
-
+    removeComment(commentId) {
+        console.log("You click comment id " + commentId);
+        this.server.removeComment(commentId);
     }
 
 }

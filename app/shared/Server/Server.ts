@@ -133,6 +133,7 @@ export class Server {
             for (let i = 0; i < r.comments.length; i++) {
                 comments.push(
                     new Comment(
+                        r.comments[i].comment_Id,
                         r.comments[i].user_Id,
                         r.comments[i].comment_Text
                     )
@@ -173,6 +174,7 @@ export class Server {
                 console.log("Error occured " + e);
             }
         );
+        return result;
     }
 
     getEventParticipants(id: number) {
@@ -292,14 +294,27 @@ export class Server {
             console.log(e);
         });
         return result;
-
-
         }, function(e) {
             console.log(e);
             return null;
         });
-        
     }
+
+    removeComment(commentId: number) {
+        var result;
+        http.request({
+        url: this.db + "comments/" + commentId,
+        method : "DELETE",
+        headers : { "Content-Type" : "application/json" },
+    }).then(function(response) {
+        result = response.content.toJSON();
+        console.log(JSON.stringify(response));
+    }, function(e) {
+        console.log(e);
+        return null;
+    });
+    return result;
+    } 
 
     getEventPhotos(id: number) {
 
