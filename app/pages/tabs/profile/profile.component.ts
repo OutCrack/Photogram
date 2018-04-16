@@ -29,7 +29,6 @@ export class ProfileComponent {
     public id: any;
     public profile: boolean;
     public photos: boolean;
-    public selected: boolean;
     public selectedPhoto: string;
     site: string = "http://188.166.127.207:5555/api.php/";
     public myPhotos: Array<Photo>;
@@ -38,15 +37,6 @@ export class ProfileComponent {
     
 
     constructor(private router: Router, private data: Data) {
-        this.profile = false;
-    }
-
-    showInfo() {
-        if (this.profile) {
-            this.profile = false;
-        } else {
-            this.profile = true;
-        }
         this.firstName = this.data.storage["firstName"];
         this.lastName = this.data.storage["lastName"];
         this.id = this.data.storage["id"];

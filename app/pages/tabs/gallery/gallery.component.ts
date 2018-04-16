@@ -84,7 +84,6 @@ export class GalleryComponent {
             console.log("There are " + this.myPhotos.length + " photos in my photos");
         })
         }
-        
     }
 
     selectPhoto(args: GestureEventData) {

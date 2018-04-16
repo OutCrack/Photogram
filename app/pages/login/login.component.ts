@@ -139,11 +139,15 @@ export class LoginComponent implements OnInit{
 
   saveData() {
       if (this.userData.firstName && this.userData.lastName) {
-          console.log("This.user.email is " + this.user.email);
-          var ok = this.server.saveUser(this.userData.firstName, this.userData.lastName, this.userData.location, this.userData.profession, this.user.email)
-          this.signingUp = false;
-          this.userCreated = false;
-          this.findUser();
+        firebase.getCurrentUser() 
+          .then(user => {
+            var ok = this.server.saveUser(this.userData.firstName, this.userData.lastName, this.userData.location, this.userData.profession, user.email)
+            this.signingUp = false;
+            this.userCreated = false;
+            this.findUser();
+          })
+          .catch(error => console.error(error));
+
       } else {
         alert("Fields first and last name can't be empty!");
       }
@@ -194,7 +198,7 @@ export class LoginComponent implements OnInit{
                 this.server = new Server();
             }
         }, function(e) {
-          alert("User not found");
+          alert("User not found ");
         })
         
     })
