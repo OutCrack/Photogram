@@ -1,0 +1,8 @@
+
+
+<ActionBar title="{N} Camera Example"></ActionBar>
+<StackLayout horizontalAlignment="center" verticalAlignment="center">
+    <Image [src]="picture" width="200" height="200"></Image>
+    <Button text="Capture" (tap)="takePicture()" class="btn btn-primary"></Button>
+    <Button text ="Upload" (tap)="uploadPicture()" class="btn btn-primary"></Button>
+</StackLayout>

@@ -1,4 +1,5 @@
 import { LoginComponent } from "./pages/login/login.component";
+import { ImageComponent } from "./pages/image/image.component";
 import { TabComponent } from "./pages/tabs/tab.component";
 import { HomeComponent } from "./pages/tabs/home/home.component";
 import { SearchComponent } from "./pages/tabs/search/search.component";
@@ -9,6 +10,7 @@ import { ProfileComponent } from "./pages/tabs/profile/profile.component";
 export const routes = [
   { path: "", component: LoginComponent },
   { path: "login", component: LoginComponent },
+  { path: "image", component: ImageComponent},
   { path: "tab", component: TabComponent, children: [
     { path: "home", component: HomeComponent, outlet: 'homeoutlet'},
     { path: "search", component: SearchComponent, outlet: 'searchoutlet'},
@@ -21,6 +23,7 @@ export const routes = [
 
 export const navigatableComponents = [
   LoginComponent,
+  ImageComponent,
   TabComponent,
   HomeComponent,
   SearchComponent,

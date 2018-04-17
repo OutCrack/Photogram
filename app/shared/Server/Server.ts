@@ -2,6 +2,8 @@ import { Event } from "../Event";
 import { Photo } from "../Photo";
 import { User } from "../User";
 import { Comment } from "../Comment";
+var bghttp = require("nativescript-background-http");
+var session = bghttp.session("image-upload");
 var http = require("http");
 
 export class Server {
@@ -133,6 +135,7 @@ export class Server {
             for (let i = 0; i < r.comments.length; i++) {
                 comments.push(
                     new Comment(
+                        r.comments[i].comment_Id,
                         r.comments[i].user_Id,
                         r.comments[i].comment_Text
                     )
@@ -173,6 +176,7 @@ export class Server {
                 console.log("Error occured " + e);
             }
         );
+        return result;
     }
 
     getEventParticipants(id: number) {
@@ -236,8 +240,143 @@ export class Server {
         return publicEvents;
     }
 
+    saveUser(firstName: string, lastName: string, location: string, profession: string, email: string) {
+        var result;
+        http.request({
+            url: this.db + "users",
+            method: "POST",
+            headers: { "Content-Type" : "application/json" },
+            //put file url instead of just name
+            content: JSON.stringify({ first_Name : firstName, last_Name : lastName, email: email, 
+            location: location, profession: profession})
+        }).then(function(response) {
+            result = response.content.toJSON();
+            console.log(result);
+        }, function(e) {
+            console.log("Error occured " + e);
+        }
+    );
+    return result;
+    }
+
+    joinEvent(eventId: number, userId: number) {
+        var result;
+        http.request({
+            url: this.db + "participants",
+            method: "POST",
+            headers: { "Content-Type" : "application/json" },
+            content: JSON.stringify({ event_Id : eventId, user_Id : userId, participant_Role: "User" })
+        }).then(function(response) {
+            result = response.content.toJSON();
+            console.log(result);
+        }, function(e) {
+            console.log(e);
+        });
+        return result;
+    }
+
+    leaveEvent(eventId: number, userId: number) {
+        var participId: number;
+        var query = this.db + "participants?transform=1&filter[]=event_Id,eq," + eventId + "&filter[]=user_Id,eq," + userId;
+        http.getJSON(query)
+        .then((r) => {
+            if (r.participants == 0) {
+                return null;
+            }
+            var result;
+            http.request({
+            url: this.db + "participants/" + r.participants[0].participant_Id,
+            method : "DELETE",
+            headers : { "Content-Type" : "application/json" },
+            //where : JSON.stringify({ event_Id : eventId, user_Id : userId, participant_Role : "User" })
+        }).then(function(response) {
+            result = response.content.toJSON();
+            console.log(JSON.stringify(response));
+        }, function(e) {
+            console.log(e);
+        });
+        return result;
+        }, function(e) {
+            console.log(e);
+            return null;
+        });
+    }
+
+    removeComment(commentId: number) {
+        var result;
+        http.request({
+        url: this.db + "comments/" + commentId,
+        method : "DELETE",
+        headers : { "Content-Type" : "application/json" },
+    }).then(function(response) {
+        result = response.content.toJSON();
+        console.log(JSON.stringify(response));
+    }, function(e) {
+        console.log(e);
+        return null;
+    });
+    return result;
+    } 
+
     getEventPhotos(id: number) {
 
+    }
+
+    uploadPhoto(fileUrl: string, id: number) {
+        var fileName = this.getTimeStamp();
+        var that = this;
+        var request = {
+            url: "http://188.166.127.207:8888/Server.js",
+            method: "POST",
+            headers: {
+                "Content-Type": "application/octet-stream",
+                "File-Name": fileName,
+                "User-id": id
+            },
+            description: "{ 'uploading': fileUrl }"
+        };
+
+        var task = session.uploadFile(fileUrl, request);
+
+        task.on("progress", logEvent);
+        task.on("error", logEvent);
+        //only when uploading is complete, update the database
+        task.on("complete", logEvent); 
+ 
+        function logEvent(e) {
+            if (e.eventName == "complete") {
+                that.updateDb(fileName, id);
+                alert("Upload complete");
+            }
+            console.log(e.eventName);       
+        }  
+    }
+
+    private updateDb(fileName: string, id: number) {
+        var result;
+        var name = "img" + fileName + ".jpg";
+        console.log("The id " + id);
+        http.request({
+            url: "http://188.166.127.207:5555/api.php/files/",
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            //put file url instead of just name
+            content: JSON.stringify({ user_Id : id, file_Name : name, file_URL : name, 
+            file_Permission : "Public"})
+        }).then(function(response) {
+            result = response.content.toJSON();
+            console.log(result);
+        }, function(e) {
+            console.log("Error occured " + e);
+        });
+    }
+
+    private getTimeStamp() {
+        var date = new Date(); 
+        var string = date.getFullYear().toString() + date.getMonth().toString() + date.getDate().toString()
+            + date.getHours().toString() + date.getMinutes().toString() +
+            + date.getSeconds().toString() + date.getMilliseconds().toString();
+        return string;
     }
 
 }

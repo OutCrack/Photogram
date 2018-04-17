@@ -1,9 +1,9 @@
 <StackLayout>
     
-    <Label class="header" text="Profile" *ngIf="!selected"></Label>
-    <Button [text]="profile ? 'Hide profile' : 'Show profile'"  *ngIf="!selected" (tap)="showInfo()"></Button>
+    <Label class="header" text="Profile"></Label>
+    <Button text="Logout" (tap)="logout()" ></Button>
     <ScrollView>
-        <WrapLayout *ngIf="profile">
+        <WrapLayout>
             <Image src="{{avatar}}" width="100" height="100"></Image>"
             <GridLayout columns="auto, 60, *" rows="40, 40, 40, 40, 40, 40. 40, 40, 40">
                 <Label text="Name: " col="0" row="0"></Label><Label text="{{firstName}}" col="1" row="0"></Label><Label text="{{lastName}}" col="2" row="0"></Label>
@@ -16,5 +16,4 @@
             </GridLayout>
         </WrapLayout>
     </ScrollView>   
-    <Button text="Logout" (tap)="logout()" *ngIf="!selected"></Button>
 </StackLayout>

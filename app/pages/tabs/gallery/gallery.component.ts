@@ -19,6 +19,7 @@ import { User } from "../../../shared/User";
 })
 export class GalleryComponent {
 
+    public picture: any;
     items = [];
     public id: any;
     public selected: boolean;
@@ -84,7 +85,6 @@ export class GalleryComponent {
             console.log("There are " + this.myPhotos.length + " photos in my photos");
         })
         }
-        
     }
 
     selectPhoto(args: GestureEventData) {
@@ -98,6 +98,15 @@ export class GalleryComponent {
         this.photoCreated = photo.created;
         this.photoDescription = photo.description;
         this.photoComments = photo.comments;
+        for (let c of this.photoComments) {
+            //testing
+            //console.log("Checking rights for comments");
+            //console.log("comment user id " + c.userId + " loggen in as " + this.userId);
+            if (c.userId == this.data.storage["id"]) {
+                c.rights = true;
+                console.log("Rights changed to true");
+            }
+        }
     }
 
     closePhoto() {
@@ -111,9 +120,9 @@ export class GalleryComponent {
         if (result.text.length < 1) {
             alert("Cannot insert empty comment");
         } else {
-            this.server.updateComment(this.photoId, this.data.storage["id"], result.text);
+            var commentId = this.server.updateComment(this.photoId, this.data.storage["id"], result.text);
             this.photoComments.push(
-                new Comment(this.data.storage["id"], result.text)
+                new Comment(commentId, this.data.storage["id"], result.text)
             );
             result.text = "";
         }
@@ -121,12 +130,10 @@ export class GalleryComponent {
 
     getEvents() {
         this.mEvents = !this.mEvents;
-        this.id = this.data.storage["id"];
         if (this.mEvents) {
-            this.participEvents = this.server.getMyEvents(this.id)    
-            this.mEvents = true;
+            this.participEvents = this.server.getMyEvents(this.data.storage["id"]);
             console.log("Events " + this.participEvents.length);
-        } 
+        }
     }
 
     openGallery() {
@@ -226,6 +233,13 @@ export class GalleryComponent {
         console.log("Event id " + eventId);
         console.log("Participants " + this.participants.length);
         this.eventSelected = !this.eventSelected;
-        
+    }
+
+    leaveEvent(eventId: number) {
+        console.log("Evnet id tapped " + eventId + " user id " + this.data.storage["id"]);
+        this.server.leaveEvent(eventId, this.data.storage["id"]);
+        alert("Event removed");
+        this.mEvents = false;
+        this.getEvents();
     }
 }

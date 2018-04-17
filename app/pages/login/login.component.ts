@@ -5,9 +5,14 @@ import { Color } from "color";
 import { View } from "ui/core/view";
 import * as dialogs from "ui/dialogs";
 import { Data } from "../../shared/Data";
+import { Server } from "../../shared/Server/Server";
 const firebase = require("nativescript-plugin-firebase");
 var http = require("http");
 
+
+//continue here
+//when a user logs in with facebook or google for the first time
+//create the user in db
 
 @Component({
   selector: "my-app",
@@ -17,27 +22,24 @@ var http = require("http");
 
 export class LoginComponent implements OnInit{
   user: any;
-  isLoggingIn = true;
+  newUser: any;
+  userData: any;
+  userCreated = false;
+  signingUp = false;
   @ViewChild("container") container: ElementRef;
   site: string = "http://188.166.127.207:5555/api.php/";
   userId: any;
+  server: Server;
 
 
   constructor(private router: Router, private page: Page, private data: Data) {
     this.user = {
-      "email" : "test@photogram.com",
-      "password" : "123456"
+      "email" : "kasia.zubowicz@gmail.com",
+      "password" : "qwerty123"
     }
     this.userId = 0;
+    this.server = new Server();
   } 
-
-  submit() {
-    if (this.isLoggingIn) {
-      this.login();
-    } else {
-      this.signUp();
-    }
-  }
 
   login() {
     if (this.user.email && this.user.password) {
@@ -52,7 +54,7 @@ export class LoginComponent implements OnInit{
         () => {
           this.findUser();
           console.log("Logged inn");
-          this.router.navigate(["/tab"]);
+          //this.router.navigate(["/tab"]);
         })
       .catch(error => console.log(error));
     }
@@ -60,6 +62,7 @@ export class LoginComponent implements OnInit{
 
   faceLogin() {
     var router = this.router;
+    var that = this;
       firebase.login({
         type: firebase.LoginType.FACEBOOK,
         facebookOptions: {
@@ -68,7 +71,8 @@ export class LoginComponent implements OnInit{
       }).then(
         function(fb_result) {
           console.log("Facebook login");
-          router.navigate(["/tab"]);
+          that.findUser();
+          //router.navigate(["/tab"]);
           
           //var fb_access_token = fb_result.providers[1].token;
         },
@@ -80,13 +84,15 @@ export class LoginComponent implements OnInit{
 
   googleLogin() {
     var router = this.router;
+    var that = this;
     firebase.login({
     type: firebase.LoginType.GOOGLE
     }).then(
       function (result) {
         JSON.stringify(result);
         console.log("Google login succeded");
-        router.navigate(["/tab"]);
+        that.findUser();
+        //router.navigate(["/tab"]);
     },
     function(error) {
       console.log(error);
@@ -95,29 +101,68 @@ export class LoginComponent implements OnInit{
 }
 
   signUp() {
-    if (this.user.email && this.user.password) {
+    this.signingUp = true;
+    this.newUser = {
+      "email" : "newUser@user.com",
+      "password" : "newPassword"
+    }
+
+  }
+
+  signUpToFirebase() {
+    if (this.newUser.email && this.newUser.password) {
       firebase.createUser({
-        email: this.user.email,
-          password: this.user.password
+          email: this.newUser.email,
+          password: this.newUser.password
       }).then(
-        (result) => alert("User created"),
-        (error) => alert(error)
+        (result) =>  {
+          alert("User created");
+          this.userCreated = true;
+          this.signingUp = false;
+          this.server = new Server();
+          this.userData = {
+            "firstName" : "",
+            "lastName" : "",
+            "location" : "",
+            "profession" : ""
+          }
+     },
+        (error) =>  {
+          alert(error);
+          this.newUser = {
+            "email" : "",
+            "password" : "" }
+          }
       )
     }
   }
 
-  toggleDisplay() {
-    this.isLoggingIn = !this.isLoggingIn;
-    let container = <View>this.container.nativeElement;
-    container.animate({
-      backgroundColor: this.isLoggingIn ? new Color("white") : new Color("#301217"),
-      duration: 200
-    });
+  saveData() {
+      if (this.userData.firstName && this.userData.lastName) {
+        firebase.getCurrentUser() 
+          .then(user => {
+            var ok = this.server.saveUser(this.userData.firstName, this.userData.lastName, this.userData.location, this.userData.profession, user.email)
+            this.signingUp = false;
+            this.userCreated = false;
+            this.findUser();
+          })
+          .catch(error => console.error(error));
+
+      } else {
+        alert("Fields first and last name can't be empty!");
+      }
+      //firebase.getCurrentUser()
+      //.then( () => {
+        
+        //this.router.navigate(["/tab"])
+      //}) 
+      //.catch(error => console.log("Not logged in " + error));
   }
 
   findUser() {
     firebase.getCurrentUser()
     .then(user => {
+        this.user.email = user.email;
         console.log("TABBBBBBB Users email is " + user.email);
         var query: string = this.site + "users?transform=1&filter=email,eq,"+user.email;
         //alert(query);
@@ -139,16 +184,32 @@ export class LoginComponent implements OnInit{
                   "hobby" : r.users[0].hobby
 
                 }
+                this.router.navigate(["/tab"]);
             } else {
-                alert("User not found " + user.email); 
+              this.userData = {
+                "firstName" : "",
+                "lastName" : "",
+                "location" : "",
+                "profession" : ""
+              }
+                alert("User not found in db " + user.email); 
+                this.userCreated = true;
+                this.signingUp = false;
+                this.server = new Server();
             }
+        }, function(e) {
+          //alert("User not found ");
         })
         
     })
     
     .catch(error => console.error(error));
-    console.log("Users id " + this.userId);
-    
+    console.log("Users id " + this.userId);   
+}
+
+cancel() {
+  this.signingUp = false;
+  this.router.navigate(["/tab"]);
 }
 
   ngOnInit() {
@@ -156,7 +217,8 @@ export class LoginComponent implements OnInit{
     firebase.getCurrentUser()
     .then( () => {
       this.findUser();
-      this.router.navigate(["/tab"])}) 
+      //this.router.navigate(["/tab"])
+    }) 
     .catch(error => console.log("Not logged in " + error));
   }
 }

@@ -19,7 +19,10 @@
             <Label text="{{photoDescription}}"></Label>
             <Button text="X" class="close" (tap)="closePhoto()"></Button>
             <Image src="{{photoUrl}}"></Image>
-            <Label *ngFor="let comment of photoComments" text="{{comment.user.firstN}} {{comment.user.lastN}} : {{comment.text}}"></Label>
+            <GridLayout *ngFor="let comment of photoComments" columns="*, 40">
+                <Label text="{{comment.user.firstN}} {{comment.user.lastN}} : {{comment.text}}" col="0"></Label>
+                <Button text="x" *ngIf="comment.rights" col="1"></Button>
+            </GridLayout>
                 <GridLayout columns="250, 80">
                 <TextField #newComment hint="comment" width="80%" height="50dp" col="0"></TextField>
                 <Button text="Add" (tap)="addComment(newComment)" col="1"></Button>
@@ -28,12 +31,15 @@
     </ScrollView>
     <ScrollView *ngIf="mEvents">
         <StackLayout>
-                <StackLayout id="{{event.id}}" *ngFor="let event of participEvents" (tap)="selectEvent($event)">
+                <StackLayout id="{{event.id}}" *ngFor="let event of participEvents" (tap)="selectEvent($event)" orientation="horizontal">
+                    <StackLayout>
                         <Label text="{{event.id}}"></Label>
                         <Label text="{{event.name}}"></Label>
                         <Label text="{{event.role}}"></Label>
                         <Label text="{{event.type}}"></Label>
                         <Label text="{{event.description}}"></Label>
+                    </StackLayout>
+                    <Button text="leaveEvent" *ngIf="event.role=='User'" (tap)="leaveEvent(event.id)"></Button>
                 </StackLayout>
         </StackLayout>
     </ScrollView>
