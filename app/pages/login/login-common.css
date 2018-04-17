@@ -30,9 +30,9 @@ StackLayout {
   }
 
   .submit-button {
+    width: 40%;
     background-color: #CB1D00;
     color: white;
-    margin-top: 20;
   }
 
   .face-button {
@@ -59,13 +59,32 @@ StackLayout {
     background-color: #2f2f2f;
     color: antiquewhite;
     position: relative;
-    bottom: 10;
+    width: 40%;
   }
 
   .radio-btn {
-    width: 30px;
-    height: 30px;
-    border-radius: 15px;
-    border-width: 2px;
+    width: 30dp;
+    height: 30dp;
+    border-radius: 15dp;
+    border-width: 2dp;
     border-color: black;
+  }
+
+  .header {
+    text-align: center;
+    font-size: 20dp;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: antiquewhite;
+    margin-bottom: 20dp
+  }
+
+  .cancel-btn {
+    background-color: #CB1D00;
+    color: black;
+    width: 40%;
+  }
+
+  .btn-container {
+    margin: auto; 
+    width: 70%;
   }

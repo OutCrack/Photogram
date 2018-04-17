@@ -198,14 +198,18 @@ export class LoginComponent implements OnInit{
                 this.server = new Server();
             }
         }, function(e) {
-          alert("User not found ");
+          //alert("User not found ");
         })
         
     })
     
     .catch(error => console.error(error));
-    console.log("Users id " + this.userId);
-    
+    console.log("Users id " + this.userId);   
+}
+
+cancel() {
+  this.signingUp = false;
+  this.router.navigate(["/tab"]);
 }
 
   ngOnInit() {

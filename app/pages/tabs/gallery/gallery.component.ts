@@ -19,6 +19,7 @@ import { User } from "../../../shared/User";
 })
 export class GalleryComponent {
 
+    public picture: any;
     items = [];
     public id: any;
     public selected: boolean;

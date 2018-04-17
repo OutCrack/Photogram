@@ -2,6 +2,8 @@ import { Event } from "../Event";
 import { Photo } from "../Photo";
 import { User } from "../User";
 import { Comment } from "../Comment";
+var bghttp = require("nativescript-background-http");
+var session = bghttp.session("image-upload");
 var http = require("http");
 
 export class Server {
@@ -318,6 +320,63 @@ export class Server {
 
     getEventPhotos(id: number) {
 
+    }
+
+    uploadPhoto(fileUrl: string, id: number) {
+        var fileName = this.getTimeStamp();
+        var that = this;
+        var request = {
+            url: "http://188.166.127.207:8888/Server.js",
+            method: "POST",
+            headers: {
+                "Content-Type": "application/octet-stream",
+                "File-Name": fileName,
+                "User-id": id
+            },
+            description: "{ 'uploading': fileUrl }"
+        };
+
+        var task = session.uploadFile(fileUrl, request);
+
+        task.on("progress", logEvent);
+        task.on("error", logEvent);
+        //only when uploading is complete, update the database
+        task.on("complete", logEvent); 
+ 
+        function logEvent(e) {
+            if (e.eventName == "complete") {
+                that.updateDb(fileName, id);
+                alert("Upload complete");
+            }
+            console.log(e.eventName);       
+        }  
+    }
+
+    private updateDb(fileName: string, id: number) {
+        var result;
+        var name = "img" + fileName + ".jpg";
+        console.log("The id " + id);
+        http.request({
+            url: "http://188.166.127.207:5555/api.php/files/",
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            //put file url instead of just name
+            content: JSON.stringify({ user_Id : id, file_Name : name, file_URL : name, 
+            file_Permission : "Public"})
+        }).then(function(response) {
+            result = response.content.toJSON();
+            console.log(result);
+        }, function(e) {
+            console.log("Error occured " + e);
+        });
+    }
+
+    private getTimeStamp() {
+        var date = new Date(); 
+        var string = date.getFullYear().toString() + date.getMonth().toString() + date.getDate().toString()
+            + date.getHours().toString() + date.getMinutes().toString() +
+            + date.getSeconds().toString() + date.getMilliseconds().toString();
+        return string;
     }
 
 }

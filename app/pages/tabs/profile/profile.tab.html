@@ -1,6 +1,7 @@
 <StackLayout>
     
-    <Label class="header" text="Profile" *ngIf="!selected"></Label>
+    <Label class="header" text="Profile"></Label>
+    <Button text="Logout" (tap)="logout()" ></Button>
     <ScrollView>
         <WrapLayout>
             <Image src="{{avatar}}" width="100" height="100"></Image>"
@@ -15,5 +16,4 @@
             </GridLayout>
         </WrapLayout>
     </ScrollView>   
-    <Button text="Logout" (tap)="logout()" *ngIf="!selected"></Button>
 </StackLayout>

@@ -41,6 +41,7 @@ export class TabComponent {
     }
     onCamera() {
         console.log("Camera tapped.");
+        this.router.navigate(["/image"]);
         //Kjører kamera funksjon------
     }
 

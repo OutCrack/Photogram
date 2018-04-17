@@ -18,16 +18,21 @@
     <Button text= "Sign Up for SergPhoto" class="sign-up-btn" (tap)="signUp()"></Button>
   </StackLayout>
   <StackLayout *ngIf="signingUp">
+    <Label text="Create New User" class="header"></Label>
     <TextField hint="email address" keyboardType="email" [(ngModel)]="newUser.email"
       autocorrect="false" autocapitalizationType="none"></TextField>
     <TextField hint="password" secure="true" [(ngModel)]="newUser.password"></TextField>
-    <Button text="Sing Up" class="sign-up-btn" (tap)="signUpToFirebase()"></Button>
+    <GridLayout columns="100, 100" rows="auto" class="btn-container">
+    <Button text="Cancel" col="0" row ="0" class="submit-button" (tap)="cancel()"> </Button>
+    <Button text="Sing Up" col="1" row ="0" class="sign-up-btn" (tap)="signUpToFirebase()"></Button>
+    </GridLayout>
   </StackLayout>
   <StackLayout *ngIf="userCreated">
+    <Label text="Your details" class="header"></Label>
     <TextField hint="first name" autocorrect="false" [(ngModel)]="userData.firstName"></TextField>
     <TextField hint="last name" autocorrect="false" [(ngModel)]="userData.lastName"></TextField>
     <TextField hint="location" autocorrect="false" [(ngModel)]="userData.location"></TextField>
     <TextField hint="profession" autocorrect="false" [(ngModel)]="userData.profession"></TextField>
-    <Button text="save" (tap)="saveData()" class="sign-up-btn"></Button>
+    <Button text="Save data" (tap)="saveData()" class="sign-up-btn"></Button>
   </StackLayout>
   </StackLayout>
