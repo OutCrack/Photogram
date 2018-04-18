@@ -11,6 +11,7 @@ import { Server } from "../../../shared/Server/Server";
 import { Event } from "../../../shared/Event";
 import { Comment } from "../../../shared/Comment";
 import { User } from "../../../shared/User";
+import { Router } from '@angular/router';
 
 @Component({
     selector: "gallery-tab",
@@ -40,7 +41,7 @@ export class GalleryComponent {
     public participants: Array<User>
     public eventSelected: boolean;
 
-    constructor(private _changeDetectionRef: ChangeDetectorRef, private data: Data) {
+    constructor(private router: Router, private _changeDetectionRef: ChangeDetectorRef, private data: Data) {
         //this.getPhotos();
         this.selected = false;
         console.log("In gallery constructor"); 
@@ -134,6 +135,11 @@ export class GalleryComponent {
             this.participEvents = this.server.getMyEvents(this.data.storage["id"]);
             console.log("Events " + this.participEvents.length);
         }
+    }
+
+    newEvent(){
+        console.log("New Event tapped");
+        //this.router.navigate(["/event"]);
     }
 
     openGallery() {

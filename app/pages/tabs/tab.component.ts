@@ -45,6 +45,11 @@ export class TabComponent {
         //Kjører kamera funksjon------
     }
 
+    onEvent() {
+        console.log("New event tapped.");
+        //this.router.navigate(["/event"]);
+    }
+
     onHome() {
         console.log("Home-tab tapped.");
         this.isHome = true;
