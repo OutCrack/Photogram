@@ -15,7 +15,7 @@ firebase.init({
   onAuthStateChanged: function(data) { 
     console.log(data.loggedIn ? "Logged in to firebase" : "Logged out from firebase");
     if (data.loggedIn) { 
-      console.log("user's email adress is " + (data.user.email ? data.user.email : "N/A"));
+      //console.log("user's email adress is " + (data.user.email ? data.user.email : "N/A"));
     }
   }
 })

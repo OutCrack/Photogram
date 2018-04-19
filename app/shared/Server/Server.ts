@@ -35,7 +35,10 @@ export class Server {
         }, function(e) {
             console.log(e);
         })
-        return publicPhotos;
+        return new Promise((resolve, reject) => {
+            
+        });
+        //return publicPhotos;
     }
 
     /*getPublicEvents() {
@@ -161,6 +164,7 @@ export class Server {
     }
 
     updateComment(photoId: number, userId: number, text: string) {
+            var promise = new Promise((resolve, reject) => {
             var result;
             http.request({
                 url: "http://188.166.127.207:5555/api.php/comments",
@@ -170,13 +174,17 @@ export class Server {
                 content: JSON.stringify({ file_Id : photoId, user_Id : userId,  
                 comment_Text : text})
             }).then(function(response) {
-                result = response.content.toJSON();
-                console.log(result);
+            result = response.content.toJSON();
+            console.log(result);
             }, function(e) {
-                console.log("Error occured " + e);
-            }
-        );
-        return result;
+            console.log("Error occured " + e);
+            });
+            resolve(result);
+            });
+        promise.then((result) => {
+            return result;
+        });
+        return null;
     }
 
     getEventParticipants(id: number) {

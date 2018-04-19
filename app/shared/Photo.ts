@@ -16,21 +16,37 @@ export class Photo {
     server: Server = new Server();
 
     constructor(id: number, url:string, userId: number, created: string, description: string, albumId: number, fileName: string) {
+        var promise = new Promise((resolve, reject) => {
         this.id = id;
-        this.url = "http://188.166.127.207:8000/uploads/" + url;
+        //this.url = "http://188.166.127.207:8000/uploads/" + url;
         this.userId = userId;
         this.created = created;
         this.description = description;
         this.fileName = fileName;
         this.albumId = albumId;
         this.getUser();
-        this.getUrl();
+        if (albumId == null) {
+            resolve();
+        } else {
+            reject(albumId);
+        }
+        resolve(albumId);
+        })
+        
+        promise.then((fromResolve) => {
+            this.url = "http://188.166.127.207:8000/uploads/users/" + this.userId + "/" + this.fileName;
+        }).catch((fromReject) => {
+            console.log("GETTING URL WITH ALBUM NAME + fromReject " + fromReject);
+            this.getUrl(fromReject).then((fromResolve) => {
+                this.url = "http://188.166.127.207:8000/uploads/users/" + this.userId + "/" + fromResolve.toString() + "/" + this.fileName;
+            });
+        });  
         this.getComments();
     }
 
     public getUser() {
         var userQuery = "http://188.166.127.207:5555/api.php/users?transform=1&filter=user_Id,eq," + this.userId;
-        console.log("Query" + userQuery);
+        //console.log("Query" + userQuery);
         http.getJSON(userQuery)
         .then((result) => {
             //if user is found
@@ -49,24 +65,25 @@ export class Photo {
                     ""
                 )
             }
-            console.log("Created user " + this.user.firstN + " " + this.user.lastN);
+            //console.log("Created user " + this.user.firstN + " " + this.user.lastN);
         }, function(error) {
             console.log("Couldn't find the user");
         })
         //return JSON.stringify(this.user);
     }
 
-    private getUrl() {
-        if (this.albumId != null) {
+    private getUrl(albumId) {
+        console.log("Getting url " + albumId);
+        return new Promise((resolve, reject) => {
             http.getJSON("http://188.166.127.207:5555/api.php/albums?transform=1&filter=album_Id,eq," + this.albumId)
             .then((r) => {
                 var albumName = r.albums[0].album_Name;
                 var replace = / /gi;
                 albumName = albumName.replace(replace, "%20");
-                this.url = "http://188.166.127.207:8000/uploads/" + this.userId + "/" + albumName + "/" + this.fileName;
-            })
-            
-        }
+                //var url = "http://188.166.127.207:8000/uploads/" + this.userId + "/" + albumName + "/" + this.fileName;
+                resolve(albumName);
+                })  
+        });
     }
 
     public getComments() {

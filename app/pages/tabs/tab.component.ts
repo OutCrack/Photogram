@@ -34,10 +34,6 @@ export class TabComponent {
         for (let i = 0; i < 5; i++) {
             this.items.push(new DataItem("item " + i));
         }*/
-        
-        console.log("----------------------------");
-        console.log("----------------------------");
-        console.log("----------------------------");
     }
     onCamera() {
         console.log("Camera tapped.");
