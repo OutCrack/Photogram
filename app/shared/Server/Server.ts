@@ -267,6 +267,30 @@ export class Server {
     return result;
     }
 
+    newEvent(eventName: string, eventLocation: string, eventDescription: string, eventType: string, eventPrivacy: string){
+        var created = this.getTimeStamp();
+        var result;
+        http.request({
+            url: this.db + "events",
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            content: JSON.stringify({ 
+                event_Name : eventName, 
+                event_Location : eventLocation,  
+                event_Description : eventDescription,
+                event_Type : eventType,
+                event_Privacy : eventPrivacy,
+                created_at : created})
+        }).then(function(response) {
+            result = response.content.toJSON();
+            console.log(result);
+        }, function(e) {
+            console.log("Error occured " + e);
+        }
+    );
+    return result;    
+    }
+
     joinEvent(eventId: number, userId: number) {
         var result;
         http.request({

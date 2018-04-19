@@ -2,6 +2,7 @@
     <Label text="My gallery" *ngIf="!selected"></Label> 
     <Button [text]="photos ? 'Hide photos' : 'My pictures'" *ngIf="!selected" (tap)="getPhotos()"></Button>
     <Button [text]="mEvents ? 'Hide events' : 'Show my events'" *ngIf="!selected" (tap)="getEvents()"></Button>
+    <Button text="New event" (tap)="newEvent()"></Button>
     <Button text="Upload photo" *ngIf="!selected" (tap)="openGallery()"></Button>
     <ScrollView *ngIf="photos && !selected">
         <WrapLayout id="photoView" width="300" orientaton="vertical">

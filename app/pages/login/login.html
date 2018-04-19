@@ -1,14 +1,14 @@
 <StackLayout>
-    <Image src="res://logo" height="20%" width="20%" horizontalAlignment="center"></Image>
-    <StackLayout *ngIf="!signingUp && !userCreated">
-      <TextField hint="Email Address" keyboardType="email" [(ngModel)]="user.email"
-        autocorrect="false" autocapitalizationType="none"></TextField>
-      <TextField hint="Password" secure="true" [(ngModel)]="user.password"></TextField>
-      <Button text="Login" class="submit-button" (tap)="login()"></Button>
-      <WrapLayout>
+  <Image src="res://logo" height="20%" width="20%" horizontalAlignment="center"></Image>
+  <StackLayout *ngIf="!signingUp && !userCreated">
+    <TextField hint="Email Address" keyboardType="email" [(ngModel)]="user.email"
+      autocorrect="false" autocapitalizationType="none"></TextField>
+    <TextField hint="Password" secure="true" [(ngModel)]="user.password"></TextField>
+    <Button text="Login" class="submit-button" (tap)="login()"></Button>
+    <WrapLayout>
       <StackLayout class="face-button" padding="5" orientation="horizontal" (tap)="faceLogin()">
-          <Label text="Login via" verticalAlignment="center"></Label>
-          <img src="res://facelogo" class="logo-img">
+        <Label text="Login via" verticalAlignment="center"></Label>
+        <img src="res://facelogo" class="logo-img">
       </StackLayout>
       <StackLayout class="ggl-btn" orientation="horizontal" (tap)="googleLogin()" padding="5" >
           <Label text="Login via " verticalAlignment="center"></Label>
