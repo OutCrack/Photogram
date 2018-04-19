@@ -37,13 +37,15 @@ export class ImageComponent {
                 this.source = picture["_android"]; 
             }
             else {
-                this.source = picture["_ios"];
+                var path: string = (picture["_ios"]).toString();
+                //console.log(path);
+                this.source = path.slice(25,69);
             }   
         });
     }
     
     public uploadPicture() {
-        console.log("Uploading " + this.source + " user id " + this.data.storage["id"]);
+        //console.log("Uploading " + this.source + " user id " + this.data.storage["id"]);
         this.server.uploadPhoto(this.source, this.data.storage["id"])
     }
 }
