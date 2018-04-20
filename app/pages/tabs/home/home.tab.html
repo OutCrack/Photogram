@@ -19,6 +19,8 @@
         <Label text="{{photoDescription}}"></Label>
         <Button text="X" class="close" (tap)="closePhoto()"></Button>
         <Image src="{{photoUrl}}"></Image>
+        <Label text="Rate {{selectedPhoto.likes}}"></Label>
+        <Button [text]="canGiveLike? 'like' : 'unlike'" (tap)="updateLikes(selectedPhoto.id)"></Button>
         <GridLayout *ngFor="let comment of selectedPhoto.comments" columns="*, 40">
                 <Label text="{{comment.user.firstN}} {{comment.user.lastN}} : {{comment.text}}" col="0"></Label>
                 <Button text="x" *ngIf="comment.rights" col="1" (tap)="removeComment(comment.id)"></Button>

@@ -12,6 +12,7 @@ export class Photo {
     created: string;
     url: string;
     description: string;
+    likes: number;
     comments: Array<Comment>;
     server: Server = new Server();
 
@@ -92,7 +93,4 @@ export class Photo {
         this.comments = this.server.getComments(this.id);
     }
 
-    public getLikes() {
-
-    }
 } 

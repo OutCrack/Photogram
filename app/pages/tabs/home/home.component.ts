@@ -31,6 +31,7 @@ export class HomeComponent {
     public photoComments: Array<Comment>;
     public userId: number;
     public selectedPhoto: Photo;
+    public canGiveLike: boolean;
 
     constructor(private _changeDetectionRef: ChangeDetectorRef, private data: Data) {
         console.log("In home constructor");
@@ -151,6 +152,13 @@ export class HomeComponent {
         //console.log("The id is " + args.view.id);
         //console.log("The event name is " + args.eventName);
         this.selectedPhoto = this.photos.find(i => i.id === id);
+        this.server.getLikes(this.selectedPhoto.id, this.userId).then((result) => {
+            this.selectedPhoto.likes = parseInt(JSON.stringify(result));
+            this.canGiveLike = false;
+        }).catch((reject) => {
+            this.selectedPhoto.likes = parseInt(JSON.stringify(reject));
+            this.canGiveLike = true;
+        });
         this.username = this.selectedPhoto.user.firstN + " " + this.selectedPhoto.user.lastN;
         this.photoId = this.selectedPhoto.id;
         this.photoUrl = this.selectedPhoto.url;
@@ -210,4 +218,20 @@ export class HomeComponent {
         });
     }
 
+    updateLikes(id: number) {
+        var promise = new Promise((resolve, reject) => {        
+            var adding = this.canGiveLike;
+            this.server.updateLikes(id, this.userId, adding);
+            this.canGiveLike = !this.canGiveLike;
+            resolve(adding);
+        });
+        promise.then((fromResolve) => {
+            if (fromResolve) {
+                this.selectedPhoto.likes++;
+            } else {
+                this.selectedPhoto.likes--;
+            }
+            console.log("You tapped " + id);
+        });
+    }
 }
