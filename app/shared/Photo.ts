@@ -87,8 +87,12 @@ export class Photo {
     }
 
     public getComments() {
+        console.log("Getting comments");
         this.comments = [];
         this.comments = this.server.getComments(this.id);
-    
+    }
+
+    public getLikes() {
+
     }
 } 

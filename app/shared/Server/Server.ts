@@ -411,4 +411,20 @@ export class Server {
         return string;
     }
 
+    public removePhoto(photoId: number) {
+        return new Promise((resolve, reject) => {
+        var result;
+        http.request({
+        url: this.db + "files/" + photoId,
+        method : "DELETE",
+        headers : { "Content-Type" : "application/json" },
+    }).then(function(response) {
+        result = response.content.toJSON();
+        console.log(JSON.stringify(response));
+    }, function(e) {
+        console.log(e);
+        reject();
+    });
+    resolve(result);
+    })};
 }

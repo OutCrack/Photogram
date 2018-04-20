@@ -19,7 +19,7 @@
         <Label text="{{photoDescription}}"></Label>
         <Button text="X" class="close" (tap)="closePhoto()"></Button>
         <Image src="{{photoUrl}}"></Image>
-        <GridLayout *ngFor="let comment of photoComments" columns="*, 40">
+        <GridLayout *ngFor="let comment of selectedPhoto.comments" columns="*, 40">
                 <Label text="{{comment.user.firstN}} {{comment.user.lastN}} : {{comment.text}}" col="0"></Label>
                 <Button text="x" *ngIf="comment.rights" col="1" (tap)="removeComment(comment.id)"></Button>
         </GridLayout>

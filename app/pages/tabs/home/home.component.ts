@@ -30,6 +30,7 @@ export class HomeComponent {
     public photoDescription: string;
     public photoComments: Array<Comment>;
     public userId: number;
+    public selectedPhoto: Photo;
 
     constructor(private _changeDetectionRef: ChangeDetectorRef, private data: Data) {
         console.log("In home constructor");
@@ -126,34 +127,55 @@ export class HomeComponent {
     }
 
     selectPhoto(args: GestureEventData) {
+        this.getPhoto(parseInt(args.view.id))
+        /*this.selected = true;
+        this.userId = this.data.storage["id"];
+        //testing
+        //console.log("The id is " + args.view.id);
+        //console.log("The event name is " + args.eventName);
+        this.selectedPhoto = this.photos.find(i => i.id === parseInt(args.view.id));
+        this.username = this.selectedPhoto.user.firstN + " " + this.selectedPhoto.user.lastN;
+        this.photoId = this.selectedPhoto.id;
+        this.photoUrl = this.selectedPhoto.url;
+        this.photoCreated = this.selectedPhoto.created;
+        this.photoDescription = this.selectedPhoto.description;
+        this.photoComments = this.selectedPhoto.comments;
+        this.checkCommentRights();
+        console.log("URL " + this.photoUrl);*/
+    }
+
+    getPhoto(id: number) {
         this.selected = true;
         this.userId = this.data.storage["id"];
         //testing
         //console.log("The id is " + args.view.id);
         //console.log("The event name is " + args.eventName);
-        var photo: Photo = this.photos.find(i => i.id === parseInt(args.view.id));
-        this.username = photo.user.firstN + " " + photo.user.lastN;
-        this.photoId = photo.id;
-        this.photoUrl = photo.url;
-        this.photoCreated = photo.created;
-        this.photoDescription = photo.description;
-        this.photoComments = photo.comments;
-        for (let c of this.photoComments) {
+        this.selectedPhoto = this.photos.find(i => i.id === id);
+        this.username = this.selectedPhoto.user.firstN + " " + this.selectedPhoto.user.lastN;
+        this.photoId = this.selectedPhoto.id;
+        this.photoUrl = this.selectedPhoto.url;
+        this.photoCreated = this.selectedPhoto.created;
+        this.photoDescription = this.selectedPhoto.description;
+        this.photoComments = this.selectedPhoto.comments;
+        this.checkCommentRights();
+        console.log("URL " + this.photoUrl);
+    }
+    private checkCommentRights() {
+        console.log("Checking rights for comments");
+        for (let c of this.selectedPhoto.comments) {
             //testing
-            //console.log("Checking rights for comments");
             //console.log("comment user id " + c.userId + " loggen in as " + this.userId);
             if (c.userId == this.userId) {
                 c.rights = true;
                 console.log("Rights changed to true");
             }
         }
-        console.log("URL " + this.photoUrl);
     }
-
     closePhoto() {
         this.selected = false;
         this.photoUrl = "";
         this.photoCreated = "";
+        this.selectedPhoto = null;
     }
 
     addComment(result) {
@@ -164,14 +186,28 @@ export class HomeComponent {
             var commentId = this.server.updateComment(this.photoId, this.data.storage["id"], result.text);
             var comment = new Comment(commentId, this.data.storage["id"], result.text);
             comment.rights = true;
-            this.photoComments.push(comment);
+            //this.photoComments.push(comment);
+            var promise = new Promise((resolve, reject) => {
+                this.selectedPhoto.getComments();
+                resolve();
+            });
+            promise.then(() => {
+                this.checkCommentRights();
+            });
             result.text = "";
         }
     }
 
     removeComment(commentId) {
         console.log("You click comment id " + commentId);
-        this.server.removeComment(commentId);
+        var promise = new Promise((resolve, reject) => {
+            this.server.removeComment(commentId);
+            this.selectedPhoto.getComments();
+            resolve();
+        });
+        promise.then(() => {
+            this.checkCommentRights();
+        });
     }
 
 }

@@ -88,6 +88,15 @@ export class GalleryComponent {
         }
     }
 
+    public removePhoto(photoId: number) {
+        this.server.removePhoto(photoId).then(()=> {
+            this.photos = false;
+            this.getPhotos();
+        }).catch(() => {
+            alert("Error deleting photo. Please try again later");
+        });
+    }
+
     selectPhoto(args: GestureEventData) {
         this.selected = true;
         console.log("The id is " + args.view.id);
