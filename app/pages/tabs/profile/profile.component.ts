@@ -34,6 +34,7 @@ export class ProfileComponent {
     public myPhotos: Array<Photo>;
     public photoUrl: string;
     public photoCreated: string;
+    public editing: boolean;
     
 
     constructor(private router: Router, private data: Data) {
@@ -47,14 +48,25 @@ export class ProfileComponent {
         this.avatar = "http://188.166.127.207:8000/uploads/avatars/" + this.data.storage["avatar"];
         this.birthDate = this.data.storage["dob"];
         this.hobby = this.data.storage["hobby"];
+        this.editing = false;
     }
 
+    editData() {
+        this.editing = true;
+    }
+    cancel() { 
+        this.editing = false;
+    }
+    
+    saveData() {
+        this.editing = false;
+    }
     //logs out from both Google+ and Facebook accounts
-  logout() {
-    var router = this.router;
-    this.data.storage = {};
-    firebase.logout();
-    router.navigate([""]);
-}
+    logout() {
+        var router = this.router;
+        this.data.storage = {};
+        firebase.logout();
+        router.navigate([""]);
+    }
 
 }

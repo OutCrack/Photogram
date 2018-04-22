@@ -6,9 +6,9 @@
         
         <StackLayout *ngFor="let photo of photos">
                 <!--<Label text="User:"></Label><Label text="{{photo.user.firstN}} {{photo.user.lastN}}" class="user"></Label>-->
-                <Label text="Uploaded:"></Label><Label text="{{photo.created}}" class="user"></Label>
+                <Label text="Uploaded:"></Label><Label text="{{photo.created}} by {{photo.user.firstN}} {{photo.user.lastN}}" class="user"></Label>
                 <Label text="{{photo.description}}"></Label>
-                <Image  src="{{photo.url}}" width="120dp" height="120dp" id="{{photo.id}}" (tap)="selectPhoto($event)"></Image>
+                <Image  src="{{photo.url}}" id="{{photo.id}}" (tap)="selectPhoto($event)"></Image>
         </StackLayout>
 
 </StackLayout> 
@@ -19,7 +19,9 @@
         <Label text="{{photoDescription}}"></Label>
         <Button text="X" class="close" (tap)="closePhoto()"></Button>
         <Image src="{{photoUrl}}"></Image>
-        <GridLayout *ngFor="let comment of photoComments" columns="*, 40">
+        <Label text="Rate {{selectedPhoto.likes}}"></Label>
+        <Button [text]="canGiveLike? 'like' : 'unlike'" (tap)="updateLikes(selectedPhoto.id)"></Button>
+        <GridLayout *ngFor="let comment of selectedPhoto.comments" columns="*, 40">
                 <Label text="{{comment.user.firstN}} {{comment.user.lastN}} : {{comment.text}}" col="0"></Label>
                 <Button text="x" *ngIf="comment.rights" col="1" (tap)="removeComment(comment.id)"></Button>
         </GridLayout>
