@@ -411,6 +411,7 @@ export class Server {
         return string;
     }
 
+    //rfix removing from server
     public removePhoto(photoId: number) {
         return new Promise((resolve, reject) => {
         var result;

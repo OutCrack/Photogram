@@ -148,7 +148,7 @@ export class GalleryComponent {
 
     newEvent(){
         console.log("New Event tapped");
-        //this.router.navigate(["/event"]);
+        //this.router.navigate(["/e svent"]);
     }
 
     openGallery() {
