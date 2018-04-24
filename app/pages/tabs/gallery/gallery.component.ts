@@ -193,6 +193,7 @@ export class GalleryComponent {
             method: "POST",
             headers: {
                 "Content-Type": "application/octet-stream",
+                "Path" : "users/",
                 "File-Name": fileName,
                 "User-id": this.id
             },

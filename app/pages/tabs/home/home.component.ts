@@ -128,6 +128,9 @@ export class HomeComponent {
     }
 
     selectPhoto(args: GestureEventData) {
+        for (let p of this.photos) {
+            console.log("______________" + p.url);
+        }
         this.getPhoto(parseInt(args.view.id))
         /*this.selected = true;
         this.userId = this.data.storage["id"];
