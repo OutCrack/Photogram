@@ -32,6 +32,7 @@ export class HomeComponent {
     public userId: number;
     public selectedPhoto: Photo;
     public canGiveLike: boolean;
+    public selectedId: number; 
 
     constructor(private _changeDetectionRef: ChangeDetectorRef, private data: Data) {
         console.log("In home constructor");
@@ -131,7 +132,8 @@ export class HomeComponent {
         for (let p of this.photos) {
             console.log("______________" + p.url);
         }
-        this.getPhoto(parseInt(args.view.id))
+        this.selectedId = parseInt(args.view.id);
+        this.getPhoto(this.selectedId);
         /*this.selected = true;
         this.userId = this.data.storage["id"];
         //testing
@@ -184,6 +186,7 @@ export class HomeComponent {
     }
     closePhoto() {
         this.selected = false;
+        this.selectedId = 0;
         this.photoUrl = "";
         this.photoCreated = "";
         this.selectedPhoto = null;
@@ -197,16 +200,12 @@ export class HomeComponent {
             var commentId = this.server.updateComment(this.photoId, this.data.storage["id"], result.text);
             var comment = new Comment(commentId, this.data.storage["id"], result.text);
             comment.rights = true;
+            this.getPhoto(this.selectedId);
             //this.photoComments.push(comment);
-            var promise = new Promise((resolve, reject) => {
-                this.selectedPhoto.getComments();
-                resolve();
-            });
-            promise.then(() => {
-                this.checkCommentRights();
-            });
-            result.text = "";
-        }
+                this.selectedPhoto.getComments().then(() => {
+                    this.checkCommentRights();
+                }); }
+        result.text = "";
     }
 
     removeComment(commentId) {

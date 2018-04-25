@@ -118,10 +118,10 @@ export class ProfileComponent {
                     console.log("----------------");
                     console.log("uri: " + selected.uri);
                     console.log("fileUri: " + selected.fileUri);
-                    _that.uploadPhoto(selected.fileUri);
+                    _that.uploadPhoto(selected.fileUri).then(() => {
+                        _that.hasAvatar = true;
+                    });
                     //this is not file name - must relog to see the changes
-                    _that.data.storage["avatar"] = "img" + selected.fileUri + ".jpg";
-                    _that.avatar = "http://188.166.127.207:8000/uploads/avatars/" + _that.data.storage["avatar"];
                 }
             ); 
                 _that.item = selection;
@@ -132,14 +132,19 @@ export class ProfileComponent {
     }
 
     uploadPhoto(fileUri: string) {
-        this.server.uploadProfilPhoto(fileUri, this.data.storage["id"]);
-        this.hasAvatar = true;
+        return new Promise((resolve, reject) => {
+            this.server.uploadProfilPhoto(fileUri, this.data.storage["id"]).then((fileName) => {
+                this.data.storage["avatar"] = fileName;
+                this.avatar = "http://188.166.127.207:8000/uploads/avatars/" + this.data.storage["avatar"];
+            })
+            resolve();
+        });
     }
 
     deletePhoto() {
         return new Promise((resolve, reject) => {
             console.log("Deleting photo " + this.data.storage["id"] + this.data.storage["avatar"]);
-            this.server.deleteProfilePhoto(this.data.storage["id"], this.data.storage["avatar"]);
+            this.server.deletePhoto(this.data.storage["id"], this.data.storage["avatar"], "avatar", 0);
             this.data.storage["avatar"] = "default-avatar.png";
             this.avatar = "http://188.166.127.207:8000/uploads/avatars/" + "default-avatar.png";
             this.hasAvatar = false;
