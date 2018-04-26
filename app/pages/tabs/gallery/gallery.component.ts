@@ -88,6 +88,15 @@ export class GalleryComponent {
         }
     }
 
+    public removePhoto(photoId: number) {
+        this.server.removePhoto(photoId).then(()=> {
+            this.photos = false;
+            this.getPhotos();
+        }).catch(() => {
+            alert("Error deleting photo. Please try again later");
+        });
+    }
+
     selectPhoto(args: GestureEventData) {
         this.selected = true;
         console.log("The id is " + args.view.id);
@@ -139,7 +148,7 @@ export class GalleryComponent {
 
     newEvent(){
         console.log("New Event tapped");
-        //this.router.navigate(["/event"]);
+        //this.router.navigate(["/e svent"]);
     }
 
     openGallery() {

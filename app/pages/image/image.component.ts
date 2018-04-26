@@ -37,7 +37,9 @@ export class ImageComponent {
                 this.source = picture["_android"]; 
             }
             else {
-                this.source = picture["_ios"];
+                var path: string = (picture["_ios"]).toString();
+                console.log(path);
+                this.source = path.slice(25,69);
             }   
         });
     }

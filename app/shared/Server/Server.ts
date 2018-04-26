@@ -35,7 +35,10 @@ export class Server {
         }, function(e) {
             console.log(e);
         })
-        return publicPhotos;
+        return new Promise((resolve, reject) => {
+            
+        });
+        //return publicPhotos;
     }
 
     /*getPublicEvents() {
@@ -161,6 +164,7 @@ export class Server {
     }
 
     updateComment(photoId: number, userId: number, text: string) {
+            var promise = new Promise((resolve, reject) => {
             var result;
             http.request({
                 url: "http://188.166.127.207:5555/api.php/comments",
@@ -170,13 +174,17 @@ export class Server {
                 content: JSON.stringify({ file_Id : photoId, user_Id : userId,  
                 comment_Text : text})
             }).then(function(response) {
-                result = response.content.toJSON();
-                console.log(result);
+            result = response.content.toJSON();
+            console.log(result);
             }, function(e) {
-                console.log("Error occured " + e);
-            }
-        );
-        return result;
+            console.log("Error occured " + e);
+            });
+            resolve(result);
+            });
+        promise.then((result) => {
+            return result;
+        });
+        return null;
     }
 
     getEventParticipants(id: number) {
@@ -403,4 +411,88 @@ export class Server {
         return string;
     }
 
+    //rfix removing from server
+    public removePhoto(photoId: number) {
+        return new Promise((resolve, reject) => {
+        var result;
+        http.request({
+        url: this.db + "files/" + photoId,
+        method : "DELETE",
+        headers : { "Content-Type" : "application/json" },
+    }).then(function(response) {
+        result = response.content.toJSON();
+        console.log(JSON.stringify(response));
+    }, function(e) {
+        console.log(e);
+        reject();
+        });
+    resolve(result);
+    }); }
+
+    public getLikes(photoId: number, userId: number) {
+        console.log("Getting likes for " + photoId + " and my user id is " + userId);
+        var query = this.db + "reacts?transform=1&filter=file_Id,eq," + photoId;
+        console.log("Query " + query);
+        return new Promise((resolve, reject) => {
+            var likes = 0;
+            http.getJSON(query).then((result) => {
+                for (var i = 0; i < result.reacts.length; i++) {
+                likes++;
+            }
+            var query2 = this.db + "reacts?transform=1&filter[]=user_Id,eq," + userId + "&filter[]=file_Id,eq," + photoId;
+            console.log("Query 2 " + query2);
+            http.getJSON(query2).then((res) => {
+                console.log("Res react length is  " + res.reacts.length);
+                if (res.reacts.length > 0) {
+                    console.log("Resolving with " + likes + " likes");
+                    resolve(likes);
+                } else {
+                    console.log("Rejecting with " + likes + " likes");
+                    reject(likes)
+                }
+            }), function(e) {
+                console.log("Error in query2 getLikes in Server" + e);
+            }
+        }), function(e) {
+            console.log("Error in query1 getLikes in Server" + e);
+        }
+        }); 
+    }
+
+    public updateLikes(photoId: number, userId: number, add: boolean) {
+        console.log("Updating likes for " + photoId + " userId " + userId + " Adding? " + add);
+        var result;
+        if (add) {
+            http.request({
+                url: "http://188.166.127.207:5555/api.php/reacts/",
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                //put file url instead of just name
+                content: JSON.stringify({ user_Id : userId, file_Id : photoId})
+            }).then(function(response) {
+                result = response.content.toJSON();
+                console.log(result);
+            }, function(e) {
+                console.log("Error occured " + e);
+            });
+        }
+        else {
+            var query = this.db + "/reacts?transform=1&filter[]=user_Id,eq," + userId + "&filter[]=file_Id,eq," + photoId;
+            http.getJSON(query).then((res) => {
+                var reactId = res.reacts[0].react_Id;
+                http.request({
+                    url: this.db + "reacts/" + reactId,
+                    method : "DELETE",
+                    headers : { "Content-Type" : "application/json" },
+                }).then(() => {
+
+                }), function(e) {
+                    console.log(e);
+                }
+            }), function(e) {
+                console.log(e);
+            }
+        }
+
+    }
 }

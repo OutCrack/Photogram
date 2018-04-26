@@ -18,7 +18,7 @@ export class Comment {
 
     public getUser() {
         var userQuery = "http://188.166.127.207:5555/api.php/users?transform=1&filter=user_Id,eq," + this.userId;
-        console.log("Query" + userQuery);
+        //console.log("Query" + userQuery);
         http.getJSON(userQuery)
         .then((result) => {
             //if user is found
@@ -37,7 +37,7 @@ export class Comment {
                     ""
                 )
             }
-            console.log("Created user " + this.user.firstN + " " + this.user.lastN);
+            //console.log("Created user " + this.user.firstN + " " + this.user.lastN);
         }, function(error) {
             console.log("Couldn't find the user");
         })

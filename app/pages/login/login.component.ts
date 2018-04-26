@@ -141,10 +141,16 @@ export class LoginComponent implements OnInit{
       if (this.userData.firstName && this.userData.lastName) {
         firebase.getCurrentUser() 
           .then(user => {
-            var ok = this.server.saveUser(this.userData.firstName, this.userData.lastName, this.userData.location, this.userData.profession, user.email)
-            this.signingUp = false;
-            this.userCreated = false;
-            this.findUser();
+            var ok = new Promise((resolve, reject) => {
+              this.server.saveUser(this.userData.firstName, this.userData.lastName, this.userData.location, this.userData.profession, user.email)
+              this.signingUp = false;
+              this.userCreated = false;
+              resolve();
+            }); 
+            ok.then(() => {
+              this.findUser();
+            });
+            
           })
           .catch(error => console.error(error));
 
@@ -192,7 +198,7 @@ export class LoginComponent implements OnInit{
                 "location" : "",
                 "profession" : ""
               }
-                alert("User not found in db " + user.email); 
+                //alert("User not found in db " + user.email); 
                 this.userCreated = true;
                 this.signingUp = false;
                 this.server = new Server();
