@@ -9,7 +9,7 @@
             <StackLayout *ngFor="let myPhoto of myPhotos">
                 <!--<Label class="date" text="{{myPhoto.created}}"></Label>-->
                 <Image  src="{{myPhoto.url}}" width="50dp" height="50dp" margin="5" id="{{myPhoto.id}}" (tap)="selectPhoto($event)"></Image>
-                <Button text="remove" (tap)="removePhoto(myPhoto.id)"></Button>
+                <Button text="remove" (tap)="removePhoto(myPhoto.id, myPhoto.fileName)"></Button>
             </StackLayout>
         </WrapLayout>
     </ScrollView>
@@ -21,9 +21,10 @@
             <Label text="{{photoDescription}}"></Label>
             <Button text="X" class="close" (tap)="closePhoto()"></Button>
             <Image src="{{photoUrl}}"></Image>
+            <Label text="Rate {{selectedPhoto.likes}}"></Label>
             <GridLayout *ngFor="let comment of photoComments" columns="*, 40">
                 <Label text="{{comment.user.firstN}} {{comment.user.lastN}} : {{comment.text}}" col="0"></Label>
-                <Button text="x" *ngIf="comment.rights" col="1"></Button>
+                <Button text="x" (tap)="removeComment(comment.id)" col="1"></Button>
             </GridLayout>
                 <GridLayout columns="250, 80">
                 <TextField #newComment hint="comment" width="80%" height="50dp" col="0"></TextField>
