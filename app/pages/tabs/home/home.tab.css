@@ -25,3 +25,20 @@ Image {
     width: 10%;
     background-color: white;
 }
+
+.list-group-item {
+    padding: 0 8 8 8;    
+}
+
+.list-group-item-content {
+    padding: 8 15 4 15;
+    background-color: #FFFFFF;
+}
+
+hr.thin {
+    height: 1px;
+    border: 0;
+    color: #333;
+    background-color: #333;
+    width: 80%;
+    } 

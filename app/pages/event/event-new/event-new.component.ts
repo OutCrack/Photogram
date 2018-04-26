@@ -1,13 +1,13 @@
 import { Component } from "@angular/core";
-import { Server } from "../../shared/Server/Server"
-import { Data } from "../../shared/Data";
+import { Server } from "../../../shared/Server/Server"
+import { Data } from "../../../shared/Data";
 
 @Component({
     selector: "NewEvent",
-    templateUrl: "./pages/event/event-new.html"
+    templateUrl: "./pages/event/event-new/event-new.html"
 })
 
-export class EventComponent {
+export class NewEventComponent {
     event: any;
     public server: Server;
     public source: any;

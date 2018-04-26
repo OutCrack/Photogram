@@ -105,7 +105,7 @@ export class HomeComponent {
         function getLimitDate() {
             var date = new Date();
             console.log("Date is " + date.toDateString());
-            date.setDate(date.getDate()-2);
+            date.setDate(date.getDate() - 2); //Antall dager gamle bilder som skal vises
             console.log("Date new date is " + date.toDateString());
             var dateString = date.getFullYear() + "-";
             var month: number = date.getMonth() + 1;
