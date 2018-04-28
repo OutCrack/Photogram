@@ -8,16 +8,23 @@ import { registerElement } from "nativescript-angular/element-registry";
 import { GestureEventData } from "tns-core-modules/ui/gestures/gestures";
 import { Data } from "../../../shared/Data";
 import { TextField } from "ui/text-field";
+import { SegmentedBar, SegmentedBarItem } from "ui/segmented-bar";
 
 registerElement("PullToRefresh" , ()=> require("nativescript-pulltorefresh").PullToRefresh);
  
 @Component({
     selector: "home-tab",
+    //moduleId: module.id,
     templateUrl: "./pages/tabs/home/home.tab.html",
     styleUrls: [ "./pages/tabs/home/home.tab.css" ]
 })
 
 export class HomeComponent {
+    public items: Array<SegmentedBarItem>;
+    public selectedIndex = 0;
+    public visibility1 = true;
+    public visibility2 = false;
+
     site: string = "http://188.166.127.207:5555/api.php/";
     //for storing fetched photos
     public photos: Array<Photo>;
@@ -34,6 +41,19 @@ export class HomeComponent {
     public canGiveLike: boolean;
 
     constructor(private _changeDetectionRef: ChangeDetectorRef, private data: Data) {
+        this.items = [];
+        for (let i = 1; i < 3; i++) {
+            let segmentedBarItem = <SegmentedBarItem>new SegmentedBarItem();
+            if(i==1){
+                segmentedBarItem.title = "Photos";
+            } else {
+                segmentedBarItem.title = "Events";
+            }
+            
+            this.items.push(segmentedBarItem);
+        }
+        this.selectedIndex = 0;
+
         console.log("In home constructor");
         this.getPhotos();
         this.selected = false;
@@ -233,5 +253,22 @@ export class HomeComponent {
             }
             console.log("You tapped " + id);
         });
+    }
+
+    public onSelectedIndexChange(args) {
+        let segmetedBar = <SegmentedBar>args.object;
+        this.selectedIndex = segmetedBar.selectedIndex;
+        switch (this.selectedIndex) {
+            case 0:
+                this.visibility1 = true;
+                this.visibility2 = false;
+                break;
+            case 1:
+                this.visibility1 = false;
+                this.visibility2 = true;
+                break;
+            default:
+                break;
+        }
     }
 }
