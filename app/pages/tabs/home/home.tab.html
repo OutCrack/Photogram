@@ -51,7 +51,7 @@
                                         <Label text="{{event.name}}"></Label>
                                         <Label text="{{event.type}}"></Label>
                                 </StackLayout>
-                                <Button text="Open" *ngIf="event.role=='User'" (tap)="openEvent(event.id)"></Button>
+                                <Button text="Open" (tap)="openEvent(event.id)"></Button>
                         </StackLayout>
 
                         <Label text="------Public Events------" horizontalAlignment="center"></Label>

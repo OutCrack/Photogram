@@ -12,6 +12,7 @@ export const routes = [
   { path: "", component: LoginComponent },
   { path: "login", component: LoginComponent },
   { path: "image", component: ImageComponent },
+  { path: "newEvent", component: NewEventComponent },
   { path: "tab", component: TabComponent, children: [
     { path: "home", component: HomeComponent, outlet: 'homeoutlet'},
     { path: "search", component: SearchComponent, outlet: 'searchoutlet'},
@@ -19,12 +20,12 @@ export const routes = [
     { path: "notification", component: NotificationComponent, outlet: 'notificationoutlet'},
     { path: "profile", component: ProfileComponent, outlet: 'profileoutlet'}
   ]},
-  //{ path: "events", loadChildren: "./events/events.module#EventsModule"}
 ];
 
 export const navigatableComponents = [
   LoginComponent,
   ImageComponent,
+  NewEventComponent,
   TabComponent,
   HomeComponent,
   SearchComponent,

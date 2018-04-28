@@ -41,9 +41,9 @@ export class TabComponent {
         //Kjører kamera funksjon------
     }
 
-    onEvent() {
+    onNewEvent() {
         console.log("New event tapped.");
-        //this.router.navigate(["/event"]);
+        this.router.navigate(["/newEvent"]);
     }
 
     onHome() {

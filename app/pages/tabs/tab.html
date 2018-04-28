@@ -2,7 +2,7 @@
     <ActionBar title="">
         <ActionItem *ngIf="isHome" (tap)="onCamera()" ios.systemIcon="15" ios.position="right" android.systemIcon="ic_menu_camera"></ActionItem>
         <ActionItem *ngIf="isGallery" (tap)="onCamera()" ios.systemIcon="15" ios.position="right" android.systemIcon="ic_menu_camera"></ActionItem>
-        <ActionItem *ngIf="isHome" (tap)="onEvent()" ios.systemIcon="4" ios.position="right" android.systemIcon="ic_menu_add"></ActionItem>
+        <ActionItem *ngIf="isHome" (tap)="onNewEvent()" ios.systemIcon="4" ios.position="right" android.systemIcon="ic_menu_add"></ActionItem>
         <ActionItem *ngIf="isSearch" android.position="center"></ActionItem>
     </ActionBar>
     <StackLayout *tabItem="{iconSource:'res://ic_home'}">

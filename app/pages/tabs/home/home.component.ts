@@ -84,7 +84,6 @@ export class HomeComponent {
     getMyEvents() {
         this.participEvents = this.server.getMyEvents(this.data.storage["id"]);
         console.log("Events " + this.participEvents.length);
-
     }
 
     joinEvent(eventId: number) {
