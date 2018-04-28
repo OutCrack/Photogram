@@ -1,5 +1,5 @@
 <SegmentedBar [items]="items" (selectedIndexChange)="onSelectedIndexChange($event)" class="m-5"></SegmentedBar>
-<GridLayout visibility="{{ visibility1 ? 'visible' : 'collapsed' }}" backgroundColor="white">
+<GridLayout visibility="{{ visibility1 ? 'visible' : 'collapsed' }}">
         <PullToRefresh (refresh)="refreshFeed($event)">
                 <ScrollView>
                         <StackLayout *ngIf="!selected">
@@ -15,14 +15,12 @@
                                 </StackLayout>
 
                                 <!--<StackLayout  class="list-group-item">
-                                                        <GridLayout rows="*, *, *" columns="*,* ">
-                                                                <Label text="{{username}}"></Label>
-                                                                <Label text="{{photo.created}}" col="1" horizontalAlignment="right"></Label>
-                                                                <Image src="{{photo.url}}" width="120dp" height="400dp" id="{{photo.id}}" (tap)="selectPhoto($event)"></Image>
-                                                        </GridLayout>
-                                                </StackLayout>-->
-
-
+                                        <GridLayout rows="*, *, *" columns="*,* ">
+                                                <Label text="{{username}}"></Label>
+                                                <Label text="{{photo.created}}" col="1" horizontalAlignment="right"></Label>
+                                                <Image src="{{photo.url}}" width="120dp" height="400dp" id="{{photo.id}}" (tap)="selectPhoto($event)"></Image>
+                                        </GridLayout>
+                                </StackLayout>-->
                         </StackLayout>
                         <StackLayout *ngIf="selected">
                                 <Label text="{{photoCreated}}"></Label>
@@ -44,6 +42,26 @@
         </PullToRefresh>
 </GridLayout>
 
-<GridLayout rows="*" visibility="{{ visibility2 ? 'visible' : 'collapsed' }}" backgroundColor="green">
-        <Label [text]="'The new selectedIndex is: ' + selectedIndex" class="m-15 h3 p-5 text-center" color="white"></Label>
+<GridLayout rows="*" visibility="{{ visibility2 ? 'visible' : 'collapsed' }}" backgroundColor="white">
+        <ScrollView>
+                <StackLayout>
+                        <Label text="------Your Events------" horizontalAlignment="center"></Label>
+                        <StackLayout id="{{event.id}}" *ngFor="let event of participEvents" (tap)="selectEvent($event)" orientation="horizontal">
+                                <StackLayout>
+                                        <Label text="{{event.name}}"></Label>
+                                        <Label text="{{event.type}}"></Label>
+                                </StackLayout>
+                                <Button text="Open" *ngIf="event.role=='User'" (tap)="openEvent(event.id)"></Button>
+                        </StackLayout>
+
+                        <Label text="------Public Events------" horizontalAlignment="center"></Label>
+                        <StackLayout *ngFor="let event of publicEvents" orientation="horizontal">
+                                <StackLayout>
+                                        <Label text="{{event.id}}"></Label>
+                                        <Label text="{{event.name}}"></Label>
+                                </StackLayout>
+                                <Button text="join" id="{{event.id}}" (tap)="joinEvent(event.id)"></Button>
+                        </StackLayout>
+                </StackLayout>
+        </ScrollView>
 </GridLayout>

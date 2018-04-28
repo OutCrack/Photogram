@@ -2,6 +2,7 @@ import { Component, ChangeDetectorRef } from "@angular/core";
 import { Photo } from "../../../shared/Photo";
 import { User } from "../../../shared/User";
 import { Server } from "../../../shared/Server/Server";
+import { Event } from "../../../shared/Event";
 import { Comment } from "../../../shared/Comment";
 var http = require("http");
 import { registerElement } from "nativescript-angular/element-registry";
@@ -10,13 +11,13 @@ import { Data } from "../../../shared/Data";
 import { TextField } from "ui/text-field";
 import { SegmentedBar, SegmentedBarItem } from "ui/segmented-bar";
 
-registerElement("PullToRefresh" , ()=> require("nativescript-pulltorefresh").PullToRefresh);
- 
+registerElement("PullToRefresh", () => require("nativescript-pulltorefresh").PullToRefresh);
+
 @Component({
     selector: "home-tab",
     //moduleId: module.id,
     templateUrl: "./pages/tabs/home/home.tab.html",
-    styleUrls: [ "./pages/tabs/home/home.tab.css" ]
+    styleUrls: ["./pages/tabs/home/home.tab.css"]
 })
 
 export class HomeComponent {
@@ -39,17 +40,21 @@ export class HomeComponent {
     public userId: number;
     public selectedPhoto: Photo;
     public canGiveLike: boolean;
+    public publicEvents: Array<Event>;    
+    public participEvents: Array<Event>;
+    pEvents: boolean;
+    
 
     constructor(private _changeDetectionRef: ChangeDetectorRef, private data: Data) {
         this.items = [];
         for (let i = 1; i < 3; i++) {
             let segmentedBarItem = <SegmentedBarItem>new SegmentedBarItem();
-            if(i==1){
+            if (i == 1) {
                 segmentedBarItem.title = "Photos";
             } else {
                 segmentedBarItem.title = "Events";
             }
-            
+
             this.items.push(segmentedBarItem);
         }
         this.selectedIndex = 0;
@@ -59,14 +64,43 @@ export class HomeComponent {
         this.selected = false;
         this.photoId = 0;
         this.server = new Server();
+        this.getMyEvents();
+        this.fetchPublicEvents();
     }
 
     refreshFeed(args) {
         this.getPhotos();
         var pullRefresh = args.object;
-        setTimeout(function() {
+        setTimeout(function () {
             pullRefresh.refreshing = false;
         }, 1000);
+    }
+
+    fetchPublicEvents() {
+        this.publicEvents = this.server.getPublicEvents(this.data.storage["id"]);
+        console.log("Events " + this.publicEvents.length);
+    }
+
+    getMyEvents() {
+        this.participEvents = this.server.getMyEvents(this.data.storage["id"]);
+        console.log("Events " + this.participEvents.length);
+
+    }
+
+    joinEvent(eventId: number) {
+        //console.log("You clicked " + eventId + "your id " + this.data.storage["id"]);
+        var ok = this.server.joinEvent(eventId, this.data.storage["id"]);
+        this.pEvents = false;
+        this.fetchPublicEvents();
+    }
+
+    // HER MANGLER DET KODE -------------------------------------------------------------------------
+    openEvent(eventId: number) {
+        console.log("Event id tapped " + eventId + " user id " + this.data.storage["id"]);
+        //this.server.openEvent(eventId, this.data.storage["id"]);
+        //alert("Event removed");
+        //this.mEvents = false;
+        //this.getEvents();
     }
 
     //get photos from db, put them in photos array
@@ -74,7 +108,7 @@ export class HomeComponent {
         //var _server = new Server();
         //this.photos = _server.getPublicPhotos();
         //console.log("Have " + this.photos.length + " photos");
-        
+
         //testing
         //console.log("In getPhotos");
         this.photos = new Array();
@@ -83,28 +117,28 @@ export class HomeComponent {
         var query: string = this.site + "files?transform=1&filter[]=file_Permission,eq,public&filter[]=event_Id,is,null&filter[]=album_Id,not,null&filter[]=created_at,gt," + limitDate + "&order=created_at,desc";
         console.log("LIMIT DATE IN QUERY " + query);
         http.getJSON(query)
-        .then((r) => {
-            //testing
-            //console.log("Files.length is" + r.files.length);
-            for (var i = 0; i < r.files.length; i++) {
-                console.log("album id " + r.files[i].album_Id);
-                this.photos.push(
-                    new Photo(
-                        r.files[i].file_Id,
-                        "users/" + r.files[i].user_Id + r.files[i].file_URL,
-                        r.files[i].user_Id,
-                        (r.files[i].created_at).slice(0,10),
-                        r.files[i].file_Description,
-                        r.files[i].album_Id,
-                        r.files[i].file_Name
-                    )
-                )
+            .then((r) => {
                 //testing
-                //console.log(r.files[i].file_URL);
-            }
-        }, function (e) {
-            console.log(e);
-        });
+                //console.log("Files.length is" + r.files.length);
+                for (var i = 0; i < r.files.length; i++) {
+                    console.log("album id " + r.files[i].album_Id);
+                    this.photos.push(
+                        new Photo(
+                            r.files[i].file_Id,
+                            "users/" + r.files[i].user_Id + r.files[i].file_URL,
+                            r.files[i].user_Id,
+                            (r.files[i].created_at).slice(0, 10),
+                            r.files[i].file_Description,
+                            r.files[i].album_Id,
+                            r.files[i].file_Name
+                        )
+                    )
+                    //testing
+                    //console.log(r.files[i].file_URL);
+                }
+            }, function (e) {
+                console.log(e);
+            });
 
         /*function getAlbumName(albumId: number, site: string) {
             var albumName = "";
@@ -144,7 +178,7 @@ export class HomeComponent {
             console.log("The date " + dateString);
             return dateString;
         }
-       
+
     }
 
     selectPhoto(args: GestureEventData) {
@@ -239,7 +273,7 @@ export class HomeComponent {
     }
 
     updateLikes(id: number) {
-        var promise = new Promise((resolve, reject) => {        
+        var promise = new Promise((resolve, reject) => {
             var adding = this.canGiveLike;
             this.server.updateLikes(id, this.userId, adding);
             this.canGiveLike = !this.canGiveLike;

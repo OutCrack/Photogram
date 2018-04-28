@@ -15,15 +15,15 @@ export class NotificationComponent {
 
     constructor(private data: Data) {
         this.server = new Server();
-        this.pEvents = false;    
+        this.pEvents = false;
     }
 
     fetchPublicEvents() {
-        this.pEvents = !this.pEvents; 
+        this.pEvents = !this.pEvents;
         if (this.pEvents) {
-            this.publicEvents = this.server.getPublicEvents(this.data.storage["id"]);   
+            this.publicEvents = this.server.getPublicEvents(this.data.storage["id"]);
             console.log("Events " + this.publicEvents.length);
-        }  
+        }
     }
 
     joinEvent(eventId: number) {
@@ -31,6 +31,5 @@ export class NotificationComponent {
         var ok = this.server.joinEvent(eventId, this.data.storage["id"]);
         this.pEvents = false;
         this.fetchPublicEvents();
-
     }
 }
