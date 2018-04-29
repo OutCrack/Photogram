@@ -24,7 +24,6 @@ export class GalleryComponent {
     items = [];
     public id: any;
     public selected: boolean;
-    public selectedPhoto: string;
     site: string = "http://188.166.127.207:5555/api.php/";
     public photos: boolean;
     public myPhotos: Array<Photo>;
@@ -40,6 +39,8 @@ export class GalleryComponent {
     public mEvents: boolean;
     public participants: Array<User>
     public eventSelected: boolean;
+    public selectedPhoto: Photo;
+    public selectedId: number;
 
     constructor(private router: Router, private _changeDetectionRef: ChangeDetectorRef, private data: Data) {
         //this.getPhotos();
@@ -88,8 +89,11 @@ export class GalleryComponent {
         }
     }
 
-    public removePhoto(photoId: number) {
+    public removePhoto(photoId: number, fileName: string) {
+        console.log(photoId);
+        console.log(fileName);
         this.server.removePhoto(photoId).then(()=> {
+            this.server.deletePhoto(this.data.storage["id"], fileName, "photo", photoId);
             this.photos = false;
             this.getPhotos();
         }).catch(() => {
@@ -101,28 +105,31 @@ export class GalleryComponent {
         this.selected = true;
         console.log("The id is " + args.view.id);
         console.log("The event name is " + args.eventName);
-        var photo: Photo = this.myPhotos.find(i => i.id === parseInt(args.view.id));
-        this.username = photo.user.firstN + " " + photo.user.lastN;
-        this.photoId = photo.id;
-        this.photoUrl = photo.url;
-        this.photoCreated = photo.created;
-        this.photoDescription = photo.description;
-        this.photoComments = photo.comments;
-        for (let c of this.photoComments) {
-            //testing
-            //console.log("Checking rights for comments");
-            //console.log("comment user id " + c.userId + " loggen in as " + this.userId);
-            if (c.userId == this.data.storage["id"]) {
-                c.rights = true;
-                console.log("Rights changed to true");
-            }
-        }
+        this.selectedId = parseInt(args.view.id);
+        this.getPhoto(this.selectedId);
+    }
+
+    getPhoto(id: number) {
+        this.selectedPhoto = this.myPhotos.find(i => i.id === id);
+        this.username = this.selectedPhoto .user.firstN + " " + this.selectedPhoto .user.lastN;
+        this.photoId = this.selectedPhoto .id;
+        this.photoUrl = this.selectedPhoto .url;
+        this.photoCreated = this.selectedPhoto .created;
+        this.photoDescription = this.selectedPhoto .description;
+        this.photoComments = this.selectedPhoto .comments;
+        this.server.getLikes(this.photoId, this.data.storage["id"]).then((result) => {
+            this.selectedPhoto.likes = this.selectedPhoto.likes = parseInt(JSON.stringify(result));
+        }).catch((reject) => {
+            this.selectedPhoto.likes = this.selectedPhoto.likes = parseInt(JSON.stringify(reject));
+        });
     }
 
     closePhoto() {
         this.selected = false;
+        this.selectedPhoto = null;
         this.photoUrl = "";
         this.photoCreated = "";
+        this.selectedId = 0;
     }
 
     addComment(result) {
@@ -131,11 +138,28 @@ export class GalleryComponent {
             alert("Cannot insert empty comment");
         } else {
             var commentId = this.server.updateComment(this.photoId, this.data.storage["id"], result.text);
-            this.photoComments.push(
-                new Comment(commentId, this.data.storage["id"], result.text)
-            );
-            result.text = "";
-        }
+            //var comment = new Comment(commentId, this.data.storage["id"], result.text);
+            //comment.rights = true;
+            //this.photoComments.push(comment);
+            this.getPhoto(this.selectedId);
+            this.selectedPhoto.getComments().then(() => {
+                this.photoComments = this.selectedPhoto.comments;
+            }); }
+        result.text = "";
+    }
+
+    removeComment(commentId) {
+        console.log("You click comment id " + commentId);
+        var promise = new Promise((resolve, reject) => {
+            this.server.removeComment(commentId);
+            this.getPhoto(this.selectedId);
+            resolve();
+        });
+        promise.then(() => {
+            this.selectedPhoto.getComments().then(() => {
+                this.photoComments = this.selectedPhoto.comments;
+            }); 
+        });
     }
 
     getEvents() {
@@ -193,6 +217,7 @@ export class GalleryComponent {
             method: "POST",
             headers: {
                 "Content-Type": "application/octet-stream",
+                "Path" : "users/",
                 "File-Name": fileName,
                 "User-id": this.id
             },

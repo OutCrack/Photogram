@@ -5,6 +5,10 @@
     <ScrollView>
         <WrapLayout>
             <Image src="{{avatar}}" width="100" height="100"></Image>"
+            <StackLayout>
+                <Button *ngIf="editing && hasAvatar" text="delete picture" (tap)="deletePhoto()"></Button>
+                <Button *ngIf="editing" text="change picture" (tap)="changePhoto()"></Button>
+            </StackLayout>
             <GridLayout columns="auto, 60, *" rows="40, 40, 40, 40, 40, 40. 40, 40, 40" *ngIf="!editing">
                 <Label text="Name: " col="0" row="0"></Label><Label text="{{firstName}}" col="1" row="0"></Label><Label text="{{lastName}}" col="2" row="0"></Label>
                 <Label text="Email address: " col="0" row="1"></Label><Label text="{{email}}" col="1" row="1" colSpan="2"></Label>
@@ -16,13 +20,13 @@
                 <Button text="Edit info" col="0" row="7" colSpan="3" (tap)="editData()" ></Button>
             </GridLayout>
             <GridLayout columns="auto, 60, *" rows="40, 40, 40, 40, 40, 40. 40, 40, 40" *ngIf="editing">
-                <Label text="Name: " col="0" row="0"></Label><TextField text="{{firstName}}" col="1" row="0"></TextField><TextField text="{{lastName}}" col="2" row="0"></TextField>
-                <Label text="Email address: " col="0" row="1"></Label><TextField text="{{email}}" col="1" row="1" colSpan="2"></TextField>
-                <Label text="Gender: " col="0" row="2"></Label><TextField text ="{{gender}}" col="1" row="2" colSpan="2"></TextField>
-                <Label text="Birth date: " col="0" row="3"></Label><TextField text="{{birthDate}}" col="1" row="3" colSpan="2"></TextField>
-                <Label text="Location: " col="0" row="4"></Label><TextField text="{{location}}" col="1" row="4" colSpan="2"></TextField>
-                <Label text="Hobby:" col="0" row="5"></Label><TextField text="{{hobby}}" col="1" row="5" colSpan="2"></TextField>
-                <Label text="Profession: " col="0" row="6"></Label><TextField text="{{profession}}" col="1" row="6" colSpan="2"></TextField>
+                <Label text="Name: " col="0" row="0"></Label><TextField [(ngModel)] = "newData.first" col="1" row="0"></TextField><TextField [(ngModel)] = "newData.last" col="2" row="0"></TextField>
+                <Label text="Email address: " col="0" row="1"></Label><Label text="{{email}}" col="1" row="1" colSpan="2"></Label>
+                <Label text="Gender: " col="0" row="2"></Label><TextField [(ngModel)] = "newData.gender" col="1" row="2" colSpan="2"></TextField>
+                <Label text="Birth date: " col="0" row="3"></Label><TextField [(ngModel)] = "newData.bdate" col="1" row="3" colSpan="2"></TextField>
+                <Label text="Location: " col="0" row="4"></Label><TextField [(ngModel)] = "newData.location" col="1" row="4" colSpan="2"></TextField>
+                <Label text="Hobby:" col="0" row="5"></Label><TextField [(ngModel)] = "newData.hobby" col="1" row="5" colSpan="2"></TextField>
+                <Label text="Profession: " col="0" row="6"></Label><TextField [(ngModel)] = "newData.profession" col="1" row="6" colSpan="2"></TextField>
                 <Button text="Cancel" col="0" row="7" (tap)="cancel()"></Button>
                 <Button text="Save" (tap)="saveData()" col="1" row="7" colSpan="2"></Button>
             </GridLayout>
