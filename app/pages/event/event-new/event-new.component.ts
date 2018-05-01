@@ -14,10 +14,19 @@ export class NewEventComponent {
 
     public constructor(private data: Data){
         this.server = new Server();
+        this.event = { }
     }
 
-    public saveEvent(){
-        console.log(this.event.name);
+    public saveEvent(){        
+        /*this.event = {
+            "name" : this.event.name,
+            "location" : this.event.location,
+            "description" : this.event.description,
+            "type" : this.event.type,
+            "privacy" : this.event.privacy
+        }*/
+
         this.server.newEvent(this.event.name, this.event.location, this.event.description, this.event.type, this.event.privacy);
+        console.log(this.event.name);
     }
 }
