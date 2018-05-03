@@ -280,7 +280,8 @@ export class Server {
                 event_Description : eventDescription,
                 event_Type : eventType,
                 event_Privacy : eventPrivacy,
-                created_at : created})
+                created_at : created
+                })
         }).then(function(response) {
             result = response.content.toJSON();
             console.log(result);

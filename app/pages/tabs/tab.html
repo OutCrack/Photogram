@@ -1,5 +1,6 @@
 <TabView #tabView [(ngModel)]="selectedIndex" (selectedIndexChanged)="tabViewIndexChange(tabView.selectedIndex)" iosIconRenderingMode="alwaysTemplate">
     <ActionBar title="">
+        <ActionItem (tap)="onInvitation()" ios.systemIcon="7" ios.position="right" android.systemIcon="ic_menu_mail"></ActionItem>
         <ActionItem *ngIf="isHome" (tap)="onCamera()" ios.systemIcon="15" ios.position="right" android.systemIcon="ic_menu_camera"></ActionItem>
         <ActionItem *ngIf="isGallery" (tap)="onCamera()" ios.systemIcon="15" ios.position="right" android.systemIcon="ic_menu_camera"></ActionItem>
         <ActionItem *ngIf="isHome" (tap)="onNewEvent()" ios.systemIcon="4" ios.position="right" android.systemIcon="ic_menu_add"></ActionItem>

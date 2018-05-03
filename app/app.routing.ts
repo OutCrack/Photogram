@@ -7,11 +7,13 @@ import { GalleryComponent } from "./pages/tabs/gallery/gallery.component";
 import { NotificationComponent } from "./pages/tabs/notification/notification.comonent";
 import { ProfileComponent } from "./pages/tabs/profile/profile.component";
 import { NewEventComponent } from "./pages/event/event-new/event-new.component";
+import { InvitationComponent } from "./pages/invitation/invitation";
 
 export const routes = [
   { path: "", component: LoginComponent },
   { path: "login", component: LoginComponent },
   { path: "image", component: ImageComponent },
+  { path: "invitation" , component: InvitationComponent},
   { path: "newEvent", component: NewEventComponent },
   { path: "tab", component: TabComponent, children: [
     { path: "home", component: HomeComponent, outlet: 'homeoutlet'},
@@ -26,6 +28,7 @@ export const navigatableComponents = [
   LoginComponent,
   ImageComponent,
   NewEventComponent,
+  InvitationComponent,
   TabComponent,
   HomeComponent,
   SearchComponent,

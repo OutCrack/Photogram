@@ -1,0 +1,63 @@
+.color_btn {
+    width : 20%;
+    border-radius: 5;
+    border-width: 1;
+    margin: 2px;
+}
+
+.white {
+    background-color: white;
+}
+
+.black {
+    background-color: black;
+}
+
+.golden {
+    background-color: goldenrod;
+}
+
+.pink {
+    background-color: palevioletred;
+}
+
+.font1{
+    font-style: italic;
+    font-family: Verdana;
+    text-transform: lowercase;
+    margin: 3px;
+}
+
+.font2 {
+    font-style: normal;
+    font-family: Lucida;
+    text-transform: lowercase;
+    margin: 3px;
+}
+
+.font3 {
+    font-style: normal;
+    font-family: cursive;
+    text-transform: lowercase;
+    margin: 3px;
+}
+
+.font4 {
+    font-family: GreatVibes, Great Vibes;
+    text-transform: lowercase;
+    margin: 3px;
+}
+
+#fullscreen {
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    opacity: 0.8;
+}
+
+
+

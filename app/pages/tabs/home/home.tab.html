@@ -5,7 +5,6 @@
                         <StackLayout *ngIf="!selected">
                                 <Label text="Latest photos" class="title"></Label>
                                 <StackLayout *ngFor="let photo of photos" class="list-group-item">
-                                        <!--<Label text="User:"></Label><Label text="{{photo.user.firstN}} {{photo.user.lastN}}" class="user"></Label>-->
                                         <GridLayout>
                                                 <Label text="Uploaded:"></Label>
                                                 <Label text="{{photo.created}}" class="user" horizontalAlignment="right"></Label>
@@ -13,14 +12,6 @@
                                         <Label text="{{photo.description}}"></Label>
                                         <Image src="{{photo.url}}" width="120dp" height="120dp" id="{{photo.id}}" (tap)="selectPhoto($event)"></Image>
                                 </StackLayout>
-
-                                <!--<StackLayout  class="list-group-item">
-                                        <GridLayout rows="*, *, *" columns="*,* ">
-                                                <Label text="{{username}}"></Label>
-                                                <Label text="{{photo.created}}" col="1" horizontalAlignment="right"></Label>
-                                                <Image src="{{photo.url}}" width="120dp" height="400dp" id="{{photo.id}}" (tap)="selectPhoto($event)"></Image>
-                                        </GridLayout>
-                                </StackLayout>-->
                         </StackLayout>
                         <StackLayout *ngIf="selected">
                                 <Label text="{{photoCreated}}"></Label>

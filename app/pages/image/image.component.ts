@@ -1,6 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectorRef  } from "@angular/core";
 import { Server } from "../../shared/Server/Server"
 import { Image } from "ui/image";
+import * as imagepicker from "nativescript-imagepicker";
 import { Data } from "../../shared/Data";
 import * as camera from "nativescript-camera";
 import observable = require("data/observable");
@@ -23,10 +24,13 @@ export class ImageComponent {
     public picture: any;
     public server: Server;
     public source: any;
+    public id: number;
+    public items: any;
 
-    public constructor(private data: Data) {
+    public constructor(private data: Data, private _changeDetectionRef: ChangeDetectorRef) {
         this.server = new Server();
-        this.picture = "https://placehold.it/200x200";
+        this.picture = "https://placehold.it/";
+        this.items = [];
     }
 
     public takePicture() {
@@ -43,9 +47,44 @@ export class ImageComponent {
             }   
         });
     }
+
+    chooseFromFile() {
+        this.id = this.data.storage["id"];
+        console.log("Id " + this.id);
+        let context = imagepicker.create({
+            mode: "single" //"multiple"
+        });
+        this.startSelecting(context);
+    }
+
+    private startSelecting(context) {
+        let _that = this;
+        console.log("in Gallery constructor");
+        context
+            .authorize() 
+            .then(function() {
+                _that.items = [];
+                return context.present();
+            })
+            .then((selection) => {
+                selection.forEach(function(selected) {
+                    console.log("----------------");
+                    console.log("uri: " + selected.uri);
+                    console.log("fileUri: " + selected.fileUri);
+                    _that.picture = selected
+                    _that.source = selected.fileUri;
+                    //_that.server.uploadPhoto(selected.fileUri, this.id);
+                }
+            ); 
+                _that.items = selection;
+                _that._changeDetectionRef.detectChanges(); 
+            }).catch(function(e) {
+                console.log(e);
+            })
+    }
     
     public uploadPicture() {
         console.log("Uploading " + this.source + " user id " + this.data.storage["id"]);
-        this.server.uploadPhoto(this.source, this.data.storage["id"])
+        this.server.uploadPhoto(this.source, this.id)
     }
 }

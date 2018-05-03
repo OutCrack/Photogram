@@ -46,6 +46,11 @@ export class TabComponent {
         this.router.navigate(["/newEvent"]);
     }
 
+    onInvitation() {
+        console.log("New invitation tapped");
+        this.router.navigate(["/invitation"]);
+    }
+
     onHome() {
         console.log("Home-tab tapped.");
         this.isHome = true;

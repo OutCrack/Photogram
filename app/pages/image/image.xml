@@ -2,7 +2,8 @@
 
 <ActionBar title="Camera"></ActionBar>
 <StackLayout horizontalAlignment="center" verticalAlignment="center">
-    <Image [src]="picture" width="200" height="200"></Image>
+    <Image [src]="picture" width="80%" height="70%"></Image>
     <Button text="Capture" (tap)="takePicture()" class="btn btn-primary"></Button>
+    <Button text="Choose from file" (tap)="chooseFromFile()" class="btn btn-primary"></Button>
     <Button text ="Upload" (tap)="uploadPicture()" class="btn btn-primary"></Button>
 </StackLayout>

@@ -1,10 +1,15 @@
 @import url("~/platform.css");
+.GreatVibes {
+  font-family: GreatVibes, Great Vibes;
+}
 
 Page {
-    background-color: white;
+    background-color: #2f2f2f;
     font-size: 15;
   }
   TextField {
     padding: 10;
     font-size: 13;
   }
+
+

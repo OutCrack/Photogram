@@ -14,6 +14,9 @@ export class NewEventComponent {
 
     public constructor(private data: Data){
         this.server = new Server();
+        this.event = {
+
+        }
     }
 
     public saveEvent(){
