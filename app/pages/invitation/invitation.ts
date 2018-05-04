@@ -7,6 +7,7 @@ import * as imageSourceModule from "image-source";
 import * as email from "nativescript-email";
 import * as fs from "file-system";
 import { ImageAsset } from "tns-core-modules/image-asset/image-asset";
+import { isNavigationCancelingError } from "@angular/router/src/shared";
 var orientation = require("nativescript-orientation");
 var dom = require("nativescript-dom");
 var plugin = require("nativescript-screenshot");
@@ -108,45 +109,54 @@ export class InvitationComponent {
     public sendInvitation() {
         var promise = new Promise((resolve, reject)=> {
         //var img = new imageSourceModule.ImageSource();
+        //var img = new image.Image();
         var img = new image.Image();
-        img.imageSource = plugin.getImage(stackLayout/*.getElementById('fullscreen')*/);
+        var imageSource = plugin.getImage(stackLayout);
+        img.imageSource = imageSource;
+        stackLayout.addChild(img);
+        console.error(stackLayout);
+        console.error("imgsource" + JSON.stringify(imageSource));
+        console.error("From plugin " + plugin.getImage(stackLayout));
+
+        //img.imageSource = plugin.getImage(stackLayout/*.getElementById('fullscreen')*/);
         //console.log("Image " + JSON.stringify(img));
         //console.log("Source " + JSON.stringify(img.imageSource));
         //let source = img.src;
         //source.loadFromData(img);
         //console.log("Source " + JSON.stringify(source));
-        var source = imageSourceModule.fromBase64(img);
+        //var source = imageSourceModule.fromBase64(img);
         var folder = fs.knownFolders.documents().path;
         console.log("Folder " + folder);
         var path = fs.path.join(folder, "Invitation.png");
-        console.log("path " + path);
-        var saved = source.saveToFile(folder, "png");
+        //console.log("path " + path);
+        var saved = imageSource.saveToFile(path, "png");
         console.log("Saved " + saved);
-        if (img == null) reject("big error");
-        resolve(img);
+        //if (img == null) reject("big error");
+        resolve(folder + "/Invitation.png");
         });
-        promise.then((img) => console.log("RESOLVED" + img)).catch((e) => console.log("error " + e));
-        /*promise.then((img) => {
-            var thePath: string = JSON.stringify(img);
-            console.log(thePath);
+        promise.then((file) => {
+            var path: string = JSON.stringify(file);
+            path = path.slice(1, path.length - 1);
+            console.log("File " + file);
+            console.log("JSON" + path);
             email.available().then(available => {
                 console.log("Email status is " + available);
                 if (available) {
                     email.compose({
                         to : ['kasia.klm@wp.pl'],
                         subject: 'Invitation',
-                        body: 'Invitation',
-                        attachments: [ 
+                        body: 'Hello <strong style="font-family: GreatVibes">dude</strong>',
+                        attachments: [
                             {
-                            fileName: 'Invitation',
-                            path: thePath,
-                            mimeType: 'image/png'
-                        }
-                    ]
+                                fileName : "Invitation.png",
+                                path: path,
+                                mimeType : "image/png"
+                            }
+                        ]
                     }).then(() => console.log("Email composer closed"))
                 }
             }).catch(error => console.error(error));
-        });*/
+        });
 
 
     }
