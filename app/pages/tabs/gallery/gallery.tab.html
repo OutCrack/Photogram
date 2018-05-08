@@ -1,13 +1,18 @@
-<StackLayout>
-    <Label text="My gallery" *ngIf="!selected"></Label> 
-    <Button [text]="photos ? 'Hide photos' : 'My pictures'" *ngIf="!selected" (tap)="getPhotos()"></Button>
+<StackLayout (loaded)="stackLoaded($event)">
+    <WrapLayout>
+        <StackLayout *ngFor = "let album of myAlbums">
+            <Image src="res://album" style="width: 100; height: 100"></Image>
+            <Label text="{{album.name}}"></Label>
+        </StackLayout>
+    </WrapLayout>
+    <!-- <Button [text]="photos ? 'Hide photos' : 'My pictures'" *ngIf="!selected" (tap)="getPhotos()"></Button>
     <Button [text]="mEvents ? 'Hide events' : 'Show my events'" *ngIf="!selected" (tap)="getEvents()"></Button>
     <Button text="New event" (tap)="newEvent()"></Button>
     <Button text="Upload photo" *ngIf="!selected" (tap)="openGallery()"></Button>
     <ScrollView *ngIf="photos && !selected">
         <WrapLayout id="photoView" width="300" orientaton="vertical">
             <StackLayout *ngFor="let myPhoto of myPhotos">
-                <!--<Label class="date" text="{{myPhoto.created}}"></Label>-->
+                <Label class="date" text="{{myPhoto.created}}"></Label>
                 <Image  src="{{myPhoto.url}}" width="50dp" height="50dp" margin="5" id="{{myPhoto.id}}" (tap)="selectPhoto($event)"></Image>
                 <Button text="remove" (tap)="removePhoto(myPhoto.id, myPhoto.fileName)"></Button>
             </StackLayout>
@@ -55,5 +60,5 @@
                 <Label text="{{participant.role}}"></Label>
             </WrapLayout>
         </StackLayout>
-    </ScrollVIew>
+    </ScrollVIew>-->
 </StackLayout>

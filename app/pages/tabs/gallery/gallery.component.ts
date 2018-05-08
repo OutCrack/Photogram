@@ -12,6 +12,7 @@ import { Event } from "../../../shared/Event";
 import { Comment } from "../../../shared/Comment";
 import { User } from "../../../shared/User";
 import { Router } from '@angular/router';
+import { Album } from"../../../shared/Album";
 
 @Component({
     selector: "gallery-tab",
@@ -41,6 +42,12 @@ export class GalleryComponent {
     public eventSelected: boolean;
     public selectedPhoto: Photo;
     public selectedId: number;
+    public myAlbums: Array<Album>;
+
+    stackLoaded = function(args) {
+        console.log("Stack Loaded");
+        this.myAlbums = this.server.getAlbums(this.data.storage["id"]);
+    }
 
     constructor(private router: Router, private _changeDetectionRef: ChangeDetectorRef, private data: Data) {
         //this.getPhotos();

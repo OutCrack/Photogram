@@ -26,14 +26,12 @@ export class TabComponent {
     isGallery: boolean = false;
     isNotification: boolean = false;
     isProfile: boolean = false;
-    public firstName: string;
-    public lastName: string;
+    //public firstName: string;
+    //public lastName: string;
+    public tabName: string = "feed";
 
     constructor(private router: Router, private page: Page, protected data: Data) {
-        /*this.items = new Array<DataItem>();
-        for (let i = 0; i < 5; i++) {
-            this.items.push(new DataItem("item " + i));
-        }*/
+        this.tabName = "feed";
     }
     onCamera() {
         console.log("Camera tapped.");
@@ -43,6 +41,7 @@ export class TabComponent {
 
     onNewEvent() {
         console.log("New event tapped.");
+        this.tabName = "new event";
         this.router.navigate(["/newEvent"]);
     }
 
@@ -58,6 +57,7 @@ export class TabComponent {
         this.isGallery = false;
         this.isNotification = false;
         this.isProfile = false;
+        this.tabName = "feed";
     }
 
     onSearch() {
@@ -67,7 +67,8 @@ export class TabComponent {
         this.isGallery = false;
         this.isNotification = false;
         this.isProfile = false;
-        console.log("Users name" + this.firstName);
+        this.tabName = "search";
+        //console.log("Users name" + this.firstName);
         //console.log("Last name" + this.lastName);
     }
 
@@ -77,7 +78,8 @@ export class TabComponent {
         this.isSearch = false;
         this.isGallery = true;
         this.isNotification = false;
-        this.isProfile = false;           
+        this.isProfile = false; 
+        this.tabName = "gallery";          
     }
 
     onNotification() {
@@ -86,7 +88,8 @@ export class TabComponent {
         this.isSearch = false;
         this.isGallery = false;
         this.isNotification = true;
-        this.isProfile = false;   
+        this.isProfile = false; 
+        this.tabName = "notifications";  
     }
 
     onProfile() {
@@ -96,8 +99,10 @@ export class TabComponent {
         this.isGallery = false;
         this.isNotification = false;
         this.isProfile = true;  
-        this.firstName = this.data.storage["firstName"];
-        this.lastName = this.data.storage["lastName"];
+        //this.firstName = this.data.storage["firstName"];
+        //this.lastName = this.data.storage["lastName"];
+        this.tabName = "profile";
+        console.log("Tabname " + this.tabName);
     }
 
     tabViewIndexChange(index: number) {
@@ -118,5 +123,17 @@ export class TabComponent {
                 this.onProfile();
                 break;
         }
+    }
+
+    addAlbum() {
+        console.log("New album adding");
+        this.router.navigate(["/newAlbum"]);
+    }
+
+    logout() {
+        var router = this.router;
+        this.data.storage = {};
+        firebase.logout();
+        router.navigate(["/newAlbum"]);
     }
 }

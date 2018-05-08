@@ -36,7 +36,7 @@ StackLayout {
   }
 
   .face-button {
-    width: 40%;
+    width: 10%;
     border-radius: 5;
     border-width: 1;
     margin: 10;
@@ -46,7 +46,7 @@ StackLayout {
   }
 
   .ggl-btn {
-    width: 40%;
+    width: 10%;
     border-radius: 5;
     border-width: 1;
     margin: 10;

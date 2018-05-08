@@ -2,6 +2,7 @@ import { Event } from "../Event";
 import { Photo } from "../Photo";
 import { User } from "../User";
 import { Comment } from "../Comment";
+import { Album } from "../Album";
 var bghttp = require("nativescript-background-http");
 var session = bghttp.session("image-upload");
 var http = require("http");
@@ -647,5 +648,52 @@ export class Server {
                 })
             }
         })
+    }
+
+    public saveAlbum(userId: number, name: string, publicR: boolean, description: string) {
+        return new Promise((resolve, reject) => {
+            var result;
+            var permission: string;
+            if (publicR) {
+                permission = "public";
+            } else {
+                permission = "private";
+            }
+            http.request({
+                url: this.db + "albums/",
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                content: JSON.stringify({ user_Id : userId, album_Name: name, album_Permission : permission,
+                album_Description: description })
+            }).then(function(response) {
+                result = response.content.toJSON();
+                console.log(result);
+            }, function(e) {
+                console.log("Error occured " + e);
+            });
+            resolve();
+        })
+    }
+
+    public getAlbums(userId: number) {
+        console.log("Getting albums for user " + userId);
+        var albums: Array<Album> = [];
+        var query: string = this.db + "albums?transform=1&filter=user_Id,eq," + userId;
+        console.log("The query " + query);
+        http.getJSON(query).
+        then((r) => {
+            for (let i = 0; i < r.albums.length; i++) {
+                albums.push(
+                    new Album(
+                        r.albums[i].album_id,
+                        r.albums[i].album_Name,
+                        r.albums[i].album_Permission,
+                        r.albums[i].album_Description                    )
+                );
+            }
+        }, function(e) {
+            console.log(e);
+        })
+        return albums;
     }
 }

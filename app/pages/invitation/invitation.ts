@@ -8,17 +8,17 @@ import * as email from "nativescript-email";
 import * as fs from "file-system";
 import { ImageAsset } from "tns-core-modules/image-asset/image-asset";
 import { isNavigationCancelingError } from "@angular/router/src/shared";
-var orientation = require("nativescript-orientation");
+//var orientation = require("nativescript-orientation");
 var dom = require("nativescript-dom");
 var plugin = require("nativescript-screenshot");
 var image = require("ui/image");
 var stackLayout;
-var stylePanel;
+var inviteBody;
 var sendButton;
 
-exports.testTap = function(args) {
+/*exports.testTap = function(args) {
     console.log("tapped" + args);
-}
+}*/
 
 
 @Component({
@@ -32,26 +32,24 @@ export class InvitationComponent {
     public page: Page
     public bodyColor: string;
     public fontStyle: string;
-    public ort: boolean;
+    public fontColor: string = "gold";
+    //public ort: boolean;
     public mode: string;
     constructor(private router: Router) {
-        if (this.bodyColor == null) {
-            this.bodyColor = "gold";
-        } 
-        if (this.fontStyle == null) {
-            this.bodyColor = "font1";
-        } 
         if (this.mode == null) {
             this.mode = "normal";
         }
-        this.ort = orientation.getOrientation() == "landscape" ? true : false;
+        //this.ort = orientation.getOrientation() == "landscape" ? true : false;
     
-        app.on("orientationChanged", this.onOrientationChanged);
+        //app.on("orientationChanged", this.onOrientationChanged);
     }
 
     stackLoaded = function(args) {
         stackLayout = args.object;
-        stylePanel = stackLayout.getElementById("style_panel");
+        inviteBody = stackLayout.getElementById("body");
+        this.fontColor = "gold";
+        this.bodyColor = "bgr_black";
+        this.fontStyle = "font1";
         sendButton = stackLayout.getElementById("send_btn");
         //var layout = page.getElementById('button-ctn');
         console.log("-------------------------");
@@ -61,7 +59,7 @@ export class InvitationComponent {
         //layout.classList.add('visible');
      }
 
-     testTap = function(args) {
+    /* testTap = function(args) {
         //var layout = page.getElementById('button-ctn');
         console.log("buttonTapped");
         console.log(stackLayout.classList);
@@ -70,31 +68,71 @@ export class InvitationComponent {
         //image.src = "res://logo";
         //stackLayout.addChild(image);
         //layout.classList.add('visible');
-     }
+     }*/
 
-    public changeBackground(color: string) {
-        console.log("Tapped " + color);
-        this.bodyColor = color;
+    public changeBackground() {
+        if (this.bodyColor == "bgr_white") {
+            this.bodyColor = "bgr_black";
+        }
+        else if (this.bodyColor == "bgr_black") {
+            this.bodyColor = "bgr_golden";
+        }
+        else if (this.bodyColor == "bgr_golden") {
+            this.bodyColor = "bgr_pink"
+        } else {
+            this.bodyColor = "bgr_white";
+        }
         console.log("Body color" + this.bodyColor);
-        console.log("Landscape? " + this.ort);
+        //console.log("Landscape? " + this.ort);
     }
 
-    public onOrientationChanged = (evt) => {
+    /*public onOrientationChanged = (evt) => {
         console.log("Orientation has changed");
         this.ort = orientation.getOrientation() == "landscape" ? true : false;
         console.log("Landscape? " + this.ort);
         if (this.ort) {
             stylePanel.style.visibility = "collapse";
-            sendButton.style.visibility = "visible";
         } else {
             stylePanel.style.visibility = "visible";
-            sendButton.style.visibility = "collapse";
         }
+    }*/
+
+    public setFont() {
+        if (this.fontStyle == "font1") {
+            this.fontStyle = "font2";
+        }
+        else if (this.fontStyle == "font2") {
+            this.fontStyle = "font3";
+        }
+        else if (this.fontStyle == "font3") {
+            this.fontStyle = "font4";
+        }
+        else {
+            this.fontStyle = "font1";
+        }
+        console.log("Font style changed to  " + this.fontStyle);
     }
 
-    public changeFont(font: string) {
-        this.fontStyle = font;
-        console.log("Font changed to " + font);
+    public setFontColor() {
+        if (this.fontColor == "gold") {
+            this.fontColor = "red";
+        }
+        else if (this.fontColor == "red") {
+            this.fontColor = "white";
+        }
+        else if (this.fontColor == "white") {
+            this.fontColor = "black";
+        }
+        else if (this.fontColor == "black") {
+            this.fontColor = "green";
+        }
+        else if (this.fontColor == "green") {
+            this.fontColor = "violet";
+        }
+        else {
+            this.fontColor = "gold";
+        }
+        console.log("Font color changed to  " + this.fontColor);
     }
 
     /*public fullscreen() {
@@ -107,28 +145,20 @@ export class InvitationComponent {
     }*/
 
     public sendInvitation() {
+        console.log("Send invitation tapped");
         var promise = new Promise((resolve, reject)=> {
-        //var img = new imageSourceModule.ImageSource();
-        //var img = new image.Image();
         var img = new image.Image();
-        var imageSource = plugin.getImage(stackLayout);
+        var body = stackLayout.getElementById('fullscreen');
+        var imageSource = plugin.getImage(inviteBody);
         img.imageSource = imageSource;
-        stackLayout.addChild(img);
-        console.error(stackLayout);
+        // testing: stackLayout.addChild(img);
+        console.error("LOOOOOOOOOL" + body);;
         console.error("imgsource" + JSON.stringify(imageSource));
-        console.error("From plugin " + plugin.getImage(stackLayout));
-
-        //img.imageSource = plugin.getImage(stackLayout/*.getElementById('fullscreen')*/);
-        //console.log("Image " + JSON.stringify(img));
-        //console.log("Source " + JSON.stringify(img.imageSource));
-        //let source = img.src;
-        //source.loadFromData(img);
-        //console.log("Source " + JSON.stringify(source));
-        //var source = imageSourceModule.fromBase64(img);
+        console.error("From plugin " + plugin.getImage(inviteBody));
         var folder = fs.knownFolders.documents().path;
         console.log("Folder " + folder);
         var path = fs.path.join(folder, "Invitation.png");
-        //console.log("path " + path);
+        /*testing*/ console.error("path " + path);
         var saved = imageSource.saveToFile(path, "png");
         console.log("Saved " + saved);
         //if (img == null) reject("big error");
@@ -143,7 +173,7 @@ export class InvitationComponent {
                 console.log("Email status is " + available);
                 if (available) {
                     email.compose({
-                        to : ['kasia.klm@wp.pl'],
+                        to : ['kasia.zubowicz@gmail.com'],
                         subject: 'Invitation',
                         body: 'Hello <strong style="font-family: GreatVibes">dude</strong>',
                         attachments: [

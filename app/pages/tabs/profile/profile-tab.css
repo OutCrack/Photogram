@@ -1,6 +1,9 @@
-Label {
-    font-size: 20dp;
-    text-align: center
+Label, TextField {
+    font-size: 18dp;
+    text-align: center;
+    margin-bottom: 5px;
+    height: 10%;
+    margin-left: 5px;
 }
 
 .date {
@@ -12,3 +15,12 @@ Image {
     width: 50dp;
     height: 50dp;
 } 
+
+Button {
+    background-color: gray;
+    outline: darkslategrey;
+    color: whitesmoke;
+    width: 30%;
+    margin-top: 10px;
+    height: 120px;
+}

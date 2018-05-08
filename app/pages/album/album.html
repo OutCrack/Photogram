@@ -1,0 +1,15 @@
+<StackLayout>
+    <StackLayout orientation="horizontal">
+        <Label text="Album name"></Label>
+        <TextField [(ngModel)]="album.name" style="width: 50%"></TextField>
+    </StackLayout>
+    <StackLayout orientation="horizontal">
+        <Label text="permission"></Label>
+        <Button [text] = "public ? 'public' : 'private'" (tap)="changePrivacy()"></Button> 
+    </StackLayout>
+    <StackLayout>
+        <Label text="Description"></Label>
+        <TextField [(ngModel)]="album.description"></TextField>
+    </StackLayout>
+    <Button text="save" (tap)="saveAlbum()"></Button>
+</StackLayout>

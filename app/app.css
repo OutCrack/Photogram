@@ -3,13 +3,45 @@
   font-family: GreatVibes, Great Vibes;
 }
 
+.Lobster {
+  font-family: Lobster, Lobster;
+}
+
+.BerkshireSwash {
+  font-family: BerkshireSwash, Berkshire Swash
+}
+
+.DancingScript {
+  font-family: DancingScript, Dancing Script
+}
+
+.Pacifico {
+  font-family: Pacifico, Pacifico
+}
+
 Page {
     background-color: #2f2f2f;
     font-size: 15;
   }
-  TextField {
-    padding: 10;
-    font-size: 13;
+
+  Button, TextField {
+    border-radius: 5;
+    color: whitesmoke;
   }
+
+  TextField {
+    color: black;
+    background-color: ivory;
+    padding: 10;
+  }
+
+  SegmentedBar {
+    color: ivory;
+  }
+
+Label {
+  color: #FFFDD0;
+}
+
 
 

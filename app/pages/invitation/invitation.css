@@ -1,63 +1,95 @@
-.color_btn {
-    width : 20%;
-    border-radius: 5;
-    border-width: 1;
-    margin: 2px;
-}
-
-.white {
+.bgr_white {
     background-color: white;
 }
 
-.black {
+.bgr_black {
     background-color: black;
 }
 
-.golden {
+.bgr_golden {
     background-color: goldenrod;
 }
 
-.pink {
+.bgr_pink {
     background-color: palevioletred;
 }
 
 .font1{
     font-style: italic;
-    font-family: Verdana;
-    text-transform: lowercase;
+    font-family: BerkshireSwash, Berkshire Swash;
     margin: 3px;
 }
 
 .font2 {
     font-style: normal;
-    font-family: Lucida;
-    text-transform: lowercase;
+    font-family: Pacifico, Pacifico;
     margin: 3px;
 }
 
 .font3 {
     font-style: normal;
-    font-family: cursive;
-    text-transform: lowercase;
+    font-family: Lobster, Lobster;
     margin: 3px;
 }
 
 .font4 {
-    font-family: GreatVibes, Great Vibes;
-    text-transform: lowercase;
+    font-style: normal;
+    font-family: DancingScript, Dancing Script;
     margin: 3px;
 }
 
-#fullscreen {
+#body {
+    padding-top: 5px;
+    margin-top: 20px;
     position: fixed;
     padding: 0;
     margin: 0;
     top: 0;
     left: 0;
-    width: 60%;
-    height: 60%;
+    width: 90%;
+    height: 90%;
     opacity: 0.8;
+    text-align: center;
 }
+
+#title {
+    font-size: 30dp;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+Button {
+    text-transform: lowercase;
+}
+
+TextField {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+  .gold {
+    color: gold;
+  }
+
+  .red {
+    color: red
+  }
+
+  .white {
+    color: whitesmoke;
+  }
+
+  .black {
+    color: black;
+  }
+
+  .green {
+    color: green;
+  }
+
+  .violet {
+    color: darkorchid;
+  }
 
 
 

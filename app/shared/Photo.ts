@@ -92,7 +92,7 @@ export class Photo {
             console.log("Getting comments");
             this.comments = [];
             this.comments = this.server.getComments(this.id);
-            resolve();
+            resolve(this.id);
         });
     }
 } 

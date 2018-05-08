@@ -85,6 +85,6 @@ export class ImageComponent {
     
     public uploadPicture() {
         console.log("Uploading " + this.source + " user id " + this.data.storage["id"]);
-        this.server.uploadPhoto(this.source, this.id)
+        this.server.uploadPhoto(this.source, this.data.storage["id"]);
     }
 }

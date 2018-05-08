@@ -173,11 +173,5 @@ export class ProfileComponent {
         }
     }
     //logs out from both Google+ and Facebook accounts
-    logout() {
-        var router = this.router;
-        this.data.storage = {};
-        firebase.logout();
-        router.navigate([""]);
-    }
 
 }
