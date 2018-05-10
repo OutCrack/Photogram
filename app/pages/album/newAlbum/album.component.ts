@@ -1,12 +1,12 @@
 import { Component } from "@angular/core";
-import { Data } from "../../shared/Data";
-import { Server } from "../../shared/Server/Server";
+import { Data } from "../../../shared/Data";
+import { Server } from "../../../shared/Server/Server";
 import { RouterExtensions } from "nativescript-angular";
 
 
 @Component({
-    templateUrl: "./pages/album/album.html",
-    styleUrls: [ "./pages/album/album.component.css" ]
+    templateUrl: "./pages/album/newAlbum/album.html",
+    styleUrls: [ "./pages/album/newAlbum/album.component.css" ]
 })
 export class AlbumComponent {
 

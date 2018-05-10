@@ -53,11 +53,16 @@ export class GalleryComponent {
         //this.getPhotos();
         this.selected = false;
         console.log("In gallery constructor"); 
-        this.server = new Server;
+        this.server = new Server();
         this.mEvents = false;
         this.photos = false;
         this.eventSelected = false;
         this.participants = [];
+    }
+
+    public selectAlbum(albumId: number) {
+        console.log("You tapped " + albumId);
+        this.router.navigate(["/albumView", albumId]);
     }
 
     public getPhotos() {

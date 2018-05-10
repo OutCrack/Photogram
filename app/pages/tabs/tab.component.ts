@@ -134,6 +134,6 @@ export class TabComponent {
         var router = this.router;
         this.data.storage = {};
         firebase.logout();
-        router.navigate(["/newAlbum"]);
+        router.navigate(["/"]);
     }
 }

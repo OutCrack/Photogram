@@ -1,0 +1,15 @@
+<ActionBar title="Albumname">
+    <ActionItem (tap)="onCamera()" ios.systemIcon="15" ios.position="right" android.systemIcon="ic_menu_camera"></ActionItem>
+</ActionBar>
+
+<StackLayout (loaded)="stackLoaded($event)">
+    <Label text="{{albumName}}"></Label>
+    <Label text="{{albumId}}"></Label>
+    <WrapLayout>
+        <StackLayout *ngFor="let photo of albumPhotos">
+            <Image src="{{photo.url}}" style="width: 100; height: 100"></Image>
+            <Label text="{{photo.created}}"></Label>
+            <Label text="{{photo.description}}"></Label>
+        </StackLayout>
+    </WrapLayout>
+</StackLayout>

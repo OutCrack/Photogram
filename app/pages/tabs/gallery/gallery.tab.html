@@ -1,6 +1,6 @@
 <StackLayout (loaded)="stackLoaded($event)">
     <WrapLayout>
-        <StackLayout *ngFor = "let album of myAlbums">
+        <StackLayout *ngFor = "let album of myAlbums" (tap)="selectAlbum(album.id)">
             <Image src="res://album" style="width: 100; height: 100"></Image>
             <Label text="{{album.name}}"></Label>
         </StackLayout>

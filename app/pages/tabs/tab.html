@@ -2,8 +2,7 @@
     <ActionBar title="{{tabName}}">
         <ActionItem *ngIf="isGallery" (tap)="addAlbum()" ios.systemIcon="11" ios.position="right" android.systemIcon="sym_action_add"></ActionItem>
         <ActionItem *ngIf="!isProfile" (tap)="onInvitation()" ios.systemIcon="7" ios.position="right" android.systemIcon="ic_menu_compose"></ActionItem>
-        <ActionItem *ngIf="isHome" (tap)="onCamera()" ios.systemIcon="15" ios.position="right" android.systemIcon="ic_menu_camera"></ActionItem>
-        <ActionItem *ngIf="isGallery" (tap)="onCamera()" ios.systemIcon="15" ios.position="right" android.systemIcon="ic_menu_camera"></ActionItem>
+        <ActionItem *ngIf="isGallery || isHome" (tap)="onCamera()" ios.systemIcon="15" ios.position="right" android.systemIcon="ic_menu_camera"></ActionItem>
         <ActionItem *ngIf="isHome" (tap)="onNewEvent()" ios.systemIcon="4" ios.position="right" android.systemIcon="ic_menu_add"></ActionItem>
         <ActionItem *ngIf="isSearch" android.position="center"></ActionItem>
         <ActionItem *ngIf="isProfile" ios.position="right" text="logout" (tap)="logout()"></ActionItem>

@@ -8,6 +8,7 @@ import observable = require("data/observable");
 import pages = require("ui/page");
 import * as app from "tns-core-modules/application";
 import { ImageSource } from "tns-core-modules/image-source/image-source";
+import { ActivatedRoute } from "@angular/router";
 var bghttp = require("nativescript-background-http");
 var session = bghttp.session("image-upload");
 var http = require("http");
@@ -26,9 +27,18 @@ export class ImageComponent {
     public source: any;
     public id: number;
     public items: any;
+    public albumId;
+    public albumName;
 
-    public constructor(private data: Data, private _changeDetectionRef: ChangeDetectorRef) {
+    public constructor(private data: Data, private _changeDetectionRef: ChangeDetectorRef, private route: ActivatedRoute) {
         this.server = new Server();
+        this.route.params.subscribe((params) => {
+            this.albumId = params["albumId"];
+        });
+        console.log("The album id is " + this.albumId);
+        if (this.albumId == null) {
+            console.log("ISSSS NUUUUUL");
+        } 
         this.picture = "https://placehold.it/";
         this.items = [];
     }
@@ -84,7 +94,15 @@ export class ImageComponent {
     }
     
     public uploadPicture() {
-        console.log("Uploading " + this.source + " user id " + this.data.storage["id"]);
-        this.server.uploadPhoto(this.source, this.data.storage["id"]);
+        this.server.getAlbumName(this.albumId).then((res) => {
+            var name = JSON.stringify(res);
+            var albumName = name.slice(1, name.length - 1);
+            console.log("Album " + albumName);
+            console.log("Uploading " + this.source + " user id " + this.data.storage["id"]);
+            this.server.uploadPhoto(this.source, this.data.storage["id"], this.albumId, albumName);
+        })
+
+        
+        
     }
 }

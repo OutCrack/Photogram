@@ -3,6 +3,7 @@ import { Photo } from "../Photo";
 import { User } from "../User";
 import { Comment } from "../Comment";
 import { Album } from "../Album";
+import { Data } from "../../shared/Data";
 var bghttp = require("nativescript-background-http");
 var session = bghttp.session("image-upload");
 var http = require("http");
@@ -356,7 +357,18 @@ export class Server {
 
     }
 
-    uploadPhoto(fileUrl: string, id: number) {
+    getAlbumName(albumId: number) {
+        return new Promise((resolve, reject) => {
+            var query = this.db + "albums?transform=1&filter=album_Id,eq," + albumId;
+            console.log("QUERY " + query);
+            http.getJSON(query).then((r) => {
+                resolve(r.albums[0].album_Name);
+            });
+        });
+        
+    }
+
+    uploadPhoto(fileUrl: string, id: number, albumId: number, albumName: string) {
         var fileName = this.getTimeStamp();
         var that = this;
         var request = {
@@ -365,6 +377,7 @@ export class Server {
             headers: {
                 "Content-Type": "application/octet-stream",
                 "Path" : "users/",
+                "Album-Name" : albumName,
                 "File-Name": fileName,
                 "User-id": id
             },
@@ -380,7 +393,7 @@ export class Server {
  
         function logEvent(e) {
             if (e.eventName == "complete") {
-                that.updateDb(fileName, id, "photo");
+                that.updateDb(fileName, id, "photo", albumId);
                 alert("Upload complete");
             }
             console.log(e.eventName);       
@@ -412,7 +425,7 @@ export class Server {
  
         function logEvent(e) {
             if (e.eventName == "complete") {
-                _that.updateDb(fileName, id, "avatar");
+                _that.updateDb(fileName, id, "avatar", null);
                 alert("Upload complete");
             }
             console.log(e.eventName);       
@@ -422,7 +435,7 @@ export class Server {
         });
     }
 
-    private updateDb(fileName: string, id: number, type: string) {
+    private updateDb(fileName: string, id: number, type: string, albumId: number) {
         var result;
         var name = "img" + fileName + ".jpg";
         console.log("The id " + id);
@@ -432,7 +445,7 @@ export class Server {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 //put file url instead of just name
-                content: JSON.stringify({ user_Id : id, file_Name : name, file_URL : name, 
+                content: JSON.stringify({ user_Id : id, file_Name : name, album_Id : albumId, file_URL : name, 
                 file_Permission : "Public"})
             }).then(function(response) {
                 result = response.content.toJSON();
@@ -675,6 +688,7 @@ export class Server {
         })
     }
 
+    //Get albums of the user with given userId
     public getAlbums(userId: number) {
         console.log("Getting albums for user " + userId);
         var albums: Array<Album> = [];
@@ -685,7 +699,7 @@ export class Server {
             for (let i = 0; i < r.albums.length; i++) {
                 albums.push(
                     new Album(
-                        r.albums[i].album_id,
+                        r.albums[i].album_Id,
                         r.albums[i].album_Name,
                         r.albums[i].album_Permission,
                         r.albums[i].album_Description                    )
@@ -695,5 +709,30 @@ export class Server {
             console.log(e);
         })
         return albums;
+    }
+
+    public getAlbumPhotos(albumId: number) {
+        console.log("Getting photos fot album id " + albumId);
+        var photos : Array<Photo> = [];
+        var query : string = this.db + "files?transform=1&filter=album_Id,eq," + albumId;
+        console.log("The query " + query);
+        http.getJSON(query).then((r) => {
+            for (let i = 0; i < r.files.length; i++) {
+                photos.push(
+                    new Photo(
+                        r.files[i].file_Id,
+                        r.files[i].file_URL,
+                        r.files[i].user_Id,
+                        r.files[i].created_at,
+                        r.files[i].description,
+                        r.files[i].album_Id,
+                        r.files[i].file_Name
+                    )
+                );
+            }
+        }, function(e) {
+            console.log(e);
+        })
+        return photos;
     }
 }
