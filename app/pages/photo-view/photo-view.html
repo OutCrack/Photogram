@@ -1,0 +1,27 @@
+<ScrollView>
+<StackLayout (loaded)="stackLoaded($event)">
+
+    <Label text="{{photoId}}"></Label>
+    <Image src="{{url}}" class="photo"></Image>
+    <Label text="{{created}}"></Label>
+    <Label text="{{fileName}}"></Label>"
+    <StackLayout orientation="horizontal">
+            <Image src="res://like" width="20" height="20"></Image>
+            <Label text="{{likes}}" style="margin-top: 2px;" class="rate"></Label>
+    </StackLayout>
+    <Button [text]="canGiveLike? 'like' : 'unlike'" (tap)="updateLikes()" class="like-btn"></Button>
+        <GridLayout *ngFor="let comment of comments" columns="*, 40">
+                <Label text="{{comment.user.firstN}} {{comment.user.lastN}} : {{comment.text}}" col="0" class="comment"></Label>
+                <Button text="x" id="x_button" *ngIf="comment.rights" col="1" (tap)="removeComment(comment.id)"></Button>
+        </GridLayout>
+    <GridLayout columns="250, 80">
+            <TextField #newComment hint="comment" class="new-comment" width="80%" height="50dp" col="0"></TextField>
+            <Button text="Add" (tap)="addComment(newComment)" col="1" class="like-btn"></Button>
+    </GridLayout>
+    <!--<StackLayout *ngFor="let comment of comments" orientation="horizontal">
+        <Label text="{{comment.user.firstN}} {{comment.user.lastN}}"></Label>
+        <Label text="{{comment.text}}"></Label> 
+    </StackLayout>-->
+    <Button text="click me" (tap)="test()"></Button>
+</StackLayout>
+</ScrollView>

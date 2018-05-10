@@ -127,7 +127,7 @@ export class HomeComponent {
                             r.files[i].file_Id,
                             "users/" + r.files[i].user_Id + r.files[i].file_URL,
                             r.files[i].user_Id,
-                            (r.files[i].created_at).slice(0, 10),
+                            (r.files[i].created_at).slice(0, 16),
                             r.files[i].file_Description,
                             r.files[i].album_Id,
                             r.files[i].file_Name
@@ -250,9 +250,9 @@ export class HomeComponent {
         if (result.text.length < 1) {
             alert("Cannot insert empty comment");
         } else {
-            var commentId = this.server.updateComment(this.photoId, this.data.storage["id"], result.text);
-            var comment = new Comment(commentId, this.data.storage["id"], result.text);
-            comment.rights = true;
+            this.server.updateComment(this.photoId, this.data.storage["id"], result.text);
+            //var comment = new Comment(commentId, this.data.storage["id"], result.text, true);
+            //comment.rights = true;
             this.getPhoto(this.selectedId);
             //this.photoComments.push(comment);
                 this.selectedPhoto.getComments().then(() => {

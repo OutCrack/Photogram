@@ -9,7 +9,7 @@ export class Album {
     constructor(id: number, name: string, privacy: string, description: string) {
         this.id = id;
         this.name = name;
-        this.privacy = privacy;
+        this.privacy = privacy.toLowerCase();
         this.description = description;
     }
 }

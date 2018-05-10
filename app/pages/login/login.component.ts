@@ -157,12 +157,6 @@ export class LoginComponent implements OnInit{
       } else {
         alert("Fields first and last name can't be empty!");
       }
-      //firebase.getCurrentUser()
-      //.then( () => {
-        
-        //this.router.navigate(["/tab"])
-      //}) 
-      //.catch(error => console.log("Not logged in " + error));
   }
 
   findUser() {
@@ -190,6 +184,8 @@ export class LoginComponent implements OnInit{
                   "hobby" : r.users[0].hobby
 
                 }
+                this.server.saveAlbum(r.users[0].user_Id, r.users[0].first_Name + "'s album" ,
+                true, "Album for feed photos");
                 this.router.navigate(["/tab"]);
             } else {
               this.userData = {

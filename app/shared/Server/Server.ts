@@ -130,19 +130,31 @@ export class Server {
         return users;
     }*/
 
-    getComments(id: number) {
-        console.log("Getting comments for id " + id);
+    getComments(photoId: number, userId: number, photoOwner: number, eventOwner: number) {
+        console.log("Getting comments for id " + photoId);
+        console.log("my id " + userId);
+        console.log("owner id " + photoOwner);
+        console.log("event owner " + eventOwner);
+
         var comments: Array<Comment> = [];
-        var query: string = this.db + "comments?transform=1&filter=file_Id,eq," + id;
+        var query: string = this.db + "comments?transform=1&filter=file_Id,eq," + photoId;
         console.log("The query " + query);
         http.getJSON(query).
         then((r) => {
             for (let i = 0; i < r.comments.length; i++) {
+                var rights;
+                if (r.comments[i].user_Id == userId || userId == photoOwner || userId == eventOwner) {
+                    rights = true;
+                }
+                else {
+                    rights = false;
+                }
                 comments.push(
                     new Comment(
                         r.comments[i].comment_Id,
                         r.comments[i].user_Id,
-                        r.comments[i].comment_Text
+                        r.comments[i].comment_Text,
+                        rights
                     )
                 );
             }
@@ -166,7 +178,7 @@ export class Server {
     }
 
     updateComment(photoId: number, userId: number, text: string) {
-            var promise = new Promise((resolve, reject) => {
+            return new Promise((resolve, reject) => {
             var result;
             http.request({
                 url: "http://188.166.127.207:5555/api.php/comments",
@@ -183,10 +195,10 @@ export class Server {
             });
             resolve(result);
             });
-        promise.then((result) => {
+        /*promise.then((result) => {
             return result;
         });
-        return null;
+        return null;*/
     }
 
     getEventParticipants(id: number) {
@@ -338,19 +350,22 @@ export class Server {
     }
 
     removeComment(commentId: number) {
-        var result;
-        http.request({
-        url: this.db + "comments/" + commentId,
-        method : "DELETE",
-        headers : { "Content-Type" : "application/json" },
-    }).then(function(response) {
-        result = response.content.toJSON();
-        console.log(JSON.stringify(response));
-    }, function(e) {
-        console.log(e);
-        return null;
-    });
-    return result;
+        return new Promise((resolve, reject) => {
+            var result;
+            http.request({
+            url: this.db + "comments/" + commentId,
+            method : "DELETE",
+            headers : { "Content-Type" : "application/json" },
+        }).then(function(response) {
+            result = response.content.toJSON();
+            console.log(JSON.stringify(response));
+        }, function(e) {
+            console.log(e);
+            reject();
+        });
+        resolve();
+        })
+
     } 
 
     getEventPhotos(id: number) {
@@ -359,16 +374,20 @@ export class Server {
 
     getAlbumName(albumId: number) {
         return new Promise((resolve, reject) => {
-            var query = this.db + "albums?transform=1&filter=album_Id,eq," + albumId;
-            console.log("QUERY " + query);
-            http.getJSON(query).then((r) => {
-                resolve(r.albums[0].album_Name);
-            });
+            if (albumId == null) {
+                reject();
+            } else {
+                var query = this.db + "albums?transform=1&filter=album_Id,eq," + albumId;
+                console.log("QUERY " + query);
+                http.getJSON(query).then((r) => {
+                    resolve(r.albums[0].album_Name);
+                });
+            }
         });
         
     }
 
-    uploadPhoto(fileUrl: string, id: number, albumId: number, albumName: string) {
+    uploadPhoto(fileUrl: string, id: number, albumId: number, albumName: string, permission: string) {
         var fileName = this.getTimeStamp();
         var that = this;
         var request = {
@@ -393,7 +412,7 @@ export class Server {
  
         function logEvent(e) {
             if (e.eventName == "complete") {
-                that.updateDb(fileName, id, "photo", albumId);
+                that.updateDb(fileName, id, "photo", albumId, permission);
                 alert("Upload complete");
             }
             console.log(e.eventName);       
@@ -425,7 +444,7 @@ export class Server {
  
         function logEvent(e) {
             if (e.eventName == "complete") {
-                _that.updateDb(fileName, id, "avatar", null);
+                _that.updateDb(fileName, id, "avatar", null, "Public");
                 alert("Upload complete");
             }
             console.log(e.eventName);       
@@ -435,7 +454,7 @@ export class Server {
         });
     }
 
-    private updateDb(fileName: string, id: number, type: string, albumId: number) {
+    private updateDb(fileName: string, id: number, type: string, albumId: number, permission: string) {
         var result;
         var name = "img" + fileName + ".jpg";
         console.log("The id " + id);
@@ -446,7 +465,7 @@ export class Server {
                 headers: { "Content-Type": "application/json" },
                 //put file url instead of just name
                 content: JSON.stringify({ user_Id : id, file_Name : name, album_Id : albumId, file_URL : name, 
-                file_Permission : "Public"})
+                file_Permission : permission})
             }).then(function(response) {
                 result = response.content.toJSON();
                 console.log(result);
@@ -735,4 +754,50 @@ export class Server {
         })
         return photos;
     }
+
+    getFeedId(userId: number) {
+        return new Promise((resolve, reject) => {
+            var query = this.db + "albums?transform=1&filter[]=user_Id,eq," + userId + "&filter[]=album_Description,cs,Album&filter[]=album_Description,cs,for&filter[]=album_Description,cs,feed&filter[]=album_Description,cs,photos&satisfy=all";
+            console.log("GGGGGGGGGGGGGGGGGGGGGG" + query);
+            http.getJSON(query).then((r) => {
+                resolve(r.albums[0].album_Id);
+            })
+        })
+
+    }
+
+    getAlbumRights(albumId) {
+        return new Promise((resolve, reject) => {
+            var query = this.db + "albums?transform=1&filter=album_Id,eq," + albumId;
+            http.getJSON(query).then((res) => {
+                console.log("AAAAAAAAAAAAAAAAAAAAAlbum rights to lower case " + (res.albums[0].album_Permission).toLowerCase());
+                if ((res.albums[0].album_Permission).toLowerCase() == "public") {
+                    resolve();
+                } else {
+                    reject();
+                }
+            })
+        })
+    }
+
+    getPhoto(photoId: number) {
+        return new Promise((resolve, reject) => {
+            var query = this.db + "files?transform=1&filter=file_Id,eq," + photoId;
+            http.getJSON(query).then((res) => {
+                var photo: Photo = new Photo(
+                    photoId,
+                    res.files[0].file_URL,
+                    res.files[0].user_Id,
+                    (res.files[0].created_at).slice(0,16),
+                    res.files[0].file_Description,
+                    res.files[0].album_Id,
+                    res.files[0].file_Name
+                );
+                resolve(photo);
+            })
+        })
+
+    }
+
+
 }

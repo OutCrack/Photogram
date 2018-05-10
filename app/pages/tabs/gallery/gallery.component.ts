@@ -144,7 +144,7 @@ export class GalleryComponent {
         this.selectedId = 0;
     }
 
-    addComment(result) {
+    /*addComment(result) {
         console.log("Comment " + result.text);
         if (result.text.length < 1) {
             alert("Cannot insert empty comment");
@@ -158,7 +158,7 @@ export class GalleryComponent {
                 this.photoComments = this.selectedPhoto.comments;
             }); }
         result.text = "";
-    }
+    }*/
 
     removeComment(commentId) {
         console.log("You click comment id " + commentId);

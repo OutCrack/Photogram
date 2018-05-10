@@ -12,3 +12,17 @@ Image {
     width: 10%;
     background-color: white;
 }
+
+WrapLayout {
+    width: 90%;
+    margin: auto;
+}
+
+Label {
+    text-align: center;
+}
+
+.album_ctn {
+    margin: 5;
+    padding: 5;
+}

@@ -1,4 +1,5 @@
 import { User } from "./User";
+import { PromiseObservable } from "rxjs/observable/PromiseObservable";
 var http = require("http");
 
 export class Comment {
@@ -8,13 +9,27 @@ export class Comment {
     user: User;
     rights: boolean;
 
-    constructor(id: number, userId: number, text: string) {
+    constructor(id: number, userId: number, text: string, rights: boolean) {
         this.id = id;
         this.userId = userId;
         this.text = text;
         this.getUser();
-        this.rights = false;
+        this.rights = rights;
     }
+
+    /*public checkRight(userId: number, photoOwner: number, eventOwner: number) {
+        return new Promise((resolve, reject) => {
+            if (this.userId == userId || this.userId == photoOwner || eventOwner == this.userId) {
+                this.rights = true;
+                resolve();
+            }
+            else {
+                this.rights = false;
+                reject();
+            }
+        })
+
+    }*/
 
     public getUser() {
         var userQuery = "http://188.166.127.207:5555/api.php/users?transform=1&filter=user_Id,eq," + this.userId;

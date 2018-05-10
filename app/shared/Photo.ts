@@ -91,7 +91,7 @@ export class Photo {
         return new Promise((resolve, reject) => {
             console.log("Getting comments");
             this.comments = [];
-            this.comments = this.server.getComments(this.id);
+            this.comments = this.server.getComments(this.id, null, null, null);
             resolve(this.id);
         });
     }

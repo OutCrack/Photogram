@@ -15,7 +15,7 @@ var http = require("http");
 
 @Component({
     selector: "imageview",
-    templateUrl: "./pages/image/image.xml"
+    templateUrl: "./pages/new-image/image.xml"
 })
 
 
@@ -94,12 +94,27 @@ export class ImageComponent {
     }
     
     public uploadPicture() {
+        if (this.albumId == null) {
+           
+        }
         this.server.getAlbumName(this.albumId).then((res) => {
             var name = JSON.stringify(res);
             var albumName = name.slice(1, name.length - 1);
             console.log("Album " + albumName);
             console.log("Uploading " + this.source + " user id " + this.data.storage["id"]);
-            this.server.uploadPhoto(this.source, this.data.storage["id"], this.albumId, albumName);
+            this.server.getAlbumRights(this.albumId).then(() => {
+                this.server.uploadPhoto(this.source, this.data.storage["id"], this.albumId, albumName, "Public");
+            }).catch(() => {
+                this.server.uploadPhoto(this.source, this.data.storage["id"], this.albumId, albumName, "Private");
+            })
+        }).catch(() => {
+            var albumName = this.data.storage["firstName"] + "'s album";
+            this.server.getFeedId(this.data.storage["id"]).then((r) => {
+                console.log("Album name to upload " + albumName);
+                console.log("The album id is " + JSON.stringify(r));
+                this.server.uploadPhoto(this.source, this.data.storage["id"], parseInt(JSON.stringify(r)), albumName, "Public");
+            })
+            
         })
 
         
