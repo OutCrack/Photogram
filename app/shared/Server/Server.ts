@@ -30,7 +30,8 @@ export class Server {
                         r.files[i].created_at,
                         r.files[i].description,
                         r.files[i].album_Id,
-                        r.files[i].file_Name
+                        r.files[i].file_Name,
+                        r.files[i].event_Id
                     )
                 )
             }
@@ -93,7 +94,9 @@ export class Server {
                             res.events[0].event_Name,
                             r.participants[i].participant_Role,
                             res.events[0].event_Description,
-                            res.events[0].event_Type
+                            res.events[0].event_Type,
+                            res.events[0].event_Privacy,
+                            res.events[0].event_Header
                         )
                     )     
                 })
@@ -167,10 +170,9 @@ export class Server {
     getUsername(id: number) {
         var username: string;
         var query = this.db + "users?transform=1&filter=user_Id,eq," + id;
-        console.log("QUERY GETTING USERNAMR " + query);
         http.getJSON(query)
         .then((r) => {
-            username = r.users[0].firstName + " " + r.users[0].lastName;
+            username = r.users[0].first_Name + " " + r.users[0].last_Name;
         }, function(e) {
             console.log(e);
         })
@@ -181,10 +183,9 @@ export class Server {
             return new Promise((resolve, reject) => {
             var result;
             http.request({
-                url: "http://188.166.127.207:5555/api.php/comments",
+                url: this.db + "comments",
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                //put file url instead of just name
                 content: JSON.stringify({ file_Id : photoId, user_Id : userId,  
                 comment_Text : text})
             }).then(function(response) {
@@ -195,10 +196,6 @@ export class Server {
             });
             resolve(result);
             });
-        /*promise.then((result) => {
-            return result;
-        });
-        return null;*/
     }
 
     getEventParticipants(id: number) {
@@ -250,7 +247,9 @@ export class Server {
                                 r.events[i].event_Name,
                                 null,
                                 r.events[i].event_Description,
-                                r.events[i].event_Type
+                                r.events[i].event_Type,
+                                r.events[i].event_Privacy,
+                                r.events[i].event_Header
                             )
                         )  
                     }   
@@ -268,7 +267,6 @@ export class Server {
             url: this.db + "users",
             method: "POST",
             headers: { "Content-Type" : "application/json" },
-            //put file url instead of just name
             content: JSON.stringify({ first_Name : firstName, last_Name : lastName, email: email, 
             location: location, profession: profession})
         }).then(function(response) {
@@ -281,9 +279,15 @@ export class Server {
     return result;
     }
 
-    newEvent(eventName: string, eventLocation: string, eventDescription: string, eventType: string, eventPrivacy: string){
-        var created = this.getTimeStamp();
+    newEvent(userId: number, eventName: string, eventLocation: string, eventDescription: string, eventType: string, eventPrivacy: string){
         var result;
+        var default_Header;
+        if (eventType.toLowerCase() == "party") {
+            default_Header = "party-default.png";
+        } else {
+            default_Header = "wedding-default.png";
+        }
+        var that = this;
         http.request({
             url: this.db + "events",
             method: "POST",
@@ -294,11 +298,12 @@ export class Server {
                 event_Description : eventDescription,
                 event_Type : eventType,
                 event_Privacy : eventPrivacy,
-                created_at : created
+                event_Header : default_Header
                 })
         }).then(function(response) {
             result = response.content.toJSON();
             console.log(result);
+            that.joinEvent(result, userId, "Admin");
         }, function(e) {
             console.log("Error occured " + e);
         }
@@ -306,13 +311,13 @@ export class Server {
     return result;    
     }
 
-    joinEvent(eventId: number, userId: number) {
+    joinEvent(eventId: number, userId: number, role: string) {
         var result;
         http.request({
             url: this.db + "participants",
             method: "POST",
             headers: { "Content-Type" : "application/json" },
-            content: JSON.stringify({ event_Id : eventId, user_Id : userId, participant_Role: "User" })
+            content: JSON.stringify({ event_Id : eventId, user_Id : userId, participant_Role: role })
         }).then(function(response) {
             result = response.content.toJSON();
             console.log(result);
@@ -325,11 +330,14 @@ export class Server {
     leaveEvent(eventId: number, userId: number) {
         var participId: number;
         var query = this.db + "participants?transform=1&filter[]=event_Id,eq," + eventId + "&filter[]=user_Id,eq," + userId;
+        console.log("DELETE " + userId + " FROM EVENT " + eventId);
+        console.log(query);
         http.getJSON(query)
         .then((r) => {
             if (r.participants == 0) {
                 return null;
             }
+            console.log("Will be deleting entry nr " + r.participants[0].participant_Id);
             var result;
             http.request({
             url: this.db + "participants/" + r.participants[0].participant_Id,
@@ -387,7 +395,7 @@ export class Server {
         
     }
 
-    uploadPhoto(fileUrl: string, id: number, albumId: number, albumName: string, permission: string) {
+    uploadPhoto(fileUrl: string, id: number, albumId: number, albumName: string, permission: string, description: string, location: string) {
         var fileName = this.getTimeStamp();
         var that = this;
         var request = {
@@ -412,7 +420,7 @@ export class Server {
  
         function logEvent(e) {
             if (e.eventName == "complete") {
-                that.updateDb(fileName, id, "photo", albumId, permission);
+                that.updateDb(fileName, id, "photo", albumId, permission, description, location);
                 alert("Upload complete");
             }
             console.log(e.eventName);       
@@ -444,7 +452,7 @@ export class Server {
  
         function logEvent(e) {
             if (e.eventName == "complete") {
-                _that.updateDb(fileName, id, "avatar", null, "Public");
+                _that.updateDb(fileName, id, "avatar", null, "Public", null, null);
                 alert("Upload complete");
             }
             console.log(e.eventName);       
@@ -454,7 +462,7 @@ export class Server {
         });
     }
 
-    private updateDb(fileName: string, id: number, type: string, albumId: number, permission: string) {
+    private updateDb(fileName: string, id: number, type: string, albumId: number, permission: string, description: string, location: string) {
         var result;
         var name = "img" + fileName + ".jpg";
         console.log("The id " + id);
@@ -465,7 +473,7 @@ export class Server {
                 headers: { "Content-Type": "application/json" },
                 //put file url instead of just name
                 content: JSON.stringify({ user_Id : id, file_Name : name, album_Id : albumId, file_URL : name, 
-                file_Permission : permission})
+                file_Permission : permission, file_Description : description, file_Location : location })
             }).then(function(response) {
                 result = response.content.toJSON();
                 console.log(result);
@@ -583,13 +591,13 @@ export class Server {
         }
     }
 
-    public saveDetails(id: number, first: string, last: string, gender: string, bDate: string, location: string, hobby: string, profession: string) {
+    public saveDetails(id: number, first: string, last: string, gender: string, 
+        bDate: string, location: string, hobby: string, profession: string) {
         var result;
         http.request({
             url: this.db + "/users/" + id,
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            //put file url instead of just name
             content: JSON.stringify({ first_Name : first, last_Name : last, gender: gender,
             DOB: bDate, profession: profession, location: location, hobby: hobby})
         }).then(function(response) {
@@ -601,7 +609,6 @@ export class Server {
     }
 
     public deletePhoto(userId: number, fileName: string, type: string, photoId: number) {
-        console.log("Deleting photo " + userId + " " + fileName);
         var request = {
             url: "http://188.166.127.207:8889/ServerDel.js",
             method: "POST",
@@ -745,7 +752,8 @@ export class Server {
                         r.files[i].created_at,
                         r.files[i].description,
                         r.files[i].album_Id,
-                        r.files[i].file_Name
+                        r.files[i].file_Name,
+                        r.files[i].event_Id
                     )
                 );
             }
@@ -791,12 +799,39 @@ export class Server {
                     (res.files[0].created_at).slice(0,16),
                     res.files[0].file_Description,
                     res.files[0].album_Id,
-                    res.files[0].file_Name
+                    res.files[0].file_Name,
+                    res.files[0].event_Id
                 );
                 resolve(photo);
             })
         })
 
+    }
+
+    getUsersByHint(hint: string, userId: number) {
+        var users : Array<User> = [];
+        var query = this.db + "users?transform=1&filter[]=first_Name,cs," + hint + "&filter[]=last_Name,cs," + hint +
+        "&filter[]=email,cs," + hint + "&satisfy=any";
+        console.log(query);
+        http.getJSON(query).then((res) => {
+            for (let i = 0; i < res.users.length; i++) {
+               if (res.users[i].user_Id == userId) {
+                   continue;
+               }
+               //uncomment if you want to have max n entries in the list
+               /*if (i > 5) {
+                   break;
+               }*/
+               users.push(
+                   new User(
+                       res.users[i].user_Id,
+                       res.users[i].first_Name,
+                       res.users[i].last_Name
+                   )
+               )
+            }        
+            })
+            return users;
     }
 
 

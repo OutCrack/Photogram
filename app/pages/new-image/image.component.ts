@@ -6,16 +6,20 @@ import { Data } from "../../shared/Data";
 import * as camera from "nativescript-camera";
 import observable = require("data/observable");
 import pages = require("ui/page");
+import * as fs from "file-system";
 import * as app from "tns-core-modules/application";
 import { ImageSource } from "tns-core-modules/image-source/image-source";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { RouterExtensions } from "nativescript-angular";
+const imageSourceModule = require("tns-core-modules/image-source");
 var bghttp = require("nativescript-background-http");
 var session = bghttp.session("image-upload");
 var http = require("http");
 
 @Component({
     selector: "imageview",
-    templateUrl: "./pages/new-image/image.xml"
+    templateUrl: "./pages/new-image/image.xml",
+    styleUrls: ["./pages/new-image/image.css" ]
 })
 
 
@@ -29,9 +33,12 @@ export class ImageComponent {
     public items: any;
     public albumId;
     public albumName;
+    public pictureSelected: boolean;
+    public details: any;
 
-    public constructor(private data: Data, private _changeDetectionRef: ChangeDetectorRef, private route: ActivatedRoute) {
+    public constructor(private routerExtensions: RouterExtensions, private data: Data, private _changeDetectionRef: ChangeDetectorRef, private route: ActivatedRoute) {
         this.server = new Server();
+        this.pictureSelected = false;
         this.route.params.subscribe((params) => {
             this.albumId = params["albumId"];
         });
@@ -41,21 +48,32 @@ export class ImageComponent {
         } 
         this.picture = "https://placehold.it/";
         this.items = [];
+        this.details = [];
     }
 
+    //fix uploading for ios
     public takePicture() {
         camera.requestPermissions();
         camera.takePicture().then(picture => {
+            this.pictureSelected = true;
             this.picture = picture;
             if (app.android) {
                 this.source = picture["_android"]; 
             }
             else {
+                this.source = picture["_ios"];
+                /*var imageSource = new ImageSource.fromAsset(picture);
+                var folder = fs.knownFolders.documents().path;
+                var path = fs.path.join(folder, "Photo.png");
+                var saved = imageSource.saveToFile(path, "png");
+                console.log("Saved? " + saved);
+                this.source = folder + "/Photo.png"
                 var path: string = (picture["_ios"]).toString();
                 console.log(path);
-                this.source = path.slice(25,69);
+                this.source = picture
+                console.log("SOURCE" + JSON.stringify(this.source));*/
             }   
-        });
+        });  
     }
 
     chooseFromFile() {
@@ -88,34 +106,34 @@ export class ImageComponent {
             ); 
                 _that.items = selection;
                 _that._changeDetectionRef.detectChanges(); 
+                this.pictureSelected = true;
             }).catch(function(e) {
                 console.log(e);
             })
     }
     
     public uploadPicture() {
-        if (this.albumId == null) {
-           
-        }
         this.server.getAlbumName(this.albumId).then((res) => {
             var name = JSON.stringify(res);
             var albumName = name.slice(1, name.length - 1);
             console.log("Album " + albumName);
             console.log("Uploading " + this.source + " user id " + this.data.storage["id"]);
             this.server.getAlbumRights(this.albumId).then(() => {
-                this.server.uploadPhoto(this.source, this.data.storage["id"], this.albumId, albumName, "Public");
+                this.server.uploadPhoto(this.source, this.data.storage["id"], this.albumId, albumName, "Public", this.details.description, this.details.location);
             }).catch(() => {
-                this.server.uploadPhoto(this.source, this.data.storage["id"], this.albumId, albumName, "Private");
+                this.server.uploadPhoto(this.source, this.data.storage["id"], this.albumId, albumName, "Private", this.details.description, this.details.location);
             })
         }).catch(() => {
             var albumName = this.data.storage["firstName"] + "'s album";
             this.server.getFeedId(this.data.storage["id"]).then((r) => {
                 console.log("Album name to upload " + albumName);
                 console.log("The album id is " + JSON.stringify(r));
-                this.server.uploadPhoto(this.source, this.data.storage["id"], parseInt(JSON.stringify(r)), albumName, "Public");
+                this.server.uploadPhoto(this.source, this.data.storage["id"], parseInt(JSON.stringify(r)), albumName, "Public", this.details.description, this.details.location);
             })
             
         })
+        this.pictureSelected = false;
+        this.routerExtensions.back();
 
         
         

@@ -11,6 +11,7 @@ import { InvitationComponent } from "./pages/invitation/invitation";
 import { AlbumComponent } from "./pages/album/newAlbum/album.component";
 import { AlbumViewComponent } from "./pages/album/albumView/album.view";
 import { PhotoViewComponent } from "./pages/photo-view/photo-view";
+import { EventViewComponent } from "./pages/event/event.view/event.view";
 
 export const routes = [
   { path: "", component: LoginComponent },
@@ -21,7 +22,8 @@ export const routes = [
   { path: "newEvent", component: NewEventComponent },
   { path: "newAlbum" , component: AlbumComponent},
   { path: "albumView/:albumId", component: AlbumViewComponent},
-  { path: "photoView" ,component: PhotoViewComponent},
+  { path: "photoView", component: PhotoViewComponent},
+  { path: "eventView", component: EventViewComponent},
   { path: "tab", component: TabComponent, children: [
     { path: "home", component: HomeComponent, outlet: 'homeoutlet'},
     { path: "search", component: SearchComponent, outlet: 'searchoutlet'},
@@ -44,5 +46,6 @@ export const navigatableComponents = [
   ProfileComponent,
   AlbumComponent,
   AlbumViewComponent,
-  PhotoViewComponent
+  PhotoViewComponent,
+  EventViewComponent
 ];

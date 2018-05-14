@@ -1,60 +1,13 @@
-<SegmentedBar [items]="items" (selectedIndexChange)="onSelectedIndexChange($event)" class="m-5"></SegmentedBar>
-<GridLayout visibility="{{ visibility1 ? 'visible' : 'collapsed' }}">
+<GridLayout>
         <PullToRefresh (refresh)="refreshFeed($event)">
                 <ScrollView>
                         <StackLayout *ngIf="!selected">
                                 <StackLayout *ngFor="let photo of photos" class="list-group-item">  
                                         <Label text="{{photo.created}}" class="user"></Label>
                                         <Label text="{{photo.user.firstN}} {{photo.user.lastN}}" class="user" ></Label>
-                                        <Image src="{{photo.url}}" id="{{photo.id}}" (tap)="selectPhoto($event)"></Image>
+                                        <Image src="{{photo.url}}" id="{{photo.id}}" (tap)="selectPhoto(photo.id)"></Image>
                                 </StackLayout>
-                        </StackLayout>
-                        <StackLayout *ngIf="selected">
-                                <Label text="{{photoCreated}}" class="info"></Label>
-                                <Label *ngFor="let user of users" text="{{user.firstN}}" class="info"></Label>
-                                <Label text="{{username}}" class="info"></Label>
-                                <Label text="{{photoDescription}}" class="info"></Label>
-                                <Button text="X" class="close" (tap)="closePhoto()"></Button>
-                                <Image src="{{photoUrl}}"></Image>
-                                <StackLayout orientation="horizontal">
-                                        <Image src="res://like" width="20" height="20"></Image>
-                                        <Label text="{{selectedPhoto.likes}}" style="margin-top: 2px;" class="rate"></Label>
-                                </StackLayout>
-                                
-                                <Button [text]="canGiveLike? 'like' : 'unlike'" (tap)="updateLikes(selectedPhoto.id)" class="like-btn"></Button>
-                                <GridLayout *ngFor="let comment of photoComments" columns="*, 40">
-                                        <Label text="{{comment.user.firstN}} {{comment.user.lastN}} : {{comment.text}}" col="0" class="comment"></Label>
-                                        <Button text="x" id="x_button" *ngIf="comment.rights" col="1" (tap)="removeComment(comment.id)"></Button>
-                                </GridLayout>
-                                <GridLayout columns="250, 80">
-                                        <TextField #newComment hint="comment" class="new-comment" width="80%" height="50dp" col="0"></TextField>
-                                        <Button text="Add" (tap)="addComment(newComment)" col="1" class="like-btn"></Button>
-                                </GridLayout>
                         </StackLayout>
                 </ScrollView>
         </PullToRefresh>
-</GridLayout>
-
-<GridLayout rows="*" visibility="{{ visibility2 ? 'visible' : 'collapsed' }}" backgroundColor="white">
-        <ScrollView>
-                <StackLayout>
-                        <Label text="------Your Events------" horizontalAlignment="center"></Label>
-                        <StackLayout id="{{event.id}}" *ngFor="let event of participEvents" (tap)="selectEvent($event)" orientation="horizontal">
-                                <StackLayout>
-                                        <Label text="{{event.name}}"></Label>
-                                        <Label text="{{event.type}}"></Label>
-                                </StackLayout>
-                                <Button text="Open" (tap)="openEvent(event.id)"></Button>
-                        </StackLayout>
-
-                        <Label text="------Public Events------" horizontalAlignment="center"></Label>
-                        <StackLayout *ngFor="let event of publicEvents" orientation="horizontal">
-                                <StackLayout>
-                                        <Label text="{{event.id}}"></Label>
-                                        <Label text="{{event.name}}"></Label>
-                                </StackLayout>
-                                <Button text="join" id="{{event.id}}" (tap)="joinEvent(event.id)"></Button>
-                        </StackLayout>
-                </StackLayout>
-        </ScrollView>
 </GridLayout>

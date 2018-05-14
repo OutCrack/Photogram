@@ -8,6 +8,7 @@ export class Photo {
     userId: number;
     user: User;
     albumId: number;
+    eventId: number;
     fileName: string;
     created: string;
     url: string;
@@ -16,33 +17,37 @@ export class Photo {
     comments: Array<Comment>;
     server: Server = new Server();
 
-    constructor(id: number, url:string, userId: number, created: string, description: string, albumId: number, fileName: string) {
-        var promise = new Promise((resolve, reject) => {
+    constructor(id: number, url:string, userId: number, created: string, description: string, albumId: number, fileName: string, eventId: number) {
         this.id = id;
-        //this.url = "http://188.166.127.207:8000/uploads/" + url;
         this.userId = userId;
         this.created = created;
         this.description = description;
         this.fileName = fileName;
         this.albumId = albumId;
         this.getUser();
-        if (albumId == null) {
-            resolve();
+        this.eventId = eventId;
+        if (eventId == null) {
+            var promise = new Promise((resolve, reject) => {        
+                if (albumId == null) {
+                    resolve();
+                } else {
+                    reject(albumId);
+                }
+                resolve(albumId);
+                })
+                
+                promise.then((fromResolve) => {
+                    this.url = "http://188.166.127.207:8000/uploads/users/" + this.userId + "/" + this.fileName;
+                }).catch((fromReject) => {
+                    console.log("GETTING URL WITH ALBUM NAME + fromReject " + fromReject);
+                    this.getUrl(fromReject).then((fromResolve) => {
+                        this.url = "http://188.166.127.207:8000/uploads/users/" + this.userId + "/" + fromResolve.toString() + "/" + this.fileName;
+                    });
+                });  
+                this.getComments();
         } else {
-            reject(albumId);
+
         }
-        resolve(albumId);
-        })
-        
-        promise.then((fromResolve) => {
-            this.url = "http://188.166.127.207:8000/uploads/users/" + this.userId + "/" + this.fileName;
-        }).catch((fromReject) => {
-            console.log("GETTING URL WITH ALBUM NAME + fromReject " + fromReject);
-            this.getUrl(fromReject).then((fromResolve) => {
-                this.url = "http://188.166.127.207:8000/uploads/users/" + this.userId + "/" + fromResolve.toString() + "/" + this.fileName;
-            });
-        });  
-        this.getComments();
     }
 
     public getUser() {

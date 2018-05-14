@@ -1,9 +1,16 @@
 
 
-<ActionBar title="Camera"></ActionBar>
+<ActionBar title="Camera">
+    <ActionItem *ngIf="pictureSelected" (tap)="uploadPicture()" ios.systemIcon="11" ios.position="right" android.systemIcon="ic_menu_upload"></ActionItem>
+</ActionBar>
+<ScrollView>
 <StackLayout horizontalAlignment="center" verticalAlignment="center">
     <Image [src]="picture" width="80%" height="70%"></Image>
     <Button text="Capture" (tap)="takePicture()" class="btn btn-primary"></Button>
     <Button text="Choose from file" (tap)="chooseFromFile()" class="btn btn-primary"></Button>
-    <Button text ="Upload" (tap)="uploadPicture()" class="btn btn-primary"></Button>
+        <StackLayout id="details" *ngIf="pictureSelected">
+            <TextField hint="description" [(ngModel)]="details.description"></TextField>
+            <TextField hint="location" [(ngModel)]="details.location"></TextField>>
+        </StackLayout>
 </StackLayout>
+</ScrollView>

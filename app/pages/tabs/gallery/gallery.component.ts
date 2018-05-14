@@ -87,7 +87,8 @@ export class GalleryComponent {
                         r.files[i].created_at,
                         r.files[i].file_Description,
                         r.files[i].album_Id,
-                        r.files[i].file_Name
+                        r.files[i].file_Name,
+                        r.files[i].event_Id
                     )
                 )
                 console.log("There are " + this.myPhotos.length + " photos in my photos");

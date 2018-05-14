@@ -3,6 +3,7 @@ import { Page } from "ui/page";
 import { Router } from '@angular/router';
 import { HomeComponent } from "./home/home.component";
 import { Data } from "../../shared/Data";
+import { RouterExtensions } from "nativescript-angular";
 const firebase = require("nativescript-plugin-firebase");
 
 export class DataItem {
@@ -30,13 +31,21 @@ export class TabComponent {
     //public lastName: string;
     public tabName: string = "feed";
 
-    constructor(private router: Router, private page: Page, protected data: Data) {
+    constructor(private routerExtensions: RouterExtensions, private router: Router, private page: Page, protected data: Data) {
         this.tabName = "feed";
     }
     onCamera() {
         console.log("Camera tapped.");
         this.router.navigate(["/image"]);
         //Kjører kamera funksjon------
+    }
+
+    onBackButtonTap() {
+        if (this.isHome) {
+            //do nothing
+        } else {
+            this.onHome();
+        }
     }
 
     onNewEvent() {

@@ -1,14 +1,39 @@
-<StackLayout>
-    <Button text="Events" (tap)="fetchPublicEvents()"></Button>
-    <ScrollView *ngIf="pEvents">
-        <StackLayout>
-                <StackLayout *ngFor="let event of publicEvents" orientation="horizontal">
-                    <StackLayout>
-                        <Label text="{{event.id}}"></Label>
-                        <Label text="{{event.name}}"></Label>
+<SegmentedBar [items]="items" (selectedIndexChange)="onSelectedIndexChange($event)" class="m-5"></SegmentedBar>
+<StackLayout visibility="{{ visibility1 ? 'visible' : 'collapsed' }}" (loaded)="stack1Loaded($event)">
+    <ScrollView>
+        
+            <WrapLayout>
+                    <StackLayout id="{{event.id}}" *ngFor="let event of participEvents" (tap)="openEvent(event.id)" style="width: 50%">
+                            <Image src="{{event.photo_url}}" style="width: 100; height: 100"></Image>
+                            <Label text="{{event.name}}" horizontalAlignment="center"></Label>
+                            <Label text="{{event.type}}" horizontalAlignment="center"></Label>
                     </StackLayout>
-                    <Button text="join" id="{{event.id}}" (tap)="joinEvent(event.id)"></Button>
-                </StackLayout>
-        </StackLayout>
+            </WrapLayout>
+        
+    </ScrollView>
+</StackLayout>
+
+<StackLayout visibility="{{ visibility2 ? 'visible' : 'collapsed' }}" (loaded)="stack1Loaded($event)">
+    <ScrollView>
+            <StackLayout>
+                    <Label text="------Invited to events------" horizontalAlignment="center"></Label>
+                    <StackLayout id="{{event.id}}" *ngFor="let event of invitedToEvents" (tap)="openEvent(event.id)" orientation="horizontal">
+                            <StackLayout>
+                                    <Label text="{{event.name}}"></Label>
+                                    <Label text="{{event.type}}"></Label>
+                                    <Button text="Accept"></Button>
+                                    <Button text="Decline"></Button>
+                            </StackLayout>
+                    </StackLayout>
+
+                    <Label text="------Public Events------" horizontalAlignment="center"></Label>
+                    <StackLayout *ngFor="let event of publicEvents" orientation="horizontal">
+                            <StackLayout>
+                                    <Label text="{{event.id}}"></Label>
+                                    <Label text="{{event.name}}"></Label>
+                            </StackLayout>
+                            <Button text="join" id="{{event.id}}" (tap)="joinEvent(event.id)"></Button>
+                    </StackLayout>
+            </StackLayout>
     </ScrollView>
 </StackLayout>

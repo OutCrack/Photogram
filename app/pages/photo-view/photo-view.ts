@@ -24,6 +24,8 @@ export class PhotoViewComponent {
     public canGiveLike: boolean;
     public comments: Array<Comment> = [];
     public eventOwner: number;
+    public description: string;
+    public ownerName: string;
 
     constructor(private data: Data, private route: ActivatedRoute, private _changeDetectionRef: ChangeDetectorRef) {
         this.server = new Server();
@@ -33,6 +35,8 @@ export class PhotoViewComponent {
             this.created = params["created"];
             this.photoOwner = params["photoOwner"];
             this.eventOwner = params["eventOwner"];
+            this.description = params["description"];
+            this.ownerName = params["ownerName"];
         });
         this.server.getLikes(this.photoId, this.data.storage["id"]).then((result) => {
             this.likes = parseInt(JSON.stringify(result));

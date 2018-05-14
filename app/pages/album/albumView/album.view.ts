@@ -40,7 +40,7 @@ export class AlbumViewComponent {
     }
 
     selectPhoto(photoId: number) {
-        console.log("You clickes " + photoId);
+        console.log("You clicked " + photoId);
         var selectedPhoto: Photo = this.albumPhotos.find(i => i.id === photoId)
         let navigationExtras: NavigationExtras = {
             queryParams: {
@@ -48,7 +48,9 @@ export class AlbumViewComponent {
                 "url" : selectedPhoto.url,
                 "created" : selectedPhoto.created,
                 "photoOwner" : selectedPhoto.userId,
-                "eventOwner" : null
+                "eventOwner" : null,
+                "description" : selectedPhoto.description,
+                "ownerName" : selectedPhoto.user.firstN + " " + selectedPhoto.user.lastN 
             }
         };
         this.router.navigate(["/photoView"], navigationExtras);

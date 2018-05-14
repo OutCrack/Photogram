@@ -1,7 +1,9 @@
+<ActionBar title="{{description}}"></ActionBar>
 <ScrollView>
 <StackLayout (loaded)="stackLoaded($event)">
 
-    <Label text="{{photoId}}"></Label>
+    <Label text="{{ownerName}}"></Label>
+    <Label text="{{description}}"></Label>
     <Image src="{{url}}" class="photo"></Image>
     <Label text="{{created}}"></Label>
     <Label text="{{fileName}}"></Label>"

@@ -5,13 +5,11 @@
       autocorrect="false" autocapitalizationType="none"></TextField>
     <TextField hint="Password" secure="true" [(ngModel)]="user.password"></TextField>
     <Button text="Login" class="submit-button" (tap)="login()"></Button>
-    <StackLayout style="text-align: center">
+    <StackLayout class="social-btn" orientation="horizontal">
       <StackLayout class="face-button" padding="5" orientation="horizontal" (tap)="faceLogin()">
-        <!--<Label text="Login via" verticalAlignment="center"></Label>-->
         <img src="res://facelogo" class="logo-img">
       </StackLayout>
       <StackLayout class="ggl-btn" orientation="horizontal" (tap)="googleLogin()" padding="5" >
-          <!--<Label text="Login via " verticalAlignment="center"></Label>-->
           <img src="res://googlelogo" class="logo-img" >
       </StackLayout> 
     </StackLayout>

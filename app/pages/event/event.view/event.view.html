@@ -1,0 +1,46 @@
+<ActionBar title="{{eventName}}" class="action-bar">
+    <NavigationButton android.systemIcon="ic_menu_back" (tap)="onBackButtonTap()">
+    </NavigationButton>
+    <ActionItem *ngIf="!admin && !showingParticipants" text="leave" (tap)="leaveEvent()"></ActionItem>
+        <ActionItem *ngIf="admin && showingParticipants" text="invite" (tap)="invite()"></ActionItem>
+        <ActionItem [text] = "showingParticipants ? 'hide guests' : 'show guests'" (tap)="showGuests()"></ActionItem>
+</ActionBar>
+<StackLayout>
+    <StackLayout orientation="horizontal">
+        <Label text="Role: "></Label>
+        <Label text="{{role}}"></Label>
+        
+    </StackLayout>
+    <StackLayout>
+        <Image src="{{photo_url}}"></Image>
+        <GridLayout columns="auto, *" rows="40, 40, 40">
+            <Label text="privacy:  " col="0" row="0"></Label>
+            <Label text="{{privacy}}" col="1" row="0"></Label>
+
+            <Label text="description:  " col="0" row="1"></Label>
+            <Label text="{{description}}" col="1" row="1"></Label>
+
+            <Label text="type" col="0" row="2"></Label>
+            <Label text="{{type}}" col="1" row="2"></Label>
+        </GridLayout>
+    </StackLayout>
+    <ScrollView>
+    <StackLayout>
+        <StackLayout *ngIf="showingParticipants">
+            <StackLayout *ngFor="let p of participants" orientation="horizontal">
+                <Label  text="{{p.firstN}} {{p.lastN}}"></Label>   
+                <Label *ngIf="p.role == null" text=" (invited) "></Label>
+                <Button *ngIf="admin" text="delete" (tap)="removeParticipant(p.id)"></Button> 
+            </StackLayout>  
+        </StackLayout>       
+        <StackLayout *ngIf="inviting">
+            <SearchBar hint="Search" (textChange)="onTextChanged($event)" (submit)="onTextSubmit($event)" color="black"
+            textFieldBackgroundColor="white" textFieldHintColor="gray"></SearchBar>
+        </StackLayout>
+        <StackLayout orientation="horizontal" *ngFor="let user of searchList">
+            <Label  text="{{user.firstN}} {{user.lastN}}" (tap)="inviteUser(user.id)"></Label>  
+            <Label text="{{user.role}}"></Label>
+        </StackLayout>
+    </StackLayout>
+    </ScrollView>
+</StackLayout>
