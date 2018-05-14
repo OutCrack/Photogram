@@ -2,7 +2,7 @@
     <ActionBar title="{{tabName}}">
             <NavigationButton android.systemIcon="ic_menu_back" (tap)="onBackButtonTap()">
                 </NavigationButton>
-        <ActionItem *ngIf="isGallery" (tap)="addAlbum()" ios.systemIcon="11" ios.position="right" android.systemIcon="sym_action_add"></ActionItem>
+        <ActionItem *ngIf="isGallery" (tap)="addAlbum()" ios.systemIcon="11" ios.position="right" android.systemIcon="symad_action_add"></ActionItem>
         <ActionItem *ngIf="!isProfile" (tap)="onInvitation()" ios.systemIcon="7" ios.position="right" android.systemIcon="ic_menu_compose"></ActionItem>
         <ActionItem *ngIf="isGallery || isHome" (tap)="onCamera()" ios.systemIcon="15" ios.position="right" android.systemIcon="ic_menu_camera"></ActionItem>
         <ActionItem *ngIf="isNotification" (tap)="onNewEvent()" ios.systemIcon="4" ios.position="right" android.systemIcon="ic_menu_add"></ActionItem>

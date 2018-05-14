@@ -1,0 +1,8 @@
+Label, Button {
+    margin: 5;
+}
+
+Label {
+    padding: 2;
+    font-size: 16px;
+}

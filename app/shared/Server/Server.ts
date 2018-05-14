@@ -69,10 +69,14 @@ export class Server {
         return publicEvents;
     }*/
 
-    getMyEvents(id: number) {
+    getMyEvents(id: number, role: string) {
+        console.log("+++++++++++++++++++++++++++++");
+        console.log("+++++++++++++++++++++++++++++");
+        console.log("+++++++++++++++++++++++++++++");
+        console.log("+++++++++++++++++++++++++++++");
+        console.log("Searching for events " + id + " " + role);
         var myEvents: Array<Event> = [];
-        console.log("In get my events function");
-        var query: string = this.db + "participants?transform=1&filter=user_Id,eq," + id;
+        var query: string = this.db + "participants?transform=1&filter[]=user_Id,eq," + id + "&filter[]=participant_Role,eq," + role;
         console.log("QUERY for events " + query);
         myEvents = [];
         http.getJSON(query)
@@ -105,6 +109,10 @@ export class Server {
             console.log(e);
         })
         return myEvents;
+    }
+
+    getInvitedEvents(userId: number) {
+
     }
 
     /*getUser(id: number) {
@@ -312,19 +320,18 @@ export class Server {
     }
 
     joinEvent(eventId: number, userId: number, role: string) {
-        var result;
-        http.request({
-            url: this.db + "participants",
-            method: "POST",
-            headers: { "Content-Type" : "application/json" },
-            content: JSON.stringify({ event_Id : eventId, user_Id : userId, participant_Role: role })
-        }).then(function(response) {
-            result = response.content.toJSON();
-            console.log(result);
-        }, function(e) {
-            console.log(e);
-        });
-        return result;
+            var result;
+            http.request({
+                url: this.db + "participants",
+                method: "POST",
+                headers: { "Content-Type" : "application/json" },
+                content: JSON.stringify({ event_Id : eventId, user_Id : userId, participant_Role: role })
+            }).then(function(response) {
+                result = response.content.toJSON();
+                console.log(result);
+            }, function(e) {
+                console.log(e);
+            })
     }
 
     leaveEvent(eventId: number, userId: number) {

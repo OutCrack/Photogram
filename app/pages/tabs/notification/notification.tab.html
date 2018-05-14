@@ -3,17 +3,22 @@
     <ScrollView>
         
             <WrapLayout>
-                    <StackLayout id="{{event.id}}" *ngFor="let event of participEvents" (tap)="openEvent(event.id)" style="width: 50%">
+                    <StackLayout *ngFor="let event of myEvents" (tap)="openEvent(event.id)" style="width: 45%">
                             <Image src="{{event.photo_url}}" style="width: 100; height: 100"></Image>
                             <Label text="{{event.name}}" horizontalAlignment="center"></Label>
                             <Label text="{{event.type}}" horizontalAlignment="center"></Label>
                     </StackLayout>
+                    <StackLayout *ngFor="let event of participEvents" (tap)="openEvent(event.id)" style="width: 45%">
+                                <Image src="{{event.photo_url}}" style="width: 100; height: 100"></Image>
+                                <Label text="{{event.name}}" horizontalAlignment="center"></Label>
+                                <Label text="{{event.type}}" horizontalAlignment="center"></Label>
+                        </StackLayout>
             </WrapLayout>
         
     </ScrollView>
 </StackLayout>
 
-<StackLayout visibility="{{ visibility2 ? 'visible' : 'collapsed' }}" (loaded)="stack1Loaded($event)">
+<StackLayout visibility="{{ visibility2 ? 'visible' : 'collapsed' }}" (loaded)="stack2Loaded($event)">
     <ScrollView>
             <StackLayout>
                     <Label text="------Invited to events------" horizontalAlignment="center"></Label>

@@ -2,7 +2,6 @@
     <NavigationButton android.systemIcon="ic_menu_back" (tap)="onBackButtonTap()">
     </NavigationButton>
     <ActionItem *ngIf="!admin && !showingParticipants" text="leave" (tap)="leaveEvent()"></ActionItem>
-        <ActionItem *ngIf="admin && showingParticipants" text="invite" (tap)="invite()"></ActionItem>
         <ActionItem [text] = "showingParticipants ? 'hide guests' : 'show guests'" (tap)="showGuests()"></ActionItem>
 </ActionBar>
 <StackLayout>
@@ -29,18 +28,22 @@
         <StackLayout *ngIf="showingParticipants">
             <StackLayout *ngFor="let p of participants" orientation="horizontal">
                 <Label  text="{{p.firstN}} {{p.lastN}}"></Label>   
-                <Label *ngIf="p.role == null" text=" (invited) "></Label>
+                <Label *ngIf="p.role == 'Invited'" text=" (invited) "></Label>
                 <Button *ngIf="admin" text="delete" (tap)="removeParticipant(p.id)"></Button> 
             </StackLayout>  
+            <Button *ngIf="admin && showingParticipants && !inviting" text="invite" (tap)="invite()"></Button>
         </StackLayout>       
         <StackLayout *ngIf="inviting">
-            <SearchBar hint="Search" (textChange)="onTextChanged($event)" (submit)="onTextSubmit($event)" color="black"
-            textFieldBackgroundColor="white" textFieldHintColor="gray"></SearchBar>
-        </StackLayout>
-        <StackLayout orientation="horizontal" *ngFor="let user of searchList">
-            <Label  text="{{user.firstN}} {{user.lastN}}" (tap)="inviteUser(user.id)"></Label>  
-            <Label text="{{user.role}}"></Label>
-        </StackLayout>
+            <StackLayout orientation="horizontal"></StackLayout>
+                <SearchBar hint="Search" (textChange)="onTextChanged($event)" (submit)="onTextSubmit($event)" color="black"
+                    textFieldBackgroundColor="white" textFieldHintColor="gray"></SearchBar>
+                <Button text="end" (tap)="doneInviting()"></Button>
+            </StackLayout>
+        
+            <StackLayout orientation="horizontal" *ngFor="let user of searchList">
+                <Label  text=" {{user.firstN}} {{user.lastN}} "></Label>  
+                <Button text="invite" (tap)="inviteUser(user.id)"></Button>
+            </StackLayout>
     </StackLayout>
     </ScrollView>
 </StackLayout>

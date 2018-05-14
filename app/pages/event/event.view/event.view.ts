@@ -105,8 +105,7 @@ export class EventViewComponent {
         }
     }
 
-    invite(text: string) {
-        //invite new users -> seach by email address or sth
+    invite() {
         this.inviting = true;
     }
 
@@ -123,19 +122,22 @@ export class EventViewComponent {
 
     public onTextSubmit(args) {
         console.log("Submitted");
-        for (let user of this.searchList) {
-            console.log("Checking user " + user.id);
-            if (this.participants.find(i => i.id === user.id)) {
-                console.log("Found");
-                this.searchList[user.id].role = this.participants[user.id].role;
-            }
-        }
+    }
+
+    public doneInviting() {
+        this.inviting = false;
+        this.searchList = [];
     }
 
     inviteUser(userId: number) {
-        alert("You are inviting " + userId);
-        //in server check if the user already is invited -> use participants list
-    }
-
+        console.log("You are inviting " + userId);
+        if (this.participants.find(i => i.id === userId) == null) {
+            this.server.joinEvent(this.eventId, userId,"Invited");
+            alert("Invitation sent");
+            this.participants = this.server.getEventParticipants(this.eventId);
+        } else  {
+            alert("The user is already invited or is a guest");
+            }
+        }
 
 }

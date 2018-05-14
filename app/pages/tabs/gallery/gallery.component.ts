@@ -178,7 +178,7 @@ export class GalleryComponent {
     getEvents() {
         this.mEvents = !this.mEvents;
         if (this.mEvents) {
-            this.participEvents = this.server.getMyEvents(this.data.storage["id"]);
+            this.participEvents = this.server.getMyEvents(this.data.storage["id"], "User");
             console.log("Events " + this.participEvents.length);
         }
     }
