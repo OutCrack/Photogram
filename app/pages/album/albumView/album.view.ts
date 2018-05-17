@@ -29,8 +29,7 @@ export class AlbumViewComponent {
         console.log("Stack Loaded");
         this.albumPhotos = this.server.getAlbumPhotos(this.albumId);
         this.server.getAlbumName(this.albumId).then((r) => {
-            var name = JSON.stringify(r);
-            this.albumName = name.slice(1, name.length - 1);
+            this.albumName = r;
         });
     }
 
@@ -50,6 +49,7 @@ export class AlbumViewComponent {
                 "created" : selectedPhoto.created,
                 "photoOwner" : selectedPhoto.userId,
                 "eventOwner" : null,
+                "eventId" : null,
                 "description" : selectedPhoto.description,
                 "ownerName" : selectedPhoto.user.firstN + " " + selectedPhoto.user.lastN,
                 "fileName" : selectedPhoto.fileName,

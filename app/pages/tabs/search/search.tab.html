@@ -1,5 +1,21 @@
-<StackLayout>
-
-        <SearchBar hint="Search hint" [text]="searchPhrase" (textChange)="onTextChanged($event)" (submit)="onSubmit($event)" color="black"
+<StackLayout (loaded)="stackLoaded($event)">
+    
+        <SearchBar hint="Your phrase" [text]="searchPhrase" (textChange)="onTextChanged($event)" (submit)="onSubmit($event)" color="black"
                 textFieldBackgroundColor="white" textFieldHintColor="gray"></SearchBar>
+    <ScrollView>
+        <StackLayout *ngIf="search">
+                <Label text="Users" class="header"></Label>
+                <Label *ngIf="users.length == 0" text="no match" class="nomatch"></Label>
+                <StackLayout orientation="horizontal" *ngFor="let user of users" class="container">
+                        <Label  text=" {{user.firstN}} {{user.lastN}} "></Label>  
+                </StackLayout>
+                <Label text="Events" class="header"></Label>
+                <Label *ngIf="events.length == 0" text="no match" class="nomatch"></Label>
+                <StackLayout *ngFor="let event of events" class="container">
+                        <Label  text=" {{event.name}}"></Label>  
+                        <Label  text=" {{event.description}}"></Label> 
+                        <Label  text=" {{event.type}}"></Label> 
+                </StackLayout>
+        </StackLayout>
+   </ScrollView>
 </StackLayout>

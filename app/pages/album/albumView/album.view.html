@@ -5,10 +5,9 @@
 
 <StackLayout (loaded)="stackLoaded($event)">
     <Label text="{{albumName}}"></Label>
-    <Label text="{{albumId}}"></Label>
     <WrapLayout>
         <StackLayout *ngFor="let photo of albumPhotos" class="photo" (tap)="selectPhoto(photo.id)">
-            <Image src="{{photo.url}}" style="width: 100; height: 100"></Image>
+            <Image src="{{photo.url}}" style="width: 150; height: 150"></Image>
             <Label text="{{photo.created}}"></Label>
             <Label text="{{photo.description}}"></Label>
         </StackLayout>

@@ -6,7 +6,6 @@
         <ActionItem *ngIf="!isProfile && !isGallery" (tap)="onInvitation()" ios.systemIcon="7" ios.position="right" android.systemIcon="ic_menu_compose"></ActionItem>
         <ActionItem *ngIf="isGallery || isHome" (tap)="onCamera()" ios.systemIcon="15" ios.position="right" android.systemIcon="ic_menu_camera"></ActionItem>
         <ActionItem *ngIf="isEventGallery" (tap)="onNewEvent()" ios.systemIcon="4" ios.position="right" android.systemIcon="ic_menu_add"></ActionItem>
-        <ActionItem *ngIf="isSearch" android.position="center"></ActionItem>
         <ActionItem *ngIf="isProfile" ios.position="right" text="logout" (tap)="logout()"></ActionItem>
     </ActionBar>
     <StackLayout *tabItem="{iconSource:'res://ic_home'}">

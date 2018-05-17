@@ -17,6 +17,7 @@ export class Photo {
     comments: Array<Comment>;
     server: Server = new Server();
     albumPath: string;
+    userName: string;
 
     constructor(id: number, url:string, userId: number, created: string, description: string, albumId: number, fileName: string, eventId: number) {
         this.id = id;
@@ -47,7 +48,7 @@ export class Photo {
                 });  
                 this.getComments();
         } else {
-
+            this.url = "http://188.166.127.207:8000/uploads/events/" + eventId + "/" + fileName;
         }
     }
 
@@ -63,6 +64,7 @@ export class Photo {
                     result.users[0].first_Name,
                     result.users[0].last_Name  
                 )
+                this.userName = result.users[0].first_Name + " " + result.users[0].last_Name 
             } 
             //if user is not found - OBS should never happen -> inconsistency in database 
             else {
@@ -71,6 +73,7 @@ export class Photo {
                     "User deleted",
                     ""
                 )
+                this.userName = "User deleted";
             }
             //console.log("Created user " + this.user.firstN + " " + this.user.lastN);
         }, function(error) {

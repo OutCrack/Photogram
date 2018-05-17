@@ -1,10 +1,10 @@
 <GridLayout>
-        <PullToRefresh (refresh)="refreshFeed($event)">
+        <PullToRefresh (refresh)="refreshFeed($event)" (loaded)="stackLoaded($event)">
                 <ScrollView>
                         <StackLayout *ngIf="!selected">
                                 <StackLayout *ngFor="let photo of photos" class="list-group-item">  
                                         <Label text="{{photo.created}}" class="user"></Label>
-                                        <Label text="{{photo.user.firstN}} {{photo.user.lastN}}" class="user" ></Label>
+                                        <Label text="{{photo.userName}}" class="user" ></Label>
                                         <Image src="{{photo.url}}" id="{{photo.id}}" (tap)="selectPhoto(photo.id)"></Image>
                                 </StackLayout>
                         </StackLayout>

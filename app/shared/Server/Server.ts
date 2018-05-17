@@ -16,33 +16,65 @@ export class Server {
         console.log("In server constructor!!!!!!!!!!!!!!!!!!!!!!/n")
     }
 
-    public getPublicPhotos() {
-        var query: string = this.db + "files?transform=1&filter[]=file_Permission,eq,public&filter[]=event_Id,is,null&order=created_at,desc";
-        var publicPhotos: Array<Photo> = [];
+    getPublicPhotos() {
+        var photos = new Array();
+        //get public photos that are not connected to a event, are not in an album and are max 2 days old
+        var limitDate: string = getLimitDate();
+        var query: string = this.db + "files?transform=1&filter[]=file_Permission,eq,public&filter[]=album_Id,not,null&filter[]=created_at,gt," + limitDate + "&order=created_at,desc";
+        //&filter[]=event_Id,is,null
+        console.log("LIMIT DATE IN QUERY " + query);
         http.getJSON(query)
-        .then((r) => {
-            for (var i = 0; i < r.files.lenght; i++) {
-                publicPhotos.push(
-                    new Photo(
-                        r.files[i].file_Id,
-                        "users/" + r.files[i].file_URL,
-                        r.files[i].user_Id,
-                        r.files[i].created_at,
-                        r.files[i].description,
-                        r.files[i].album_Id,
-                        r.files[i].file_Name,
-                        r.files[i].event_Id
+            .then((r) => {
+                //testing
+                //console.log("Files.length is" + r.files.length);
+                for (var i = 0; i < r.files.length; i++) {
+                    console.log("album id " + r.files[i].album_Id);
+                    photos.push(
+                        new Photo(
+                            r.files[i].file_Id,
+                            "users/" + r.files[i].user_Id + r.files[i].file_URL,
+                            r.files[i].user_Id,
+                            (r.files[i].created_at).slice(0, 16),
+                            r.files[i].file_Description,
+                            r.files[i].album_Id,
+                            r.files[i].file_Name,
+                            r.files[i].event_Id
+                        )
                     )
-                )
+                }
+            }, function (e) {
+                console.log(e);
+            });
+
+        //get string that represents the day before yesterday
+        function getLimitDate() {
+            var date = new Date();
+            console.log("Date is " + date.toDateString());
+            date.setDate(date.getDate() - 2); //Antall dager gamle bilder som skal vises
+            console.log("Date new date is " + date.toDateString());
+            var dateString = date.getFullYear() + "-";
+            var month: number = date.getMonth() + 1;
+            if (month < 10) {
+                dateString += "0" + month;
+            } else {
+                dateString += date.getMonth();
             }
-        }, function(e) {
-            console.log(e);
-        })
-        return new Promise((resolve, reject) => {
-            
-        });
-        //return publicPhotos;
+            dateString += "-";
+            console.log("Day " + date.getDate())
+            if (date.getDay() < 10) {
+                dateString += "0" + date.getDate();
+            } else {
+                dateString += date.getDate();
+            }
+            console.log("The date " + dateString);
+            return dateString;
+        }
+
+        return photos;
+
     }
+
+
 
     /*getPublicEvents() {
         //files?transform=1&filter[]=file_Permission,eq,public&filter[]=event_Id,is,null&order=created_at,desc
@@ -778,7 +810,7 @@ export class Server {
                         r.files[i].file_URL,
                         r.files[i].user_Id,
                         r.files[i].created_at,
-                        r.files[i].description,
+                        r.files[i].file_Description,
                         r.files[i].album_Id,
                         r.files[i].file_Name,
                         r.files[i].event_Id
@@ -860,6 +892,31 @@ export class Server {
             }        
             })
             return users;
+    }
+
+    getEventsByHint(hint: string) {
+        var events : Array<Event> = [];
+        var query = this.db + "events?transform=1&filter[]=event_Name,cs," + hint + "&filter[]=event_Description,cs," + hint +
+        "&satisfy=any";
+        console.log(query);
+        http.getJSON(query).then((res) => {
+            for (let i = 0; i < res.events.length; i++) {
+                if (res.events[i].event_Privacy == "private") {
+                    continue;
+                }
+               events.push(
+                   new Event(
+                       res.events[i].event_Id,
+                       res.events[i].event_Name,
+                       null,
+                       res.events[i].event_Description,
+                       res.events[i].event_Type,
+                       "public",
+                       res.events[i].event_Header
+               )
+                  
+            ) } })
+            return events;
     }
 
     /*public deleteInvitation(eventId: number, userId: number) {

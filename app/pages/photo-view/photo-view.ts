@@ -28,6 +28,7 @@ export class PhotoViewComponent {
     public description: string;
     public ownerName: string;
     public albumPath;
+    public canDelete: boolean;
 
     constructor(private routerExtensions: RouterExtensions  ,private data: Data, private route: ActivatedRoute, private _changeDetectionRef: ChangeDetectorRef) {
         this.server = new Server();
@@ -42,6 +43,12 @@ export class PhotoViewComponent {
             this.fileName = params["fileName"];
             this.albumPath = params["albumPath"];
         });
+
+        if (this.data.storage["id"] == this.photoOwner) {
+            this.canDelete = true;
+        } else {
+            this.canDelete = false;
+        }
         this.server.getLikes(this.photoId, this.data.storage["id"]).then((result) => {
             this.likes = parseInt(JSON.stringify(result));
             this.canGiveLike = false;
@@ -59,6 +66,7 @@ export class PhotoViewComponent {
 
     test() {
         console.log("URL " + this.albumPath);
+        alert("My id is " + this.data.storage["id"] + " owner " + this.photoOwner + " " + this.canDelete);
     }
 
     updateLikes(id: number) {

@@ -26,21 +26,15 @@ export class TabComponent {
         this.tabName = "feed";
     }
 
-    onCamera() {
-        console.log("Camera tapped.");
-        this.router.navigate(["/image"]);
-    }
-
     onBackButtonTap() {
         if (this.isHome) {
             //do nothing
         } else {
-            this.onHome();
+            this.tabViewIndexChange(0);
         }
     }
 
     onNewEvent() {
-
         this.tabName = "New event";
         this.router.navigate(["/newEvent"]);
     }
@@ -60,7 +54,6 @@ export class TabComponent {
     }
 
     onSearch() {
-        console.log("Search-tab tapped.");
         this.isHome = false;
         this.isSearch = true;
         this.isGallery = false;
@@ -117,8 +110,11 @@ export class TabComponent {
     }
 
     addAlbum() {
-        console.log("New album adding");
         this.router.navigate(["/newAlbum"]);
+    }
+
+    onCamera() {
+        this.router.navigate(["/image"]);
     }
 
     logout() {

@@ -109,11 +109,6 @@ export class EventViewComponent {
         this.inviting = true;
     }
 
-    public onSubmit(args) {
-        let searchBar = <SearchBar>args.object;
-        alert("You are searching for " + searchBar.text);
-    }
-
     public onTextChanged(args) {
         let searchBar = <SearchBar>args.object;
         console.log("You are searching for " + searchBar.text);
