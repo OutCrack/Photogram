@@ -4,6 +4,7 @@ import { RouterExtensions } from "nativescript-angular";
 import { Photo } from "../../../shared/Photo";
 import { ActivatedRoute, Router, NavigationExtras } from "@angular/router";
 import { Data } from "../../../shared/Data";
+import * as dialogs from "ui/dialogs";
 
 
 @Component({
@@ -13,11 +14,11 @@ import { Data } from "../../../shared/Data";
 export class AlbumViewComponent {
 
     public albumPhotos: Array<Photo>;
-    public albumId: string;
+    public albumId: number;
     public albumName: string;
     public server: Server;
 
-    constructor(private route: ActivatedRoute, private router: Router, private data: Data) {
+    constructor(private routerExtensions: RouterExtensions, private route: ActivatedRoute, private router: Router, private data: Data) {
         this.server = new Server();
         this.route.params.subscribe((params) => {
             this.albumId = params["albumId"];
@@ -50,10 +51,27 @@ export class AlbumViewComponent {
                 "photoOwner" : selectedPhoto.userId,
                 "eventOwner" : null,
                 "description" : selectedPhoto.description,
-                "ownerName" : selectedPhoto.user.firstN + " " + selectedPhoto.user.lastN 
+                "ownerName" : selectedPhoto.user.firstN + " " + selectedPhoto.user.lastN,
+                "fileName" : selectedPhoto.fileName,
+                "albumPath" : selectedPhoto.albumPath
             }
         };
         this.router.navigate(["/photoView"], navigationExtras);
+    }
+
+    onDeleteAlbum() {
+        dialogs.confirm({
+            title: "Are you sure you want to delete this album?",
+            okButtonText: "Yes",
+            cancelButtonText: "Cancel"
+        }).then(result => {
+            if (result) {
+                this.server.deleteAlbum(this.albumId, this.data.storage["id"], this.albumName);
+                dialogs.alert("Album deleted").then(()=> {
+                    this.routerExtensions.back();
+                })
+            }
+        });
     }
 
 }

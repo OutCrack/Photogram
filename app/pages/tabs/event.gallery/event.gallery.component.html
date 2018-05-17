@@ -3,16 +3,19 @@
     <ScrollView>
         
             <WrapLayout>
+                    <Label text="Hosted events" class="header"></Label>
                     <StackLayout *ngFor="let event of myEvents" (tap)="openEvent(event.id)" style="width: 45%">
+                            <Label text="{{event.id}}" style="visibility: hidden"></Label>
                             <Image src="{{event.photo_url}}" style="width: 100; height: 100"></Image>
                             <Label text="{{event.name}}" horizontalAlignment="center"></Label>
                             <Label text="{{event.type}}" horizontalAlignment="center"></Label>
                     </StackLayout>
+                    <Label text="Joined events" class="header"></Label>
                     <StackLayout *ngFor="let event of participEvents" (tap)="openEvent(event.id)" style="width: 45%">
                                 <Image src="{{event.photo_url}}" style="width: 100; height: 100"></Image>
                                 <Label text="{{event.name}}" horizontalAlignment="center"></Label>
                                 <Label text="{{event.type}}" horizontalAlignment="center"></Label>
-                        </StackLayout>
+                   </StackLayout>
             </WrapLayout>
         
     </ScrollView>
@@ -21,22 +24,26 @@
 <StackLayout visibility="{{ visibility2 ? 'visible' : 'collapsed' }}" (loaded)="stack2Loaded($event)">
     <ScrollView>
             <StackLayout>
-                    <Label text="------Invited to events------" horizontalAlignment="center"></Label>
+                    <Label text="Invited to events" class="header" horizontalAlignment="center"></Label>
                     <StackLayout id="{{event.id}}" *ngFor="let event of invitedToEvents" (tap)="openEvent(event.id)" orientation="horizontal">
-                            <StackLayout>
+                            <StackLayout id="eventList">
                                     <Label text="{{event.name}}"></Label>
                                     <Label text="{{event.type}}"></Label>
-                                    <Button text="Accept"></Button>
-                                    <Button text="Decline"></Button>
                             </StackLayout>
+                            <Image src="{{event.photo_url}}" class="icon" ></Image>
+                            <StackLayout>
+                                <Button text="Accept" (tap)="acceptInvitation(event.id)" class="narrow_btn"></Button>
+                                <Button text="Decline" (tap)="declineInvitation(event.id)" class="narrow_btn"></Button>
+                        </StackLayout>
                     </StackLayout>
 
-                    <Label text="------Public Events------" horizontalAlignment="center"></Label>
+                    <Label text="Public Events" class="header" horizontalAlignment="center"></Label>
                     <StackLayout *ngFor="let event of publicEvents" orientation="horizontal">
-                            <StackLayout>
-                                    <Label text="{{event.id}}"></Label>
+                            <StackLayout id="eventList">
                                     <Label text="{{event.name}}"></Label>
+                                    <Label text="{{event.description}}"></Label>
                             </StackLayout>
+                            <Image src="{{event.photo_url}}" class="icon"></Image>
                             <Button text="join" id="{{event.id}}" (tap)="joinEvent(event.id)"></Button>
                     </StackLayout>
             </StackLayout>

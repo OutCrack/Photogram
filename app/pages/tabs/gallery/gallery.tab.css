@@ -2,7 +2,8 @@ Image {
     margin-left: 20dp;
     margin-right: 20dp;
     margin-top: 10dp;
-    margin-bottom: 10dp;
+    height: 400px;
+    width: 400px;
 }
 
 .close {
@@ -20,10 +21,20 @@ WrapLayout {
 
 Label {
     text-align: center;
+    padding: 0;
+    margin: 0;
 }
 
 .album_ctn {
     margin: 5;
     padding: 5;
     width: 45%;
+}
+
+.title {
+    font-size: 18px;
+}
+
+.description {
+    font-size: 12px;
 }

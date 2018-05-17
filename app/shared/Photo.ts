@@ -16,6 +16,7 @@ export class Photo {
     likes: number;
     comments: Array<Comment>;
     server: Server = new Server();
+    albumPath: string;
 
     constructor(id: number, url:string, userId: number, created: string, description: string, albumId: number, fileName: string, eventId: number) {
         this.id = id;
@@ -84,6 +85,7 @@ export class Photo {
             http.getJSON("http://188.166.127.207:5555/api.php/albums?transform=1&filter=album_Id,eq," + this.albumId)
             .then((r) => {
                 var albumName = r.albums[0].album_Name;
+                this.albumPath = r.albums[0].album_Name;;
                 var replace = / /gi;
                 albumName = albumName.replace(replace, "%20");
                 //var url = "http://188.166.127.207:8000/uploads/" + this.userId + "/" + albumName + "/" + this.fileName;
@@ -91,6 +93,7 @@ export class Photo {
                 })  
         });
     }
+
 
     public getComments() {
         return new Promise((resolve, reject) => {

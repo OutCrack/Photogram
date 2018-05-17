@@ -4,12 +4,14 @@ import { Event } from "../../../shared/Event";
 import { Data } from "../../../shared/Data";
 import { SegmentedBar, SegmentedBarItem } from "ui/segmented-bar";
 import { Router, NavigationExtras } from "@angular/router";
+import * as dialogs from "ui/dialogs";
 
 @Component({
-    selector: "notification-tab",
-    templateUrl: "./pages/tabs/notification/notification.tab.html"
+    selector: "event-tab",
+    templateUrl: "./pages/tabs/event.gallery/event.gallery.component.html",
+    styleUrls: ["./pages/tabs/event.gallery/event.gallery.component.css"]
 })
-export class NotificationComponent {
+export class EventGalleryComponent {
 
     public items: Array<SegmentedBarItem>;
     public selectedIndex = 0;
@@ -99,6 +101,30 @@ export class NotificationComponent {
                 break;
         }
     }
+
+    public acceptInvitation(eventId: number) {
+        this.server.leaveEvent(eventId, this.data.storage["id"]);
+        this.server.joinEvent(eventId, this.data.storage["id"], "User");
+        dialogs.alert("You joined the event").then(()=> {
+        this.invitedToEvents = this.server.getMyEvents(this.data.storage["id"], "Invited");
+        })
+    }
+
+    public declineInvitation(eventId: number) {
+        console.log("You are declining " + eventId);
+        dialogs.confirm({
+            title: "Are you sure?",
+            okButtonText: "Yes",
+            cancelButtonText: "Cancel"
+        }).then(result => {
+            if (result) {
+                this.server.leaveEvent(eventId, this.data.storage["id"]);
+                dialogs.alert("Invitation deleted").then(() => {
+                this.invitedToEvents = this.server.getMyEvents(this.data.storage["id"], "Invited");})
+            }
+        })
+    }
+
 }
 
 //part 1 -> my events

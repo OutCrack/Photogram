@@ -132,7 +132,7 @@ export class EventViewComponent {
     inviteUser(userId: number) {
         console.log("You are inviting " + userId);
         if (this.participants.find(i => i.id === userId) == null) {
-            this.server.joinEvent(this.eventId, userId,"Invited");
+            this.server.joinEvent(this.eventId, userId, "Invited");
             alert("Invitation sent");
             this.participants = this.server.getEventParticipants(this.eventId);
         } else  {

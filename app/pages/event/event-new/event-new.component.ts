@@ -39,21 +39,25 @@ export class NewEventComponent {
         else {
             privacy = "Public";
         }
-        var result = this.server.newEvent(this.data.storage["id"], this.event.name, this.event.location, this.event.description, type, privacy);
-        let navigationExtras: NavigationExtras = {
-            queryParams: {
-                "id" : result,
-                "name" : this.event.name,
-                "role" : "Admin",
-                "description" : this.event.description,
-                "type" : type,
-                "photo_url" : this.wedding ?  'http://sergphoto.com:8000/uploads/events/wedding-default.png' : 'http://sergphoto.com:8000/uploads/events/party-default.png',
-                "privacy" : privacy
-            }
-        };
-        console.log(JSON.stringify(navigationExtras));
-        this.router.navigate(["/eventView"], navigationExtras);
-
+        var result;
+        this.server.newEvent(this.data.storage["id"], this.event.name, this.event.location, this.event.description, type, privacy).then((fromResolve) => {
+            result = fromResolve;
+            let navigationExtras: NavigationExtras = {
+                queryParams: {
+                    "id" : result,
+                    "name" : this.event.name,
+                    "role" : "Admin",
+                    "description" : this.event.description,
+                    "type" : type,
+                    "photo_url" : this.wedding ?  'http://sergphoto.com:8000/uploads/events/wedding-default.png' : 'http://sergphoto.com:8000/uploads/events/party-default.png',
+                    "privacy" : privacy
+                }
+            };
+            console.log(JSON.stringify(navigationExtras));
+            this.router.navigate(["/eventView"], navigationExtras);
+        }).catch(() => {
+            alert("Something went wrong. Please try again later");
+        })
     }
 
     public changeEventType() {

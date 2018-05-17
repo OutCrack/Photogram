@@ -2,10 +2,10 @@
     <ActionBar title="{{tabName}}">
             <NavigationButton android.systemIcon="ic_menu_back" (tap)="onBackButtonTap()">
                 </NavigationButton>
-        <ActionItem *ngIf="isGallery" (tap)="addAlbum()" ios.systemIcon="11" ios.position="right" android.systemIcon="symad_action_add"></ActionItem>
-        <ActionItem *ngIf="!isProfile" (tap)="onInvitation()" ios.systemIcon="7" ios.position="right" android.systemIcon="ic_menu_compose"></ActionItem>
+        <ActionItem *ngIf="isGallery" (tap)="addAlbum()" ios.systemIcon="11" ios.position="right" android.systemIcon="ic_menu_add"></ActionItem>
+        <ActionItem *ngIf="!isProfile && !isGallery" (tap)="onInvitation()" ios.systemIcon="7" ios.position="right" android.systemIcon="ic_menu_compose"></ActionItem>
         <ActionItem *ngIf="isGallery || isHome" (tap)="onCamera()" ios.systemIcon="15" ios.position="right" android.systemIcon="ic_menu_camera"></ActionItem>
-        <ActionItem *ngIf="isNotification" (tap)="onNewEvent()" ios.systemIcon="4" ios.position="right" android.systemIcon="ic_menu_add"></ActionItem>
+        <ActionItem *ngIf="isEventGallery" (tap)="onNewEvent()" ios.systemIcon="4" ios.position="right" android.systemIcon="ic_menu_add"></ActionItem>
         <ActionItem *ngIf="isSearch" android.position="center"></ActionItem>
         <ActionItem *ngIf="isProfile" ios.position="right" text="logout" (tap)="logout()"></ActionItem>
     </ActionBar>
@@ -22,7 +22,7 @@
     </StackLayout>
 
     <StackLayout *tabItem="{iconSource:'res://event_icon'}">
-        <notification-tab></notification-tab>
+        <event-tab></event-tab>
     </StackLayout>
 
     <StackLayout *tabItem="{iconSource:'res://ic_account_box'}">

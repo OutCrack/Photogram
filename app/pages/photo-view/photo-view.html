@@ -1,4 +1,6 @@
-<ActionBar title="{{description}}"></ActionBar>
+<ActionBar title="{{description}}">
+        <ActionItem (tap)="onDeletePhoto()" ios.systemIcon="16" ios.position="right" android.systemIcon="ic_menu_delete"></ActionItem>
+</ActionBar>
 <ScrollView>
 <StackLayout (loaded)="stackLoaded($event)">
 

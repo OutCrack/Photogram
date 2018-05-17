@@ -1,0 +1,29 @@
+#eventList {
+    margin-left: 30px;
+    width: 25%;
+    align-content: center;
+    margin-bottom: 30px;
+}
+
+Label {
+    margin: 10px;
+    padding: 2px;
+}
+
+.header {
+    width: 100%; 
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    font-size: 20px;
+}
+
+.icon {
+    height: 25%;
+    width: 25%;
+}
+
+.narrow_btn {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}

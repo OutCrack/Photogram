@@ -17,7 +17,7 @@ export class TabComponent {
     isHome: boolean = true;
     isSearch: boolean = false;
     isGallery: boolean = false;
-    isNotification: boolean = false;
+    isEventGallery: boolean = false;
     isProfile: boolean = false;
     public tabName: string = "Feed";
 
@@ -54,7 +54,7 @@ export class TabComponent {
         this.isHome = true;
         this.isSearch = false;
         this.isGallery = false;
-        this.isNotification = false;
+        this.isEventGallery = false;
         this.isProfile = false;
         this.tabName = "Feed";
     }
@@ -64,7 +64,7 @@ export class TabComponent {
         this.isHome = false;
         this.isSearch = true;
         this.isGallery = false;
-        this.isNotification = false;
+        this.isEventGallery = false;
         this.isProfile = false;
         this.tabName = "Search";
     }
@@ -73,25 +73,25 @@ export class TabComponent {
         this.isHome = false;
         this.isSearch = false;
         this.isGallery = true;
-        this.isNotification = false;
+        this.isEventGallery  = false;
         this.isProfile = false; 
         this.tabName = "My gallery";          
     }
 
-    onNotification() {
+    onEventGallery() {
         this.isHome = false;
         this.isSearch = false;
         this.isGallery = false;
-        this.isNotification = true;
+        this.isEventGallery  = true;
         this.isProfile = false; 
-        this.tabName = "Events";  
+        this.tabName = "Event Gallery";  
     }
 
     onProfile() {
         this.isHome = false;
         this.isSearch = false;
         this.isGallery = false;
-        this.isNotification = false;
+        this.isEventGallery  = false;
         this.isProfile = true;  
         this.tabName = "Profile";
     }
@@ -108,7 +108,7 @@ export class TabComponent {
                 this.onGallery();
                 break;
             case 3:
-                this.onNotification();
+                this.onEventGallery();
                 break;
             case 4:
                 this.onProfile();

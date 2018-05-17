@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Server } from "../../shared/Server/Server";
 import { Comment } from "../../shared/Comment";
 import * as dialogs from "ui/dialogs";
+import { RouterExtensions } from "nativescript-angular";
 //import { registerElement } from "nativescript-angular/element-registry";
 
 //registerElement("PullToRefresh", () => require("nativescript-pulltorefresh").PullToRefresh);
@@ -26,8 +27,9 @@ export class PhotoViewComponent {
     public eventOwner: number;
     public description: string;
     public ownerName: string;
+    public albumPath;
 
-    constructor(private data: Data, private route: ActivatedRoute, private _changeDetectionRef: ChangeDetectorRef) {
+    constructor(private routerExtensions: RouterExtensions  ,private data: Data, private route: ActivatedRoute, private _changeDetectionRef: ChangeDetectorRef) {
         this.server = new Server();
         this.route.queryParams.subscribe(params => {
             this.photoId = params["photoId"];
@@ -37,6 +39,8 @@ export class PhotoViewComponent {
             this.eventOwner = params["eventOwner"];
             this.description = params["description"];
             this.ownerName = params["ownerName"];
+            this.fileName = params["fileName"];
+            this.albumPath = params["albumPath"];
         });
         this.server.getLikes(this.photoId, this.data.storage["id"]).then((result) => {
             this.likes = parseInt(JSON.stringify(result));
@@ -54,7 +58,7 @@ export class PhotoViewComponent {
     }
 
     test() {
-        console.log("URL " + this.url);
+        console.log("URL " + this.albumPath);
     }
 
     updateLikes(id: number) {
@@ -125,6 +129,22 @@ export class PhotoViewComponent {
                 alert("Something went wrong. Try again");
             });
         })
+    }
+
+    onDeletePhoto() {
+        console.log("Deleting photo " + this.fileName);
+        dialogs.confirm({
+            title: "Are you sure you want to delete this photo?",
+            okButtonText: "Yes",
+            cancelButtonText: "Cancel"
+        }).then(result => {
+            if (result) {
+                this.server.deletePhoto(this.data.storage["id"], this.fileName, "photo", this.photoId, this.albumPath);
+                dialogs.alert("Photo deleted").then(()=> {
+                    this.routerExtensions.back();
+                })
+            }
+        }); 
     }
 }
 

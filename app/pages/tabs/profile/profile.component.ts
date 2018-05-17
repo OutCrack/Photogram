@@ -144,7 +144,7 @@ export class ProfileComponent {
     deletePhoto() {
         return new Promise((resolve, reject) => {
             console.log("Deleting photo " + this.data.storage["id"] + this.data.storage["avatar"]);
-            this.server.deletePhoto(this.data.storage["id"], this.data.storage["avatar"], "avatar", 0);
+            this.server.deletePhoto(this.data.storage["id"], this.data.storage["avatar"], "avatar", 0, null);
             this.data.storage["avatar"] = "default-avatar.png";
             this.avatar = "http://188.166.127.207:8000/uploads/avatars/" + "default-avatar.png";
             this.hasAvatar = false;

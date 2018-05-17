@@ -4,7 +4,7 @@ import { TabComponent } from "./pages/tabs/tab.component";
 import { HomeComponent } from "./pages/tabs/home/home.component";
 import { SearchComponent } from "./pages/tabs/search/search.component";
 import { GalleryComponent } from "./pages/tabs/gallery/gallery.component";
-import { NotificationComponent } from "./pages/tabs/notification/notification.comonent";
+import { EventGalleryComponent } from "./pages/tabs/event.gallery/event.gallery.component";
 import { ProfileComponent } from "./pages/tabs/profile/profile.component";
 import { NewEventComponent } from "./pages/event/event-new/event-new.component";
 import { InvitationComponent } from "./pages/invitation/invitation";
@@ -28,7 +28,7 @@ export const routes = [
     { path: "home", component: HomeComponent, outlet: 'homeoutlet'},
     { path: "search", component: SearchComponent, outlet: 'searchoutlet'},
     { path: "gallery", component: GalleryComponent, outlet: 'galleryoutlet'},
-    { path: "notification", component: NotificationComponent, outlet: 'notificationoutlet'},
+    { path: "eventGallery", component: EventGalleryComponent, outlet: 'eventoutlet'},
     { path: "profile", component: ProfileComponent, outlet: 'profileoutlet'}
   ]},
 ];
@@ -42,7 +42,7 @@ export const navigatableComponents = [
   HomeComponent,
   SearchComponent,
   GalleryComponent,
-  NotificationComponent,
+  EventGalleryComponent,
   ProfileComponent,
   AlbumComponent,
   AlbumViewComponent,

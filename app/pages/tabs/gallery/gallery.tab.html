@@ -2,10 +2,10 @@
     <ScrollView>
         <WrapLayout>
             <StackLayout *ngFor = "let album of myAlbums" (tap)="selectAlbum(album.id)" class="album_ctn">
-                <Image *ngIf="album.privacy == 'private'" src="res://album" style="width: 200; height: 200"></Image>
-                <Image *ngIf="album.privacy == 'public'" src="res://album_green" style="width: 200; height: 200"></Image>
-                <Label text="{{album.name}}"></Label>
-                <Label text="{{album.description}}"></Label>
+                <Image *ngIf="album.privacy == 'private'" src="res://album"></Image>
+                <Image *ngIf="album.privacy == 'public'" src="res://album_green"></Image>
+                <Label class="title"text="{{album.name}}"></Label>
+                <Label class="description"text="{{album.description}}"></Label>
             </StackLayout>
         </WrapLayout>
     </ScrollView>
