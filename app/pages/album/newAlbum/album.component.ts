@@ -28,8 +28,12 @@ export class AlbumComponent {
     }
 
     saveAlbum() {
-        console.log("Your data " + this.album.name + " " + this.album.description + " " + this.public + " " + this.data.storage["id"]);
-        this.server.saveAlbum(this.data.storage["id"] , this.album.name, this.public, this.album.description).then(() => {
-    this.routerExtensions.back();})
+        if (this.album.name.length > 0) {
+            this.server.saveAlbum(this.data.storage["id"] , this.album.name, this.public, this.album.description).then(() => {
+                this.routerExtensions.back();})
+        } else {
+            alert("Album name can't be empty");
+        }
+        
     }
 }

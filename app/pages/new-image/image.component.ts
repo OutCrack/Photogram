@@ -35,13 +35,18 @@ export class ImageComponent {
     public albumName;
     public pictureSelected: boolean;
     public details: any;
+    public eventId;
+    public eventPrivacy;
 
     public constructor(private routerExtensions: RouterExtensions, private data: Data, private _changeDetectionRef: ChangeDetectorRef, private route: ActivatedRoute) {
         this.server = new Server();
         this.pictureSelected = false;
-        this.route.params.subscribe((params) => {
+        this.route.queryParams.subscribe(params => {
+            alert("IM IPIcture view " + JSON.stringify(params));
+            this.eventId = params["eventId"];
             this.albumId = params["albumId"];
-        });
+            this.eventPrivacy = params["eventPrivacy"];
+        })
         console.log("The album id is " + this.albumId);
         if (this.albumId == null) {
             console.log("ISSSS NUUUUUL");
@@ -113,6 +118,7 @@ export class ImageComponent {
     }
     
     public uploadPicture() {
+        if (this.albumId != null) {
         this.server.getAlbumName(this.albumId).then((res) => {
             var name = JSON.stringify(res);
             var albumName = name.slice(1, name.length - 1);
@@ -131,7 +137,10 @@ export class ImageComponent {
                 this.server.uploadPhoto(this.source, this.data.storage["id"], parseInt(JSON.stringify(r)), albumName, "Public", this.details.description, this.details.location);
             })
             
-        })
+        })}
+        else {
+            this.server.uploadEventPhoto(this.source, this.data.storage["id"], this.eventId, this.eventPrivacy, this.details.description, this.details.location);
+        }
         this.pictureSelected = false;
         this.routerExtensions.back();
 

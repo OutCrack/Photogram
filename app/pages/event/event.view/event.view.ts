@@ -3,11 +3,12 @@ import { SearchBar } from "ui/search-bar";
 import { Event } from "../../../shared/Event";
 import { RouterExtensions } from "nativescript-angular";
 import { Route } from "@angular/compiler/src/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, NavigationExtras } from "@angular/router";
 import { Data } from "../../../shared/Data";
 import { Server } from "../../../shared/Server/Server";
 import * as dialogs from "ui/dialogs";
 import { User } from "../../../shared/User";
+import { Photo } from "../../../shared/Photo";
 
 @Component({
     templateUrl: "./pages/event/event.view/event.view.html",
@@ -29,10 +30,16 @@ export class EventViewComponent {
     public participants: Array<User>;
     public inviting: boolean;
     public searchList: Array<User>;
+    public firstSearch: boolean;
+    public pictures: boolean;
+    public photoList: Array<Photo>;
 
     constructor(private routerExtensions: RouterExtensions, private route: ActivatedRoute, private data: Data) {
+        this.photoList = [];
         this.server = new Server();
         this.inviting = false;
+        this.firstSearch = false;
+        this.pictures = false;
         this.showingParticipants = false;
         this.participants = [];
         this.searchList = [];
@@ -78,9 +85,13 @@ export class EventViewComponent {
         if (!this.showingParticipants) {
             this.participants = this.server.getEventParticipants(this.eventId);
             this.showingParticipants = true;
+            this.pictures = false;
+            this.photoList = [];
         } else {
             this.showingParticipants = false;
             this.inviting = false;
+            this.searchList = [];
+            this.firstSearch = false;
         }
         
     }
@@ -111,17 +122,18 @@ export class EventViewComponent {
 
     public onTextChanged(args) {
         let searchBar = <SearchBar>args.object;
-        console.log("You are searching for " + searchBar.text);
+        this.firstSearch = true;
         this.searchList = this.server.getUsersByHint(searchBar.text, this.data.storage["id"]);
     }
 
     public onTextSubmit(args) {
-        console.log("Submitted");
+        this.onTextChanged(args);
     }
 
     public doneInviting() {
         this.inviting = false;
         this.searchList = [];
+        this.firstSearch = false;
     }
 
     inviteUser(userId: number) {
@@ -132,7 +144,24 @@ export class EventViewComponent {
             this.participants = this.server.getEventParticipants(this.eventId);
         } else  {
             alert("The user is already invited or is a guest");
-            }
         }
+    }
+
+    showPictures() {
+        if (this.pictures) {
+            let navigationExtras: NavigationExtras = {
+                queryParams: {
+                    "eventId" : this.eventId,
+                    "eventPrivacy" : this.privacy
+                }
+            };
+            this.routerExtensions.navigate(["/image"], navigationExtras)
+        } else {
+            this.pictures = true;
+            this.inviting = false;
+            this.showingParticipants = false;
+            this.photoList = this.server.getEventPhotos(this.eventId)
+        }
+    }
 
 }

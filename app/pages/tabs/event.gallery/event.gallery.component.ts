@@ -26,10 +26,6 @@ export class EventGalleryComponent {
 
     constructor(private data: Data, private router: Router) {
         this.server = new Server();
-        //this.publicEvents = this.server.getPublicEvents(this.data.storage["id"]);
-        //this.myEvents = this.server.getMyEvents(this.data.storage["id"], "Admin");
-        //this.participEvents = this.server.getMyEvents(this.data.storage["id"], "User");
-        //this.invitedToEvents = this.server.getMyEvents(this.data.storage["id"], "Invited");
 
         this.items = [];
         for (let i = 1; i < 3; i++) {

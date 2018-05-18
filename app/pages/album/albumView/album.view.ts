@@ -26,21 +26,13 @@ export class AlbumViewComponent {
     }
 
     stackLoaded = function(args) {
-        console.log("Stack Loaded");
         this.albumPhotos = this.server.getAlbumPhotos(this.albumId);
         this.server.getAlbumName(this.albumId).then((r) => {
             this.albumName = r;
         });
     }
 
-    onCamera() {
-        console.log("Camera tapped.");
-        this.router.navigate(["/image", this.albumId]);
-        //Kjører kamera funksjon------
-    }
-
     selectPhoto(photoId: number) {
-        console.log("You clicked " + photoId);
         var selectedPhoto: Photo = this.albumPhotos.find(i => i.id === photoId)
         let navigationExtras: NavigationExtras = {
             queryParams: {
@@ -72,6 +64,16 @@ export class AlbumViewComponent {
                 })
             }
         });
+    }
+
+    onCamera() {
+        console.log("Camera tapped.");
+        var navigationExtras = {
+            queryParams: {
+                "albumId" : this.albumId
+            }
+        };
+        this.router.navigate(["/image"], navigationExtras);
     }
 
 }

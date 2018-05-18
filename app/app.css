@@ -43,5 +43,11 @@ Label {
   color: #FFFDD0;
 }
 
+.no_match {
+  font-style: italic; 
+  font-size: 12px; 
+  text-align: center;
+}
+
 
 

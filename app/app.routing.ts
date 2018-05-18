@@ -17,7 +17,6 @@ export const routes = [
   { path: "", component: LoginComponent },
   { path: "login", component: LoginComponent },
   { path: "image", component: ImageComponent },
-  { path: "image/:albumId" , component: ImageComponent},
   { path: "invitation" , component: InvitationComponent},
   { path: "newEvent", component: NewEventComponent },
   { path: "newAlbum" , component: AlbumComponent},

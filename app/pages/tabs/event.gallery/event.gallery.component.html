@@ -6,13 +6,13 @@
                     <Label text="Hosted events" class="header"></Label>
                     <StackLayout *ngFor="let event of myEvents" (tap)="openEvent(event.id)" style="width: 45%">
                             <Label text="{{event.id}}" style="visibility: hidden"></Label>
-                            <Image src="{{event.photo_url}}" style="width: 100; height: 100"></Image>
+                            <Image src="{{event.photo_url}}" style="width: 150; height: 150"></Image>
                             <Label text="{{event.name}}" horizontalAlignment="center"></Label>
                             <Label text="{{event.type}}" horizontalAlignment="center"></Label>
                     </StackLayout>
                     <Label text="Joined events" class="header"></Label>
                     <StackLayout *ngFor="let event of participEvents" (tap)="openEvent(event.id)" style="width: 45%">
-                                <Image src="{{event.photo_url}}" style="width: 100; height: 100"></Image>
+                                <Image src="{{event.photo_url}}" style="width: 150; height: 150"></Image>
                                 <Label text="{{event.name}}" horizontalAlignment="center"></Label>
                                 <Label text="{{event.type}}" horizontalAlignment="center"></Label>
                    </StackLayout>
@@ -25,6 +25,7 @@
     <ScrollView>
             <StackLayout>
                     <Label text="Invited to events" class="header" horizontalAlignment="center"></Label>
+                    <Label *ngIf="invitedToEvents.length == 0" text="No invitations" class="no_data"></Label>
                     <StackLayout id="{{event.id}}" *ngFor="let event of invitedToEvents" (tap)="openEvent(event.id)" orientation="horizontal">
                             <StackLayout id="eventList">
                                     <Label text="{{event.name}}"></Label>
