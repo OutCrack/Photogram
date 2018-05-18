@@ -46,5 +46,10 @@ SearchBar {
 .event_details {
     width: 50%;
     padding: 10;
+}
 
+.event_photo {
+    width: 30%;
+    height: 30%;
+    margin: 5px;
 }

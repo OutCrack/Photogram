@@ -359,7 +359,6 @@ export class Server {
     getEventPhotos(eventId: number) {
         var photos : Array<Photo> = [];
         var query : string = this.db + "files?transform=1&filter=event_Id,eq," + eventId;
-        alert("The query " + query);
         http.getJSON(query).then((r) => {
             for (let i = 0; i < r.files.length; i++) {
                 photos.push(
@@ -427,6 +426,20 @@ export class Server {
             }
             console.log(e.eventName);       
         }  
+    }
+
+    getEventOwner(eventId) {
+        return new Promise((resolve, reject) => {
+            var query = this.db + "participants?transform=1&filter[]=event_Id,eq," + eventId + "&filter[]=participant_Role,eq,Admin";
+            http.getJSON(query).then((r) => {
+                if (r.participants.length == 0) {
+                    reject();
+                } else {
+                    resolve(r.participants[0].user_Id);
+                }
+            })
+        })
+
     }
 
     uploadEventPhoto(fileUrl: string, userId: number, eventId: number, privacy: string, description: string, location: string) {
@@ -611,7 +624,6 @@ export class Server {
                 url: "http://188.166.127.207:5555/api.php/reacts/",
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                //put file url instead of just name
                 content: JSON.stringify({ user_Id : userId, file_Id : photoId})
             }).then(function(response) {
                 result = response.content.toJSON();
@@ -656,11 +668,14 @@ export class Server {
         });
     }
 
-    public deletePhoto(userId: number, fileName: string, type: string, photoId: number, albumName: string) {
+    public deletePhoto(userId: number, fileName: string, type: string, photoId: number, albumName: string, eventId: number) {
         var pathToFile;
         if (albumName != null) {
             pathToFile = albumName + "/" + fileName; 
-        } else {
+        } else if (eventId != null) {
+            pathToFile = eventId + "/" + fileName;
+        }
+        else {
             pathToFile = fileName;
         }
         var request = {
@@ -692,7 +707,7 @@ export class Server {
             }, function(e) {
             console.log("Error occured " + e);
             });
-        } else if (status == "OK" && type == "photo") {
+        } else if (status == "OK") {
             this.deleteDBPhoto(photoId);
             this.deleteComments(photoId);
             this.deleteLikes(photoId);
@@ -925,6 +940,52 @@ export class Server {
             return events;
     }
 
+    public deleteEvent(eventId) {
+        return new Promise((resolve, reject) => {
+            var request = {
+                url: "http://188.166.127.207:8889/ServerDel.js",
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/octet-stream",
+                    "Task" : "deleteFolder",
+                    "Path" : "event",
+                    "File-Name": eventId,
+                    "User-id": null
+                },
+                description: "{ 'deleting': fileName }"
+            }
+            http.getJSON(request).then((response) => {
+                var status = response["status"];
+                console.log("Status " + status);
+                if (status == "OK") {
+                //delete photos and its comments and likes
+                var query = this.db + "files?transform=1&filter=event_Id,eq," + eventId;
+                http.getJSON(query).then((r) => {
+                    for (let i = 0; i < r.files.length; i++) {
+                        this.deleteDBPhoto(r.files[i].file_Id);
+                        this.deleteLikes(r.files[i].file_Id);
+                        this.deleteComments(r.files[i].file_Id);
+                        console.log("Deleted photo " + r.files[i].file_Id);
+                    }
+                });
+                //delete album from db
+                http.request({
+                    url: this.db + "events/" + eventId,
+                    method : "DELETE",
+                    headers : { "Content-Type" : "application/json" },
+                }).then(() => {
+                    console.log("Album " + eventId + "deleted");
+                }), function(e) {
+                    console.log(e);
+                }
+                    resolve();
+                } else {
+                    reject();
+                }
+            })
+        })
+    }
+
     public deleteAlbum(albumId: number, userId: number, albumName: string) {
         console.log("Deleting album " + albumName + " id " + albumId);
         var request = {
@@ -943,7 +1004,7 @@ export class Server {
             var status = response["status"];
             console.log("Status " + status);
             if (status == "OK") {
-                //delete photo and its comments and likes
+                //delete photos and its comments and likes
                 var query = this.db + "files?transform=1&filter=album_Id,eq," + albumId;
                 http.getJSON(query).then((r) => {
                     for (let i = 0; i < r.files.length; i++) {

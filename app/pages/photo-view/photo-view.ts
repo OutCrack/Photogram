@@ -29,6 +29,7 @@ export class PhotoViewComponent {
     public ownerName: string;
     public albumPath;
     public canDelete: boolean;
+    public eventId: number;
 
     constructor(private routerExtensions: RouterExtensions  ,private data: Data, private route: ActivatedRoute, private _changeDetectionRef: ChangeDetectorRef) {
         this.server = new Server();
@@ -42,9 +43,10 @@ export class PhotoViewComponent {
             this.ownerName = params["ownerName"];
             this.fileName = params["fileName"];
             this.albumPath = params["albumPath"];
+            this.eventId = params["eventId"];
         });
 
-        if (this.data.storage["id"] == this.photoOwner) {
+        if (this.data.storage["id"] == this.photoOwner || this.data.storage["id"] == this.eventOwner) {
             this.canDelete = true;
         } else {
             this.canDelete = false;
@@ -69,10 +71,10 @@ export class PhotoViewComponent {
         alert("My id is " + this.data.storage["id"] + " owner " + this.photoOwner + " " + this.canDelete);
     }
 
-    updateLikes(id: number) {
+    updateLikes() {
         var promise = new Promise((resolve, reject) => {
             var adding = this.canGiveLike;
-            this.server.updateLikes(id, this.data.storage["id"], adding);
+            this.server.updateLikes(this.photoId, this.data.storage["id"], adding);
             this.canGiveLike = !this.canGiveLike;
             resolve(adding);
         });
@@ -82,7 +84,6 @@ export class PhotoViewComponent {
             } else {
                 this.likes--;
             }
-            console.log("You tapped " + id);
         });
     }
 
@@ -141,13 +142,19 @@ export class PhotoViewComponent {
 
     onDeletePhoto() {
         console.log("Deleting photo " + this.fileName);
+        var type;
+        if (this.eventOwner == null) {
+            type = "photo";
+        } else {
+            type = "event";
+        }
         dialogs.confirm({
             title: "Are you sure you want to delete this photo?",
             okButtonText: "Yes",
             cancelButtonText: "Cancel"
         }).then(result => {
             if (result) {
-                this.server.deletePhoto(this.data.storage["id"], this.fileName, "photo", this.photoId, this.albumPath);
+                this.server.deletePhoto(this.data.storage["id"], this.fileName, type, this.photoId, this.albumPath, this.eventId);
                 dialogs.alert("Photo deleted").then(()=> {
                     this.routerExtensions.back();
                 })

@@ -118,33 +118,36 @@ export class ImageComponent {
     }
     
     public uploadPicture() {
-        if (this.albumId != null) {
-        this.server.getAlbumName(this.albumId).then((res) => {
-            var name = JSON.stringify(res);
-            var albumName = name.slice(1, name.length - 1);
-            console.log("Album " + albumName);
-            console.log("Uploading " + this.source + " user id " + this.data.storage["id"]);
-            this.server.getAlbumRights(this.albumId).then(() => {
-                this.server.uploadPhoto(this.source, this.data.storage["id"], this.albumId, albumName, "Public", this.details.description, this.details.location);
-            }).catch(() => {
-                this.server.uploadPhoto(this.source, this.data.storage["id"], this.albumId, albumName, "Private", this.details.description, this.details.location);
-            })
-        }).catch(() => {
-            var albumName = this.data.storage["firstName"] + "'s album";
-            this.server.getFeedId(this.data.storage["id"]).then((r) => {
-                console.log("Album name to upload " + albumName);
-                console.log("The album id is " + JSON.stringify(r));
-                this.server.uploadPhoto(this.source, this.data.storage["id"], parseInt(JSON.stringify(r)), albumName, "Public", this.details.description, this.details.location);
-            })
-            
-        })}
-        else {
-            this.server.uploadEventPhoto(this.source, this.data.storage["id"], this.eventId, this.eventPrivacy, this.details.description, this.details.location);
-        }
-        this.pictureSelected = false;
-        this.routerExtensions.back();
-
-        
+        var promise = new Promise((resolve, reject) => {
+            if (this.albumId != null) {
+                this.server.getAlbumName(this.albumId).then((res) => {
+                    var name = JSON.stringify(res);
+                    var albumName = name.slice(1, name.length - 1);
+                    console.log("Album " + albumName);
+                    console.log("Uploading " + this.source + " user id " + this.data.storage["id"]);
+                    this.server.getAlbumRights(this.albumId).then(() => {
+                        this.server.uploadPhoto(this.source, this.data.storage["id"], this.albumId, albumName, "Public", this.details.description, this.details.location);
+                    }).catch(() => {
+                        this.server.uploadPhoto(this.source, this.data.storage["id"], this.albumId, albumName, "Private", this.details.description, this.details.location);
+                    })
+                }).catch(() => {
+                    var albumName = this.data.storage["firstName"] + "'s album";
+                    this.server.getFeedId(this.data.storage["id"]).then((r) => {
+                        console.log("Album name to upload " + albumName);
+                        console.log("The album id is " + JSON.stringify(r));
+                        this.server.uploadPhoto(this.source, this.data.storage["id"], parseInt(JSON.stringify(r)), albumName, "Public", this.details.description, this.details.location);
+                    })
+                    
+                })}
+                else {
+                    this.server.uploadEventPhoto(this.source, this.data.storage["id"], this.eventId, this.eventPrivacy, this.details.description, this.details.location);
+                }
+                resolve();
+        })
+        promise.then(()=> {
+            this.pictureSelected = false;
+            this.routerExtensions.back();
+        })
         
     }
 }

@@ -3,8 +3,9 @@
     </NavigationButton>
     <ActionItem *ngIf="!admin && !showingParticipants" text="leave" (tap)="leaveEvent()"></ActionItem>
         <ActionItem [text] = "showingParticipants ? 'hide guests' : 'show guests'" (tap)="showGuests()"></ActionItem>
+        <ActionItem *ngIf="admin" android.systemIcon="ic_menu_delete" ios.systemIcon="16" ios.position="right"(tap)="deleteEvent()"></ActionItem>
 </ActionBar>
-<StackLayout class="main">
+<StackLayout class="main" (loaded)="stackLoaded($event)">
     <ScrollView>
     <StackLayout>
     <StackLayout orientation="horizontal">
@@ -24,13 +25,12 @@
             <Label text="{{type}}" col="1" row="2"></Label>
         </StackLayout>
     </StackLayout>
-        <Button [text]="pictures? 'add new' : 'show pictures'" (tap)="showPictures()"></Button>
+        <Button [text]="pictures? 'add new picture' : 'show pictures'" (tap)="showPictures()"></Button>
     <StackLayout>
         <WrapLayout>
             <StackLayout *ngFor="let photo of photoList">
-                <Image src="{{photo.url}}"></Image>
+                <Image class="event_photo" id="{{photo.id}}" src="{{photo.url}}" (tap)="selectPhoto(photo.id)"></Image>
             </StackLayout>
-            <Label *ngIf="photoList.length == 0" text="EMPTY"> </Label>
         </WrapLayout>
         <StackLayout *ngIf="showingParticipants && !inviting">
             <Label class="header" text="Guest list"></Label>

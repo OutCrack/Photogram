@@ -3,7 +3,7 @@ import { SearchBar } from "ui/search-bar";
 import { Event } from "../../../shared/Event";
 import { RouterExtensions } from "nativescript-angular";
 import { Route } from "@angular/compiler/src/core";
-import { ActivatedRoute, NavigationExtras } from "@angular/router";
+import { ActivatedRoute, NavigationExtras, Router } from "@angular/router";
 import { Data } from "../../../shared/Data";
 import { Server } from "../../../shared/Server/Server";
 import * as dialogs from "ui/dialogs";
@@ -33,13 +33,24 @@ export class EventViewComponent {
     public firstSearch: boolean;
     public pictures: boolean;
     public photoList: Array<Photo>;
+    public eventOwner: number;
 
-    constructor(private routerExtensions: RouterExtensions, private route: ActivatedRoute, private data: Data) {
-        this.photoList = [];
+    stackLoaded = function(args) {
+        this.photoList = this.server.getEventPhotos(this.eventId);
+        this.pictures = true;
+        this.server.getEventOwner(this.eventId).then((res) => {
+            this.eventOwner = res;
+            alert("Event owner is " + this.eventOwner);
+        }).catch(() => {
+            this.eventOwner = 0;
+            alert("Event owner is " + this.eventOwner);
+        })
+        }
+
+    constructor(private routerExtensions: RouterExtensions, private router: Router, private route: ActivatedRoute, private data: Data) {
         this.server = new Server();
         this.inviting = false;
         this.firstSearch = false;
-        this.pictures = false;
         this.showingParticipants = false;
         this.participants = [];
         this.searchList = [];
@@ -65,6 +76,36 @@ export class EventViewComponent {
         this.routerExtensions.back();
     }
 
+    public deleteEvent() {
+        dialogs.confirm({
+            title: "Are you sure you want to delete this event",
+            okButtonText: "Yes",
+            cancelButtonText: "Cancel"
+        }).then(result => {
+            if (result) {
+                this.server.deleteEvent(this.eventId).then(() => {
+                    dialogs.alert("Event deleted").then(()=> {
+                        var promise = new Promise((resolve, reject) => {
+                            this.participants = this.server.getEventParticipants(this.eventId);
+                            resolve();
+                        })
+                        promise.then(() => {
+                            for (let u of this.participants) {
+                                this.server.leaveEvent(this.eventId, u.id);
+                            }
+                        })
+
+                        this.routerExtensions.back();
+                    })
+                }).catch(() => {
+                    dialogs.alert("Something went wrong. Please try again later");
+                })
+
+            }
+        });
+        //delete all users from db
+    }
+
     leaveEvent() {
         dialogs.confirm({
             title: "Are you sure?",
@@ -78,7 +119,6 @@ export class EventViewComponent {
                 });
             }
         })
-        
     }
 
     showGuests() {
@@ -92,8 +132,7 @@ export class EventViewComponent {
             this.inviting = false;
             this.searchList = [];
             this.firstSearch = false;
-        }
-        
+        } 
     }
 
     removeParticipant(userId: number) {
@@ -155,13 +194,32 @@ export class EventViewComponent {
                     "eventPrivacy" : this.privacy
                 }
             };
-            this.routerExtensions.navigate(["/image"], navigationExtras)
+            this.router.navigate(["/image"], navigationExtras)
         } else {
             this.pictures = true;
             this.inviting = false;
             this.showingParticipants = false;
-            this.photoList = this.server.getEventPhotos(this.eventId)
+            this.photoList = this.server.getEventPhotos(this.eventId);
         }
+    }
+
+    selectPhoto(photoId: number) {
+        var selectedPhoto: Photo = this.photoList.find(i => i.id === photoId)
+        let navigationExtras: NavigationExtras = {
+            queryParams: {
+                "photoId" : photoId,
+                "url" : selectedPhoto.url,
+                "created" : selectedPhoto.created,
+                "photoOwner" : selectedPhoto.userId,
+                "eventOwner" : this.eventOwner,
+                "eventId" : this.eventId,
+                "description" : selectedPhoto.description,
+                "ownerName" : selectedPhoto.user.firstN + " " + selectedPhoto.user.lastN,
+                "fileName" : selectedPhoto.fileName,
+                "albumPath" : selectedPhoto.albumPath
+            }
+        };
+        this.router.navigate(["/photoView"], navigationExtras);
     }
 
 }
