@@ -968,7 +968,7 @@ export class Server {
                         console.log("Deleted photo " + r.files[i].file_Id);
                     }
                 });
-                //delete album from db
+                //delete event from db
                 http.request({
                     url: this.db + "events/" + eventId,
                     method : "DELETE",
@@ -978,11 +978,29 @@ export class Server {
                 }), function(e) {
                     console.log(e);
                 }
+                    this.deleteParticipants(eventId);
                     resolve();
                 } else {
                     reject();
                 }
             })
+        })
+    }
+
+    private deleteParticipants(eventId: number) {
+        var query = this.db + "participants?transform=1&filter=event_Id,eq," + eventId;
+        http.getJSON(query).then((r) => {
+            for (var i = 0; i < r.participants.length; i++) {
+                http.request({
+                    url: this.db + "participants/" + r.participants[i].participant_Id,
+                    method: "DELETE",
+                    headers : { "Content-Type" : "application/json" },
+                }).then(() => {
+                    console.log("Participant " + r.participants[i].participant_Id + " deleted");
+                }), function(e) {
+                    console.log(e);
+                }
+            }
         })
     }
 

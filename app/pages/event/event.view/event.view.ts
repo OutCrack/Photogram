@@ -85,16 +85,6 @@ export class EventViewComponent {
             if (result) {
                 this.server.deleteEvent(this.eventId).then(() => {
                     dialogs.alert("Event deleted").then(()=> {
-                        var promise = new Promise((resolve, reject) => {
-                            this.participants = this.server.getEventParticipants(this.eventId);
-                            resolve();
-                        })
-                        promise.then(() => {
-                            for (let u of this.participants) {
-                                this.server.leaveEvent(this.eventId, u.id);
-                            }
-                        })
-
                         this.routerExtensions.back();
                     })
                 }).catch(() => {
