@@ -5,10 +5,13 @@ import { Server } from "../../shared/Server/Server";
 import { Comment } from "../../shared/Comment";
 import * as dialogs from "ui/dialogs";
 import { RouterExtensions } from "nativescript-angular";
-//import { registerElement } from "nativescript-angular/element-registry";
 
-//registerElement("PullToRefresh", () => require("nativescript-pulltorefresh").PullToRefresh);
-
+/**
+ * 
+ * 
+ * @export
+ * @class PhotoViewComponent
+ */
 @Component({
     templateUrl: "./pages/photo-view/photo-view.html",
     styleUrls: [ "./pages/photo-view/photo-view.css" ]
@@ -31,6 +34,14 @@ export class PhotoViewComponent {
     public canDelete: boolean;
     public eventId: number;
 
+    /**
+     * Creates an instance of PhotoViewComponent.
+     * @param {RouterExtensions} routerExtensions 
+     * @param {Data} data 
+     * @param {ActivatedRoute} route 
+     * @param {ChangeDetectorRef} _changeDetectionRef 
+     * @memberof PhotoViewComponent
+     */
     constructor(private routerExtensions: RouterExtensions  ,private data: Data, private route: ActivatedRoute, 
         private _changeDetectionRef: ChangeDetectorRef) {
 
@@ -63,10 +74,20 @@ export class PhotoViewComponent {
         this.comments = this.server.getComments(this.photoId, this.data.storage["id"], this.photoOwner, this.eventOwner);
     }
 
+    /**
+     * 
+     * 
+     * @memberof PhotoViewComponent
+     */
     stackLoaded = function(args) {
         this.comments = this.server.getComments(this.photoId, this.data.storage["id"], this.photoOwner, this.eventOwner);
     }
 
+    /**
+     * 
+     * 
+     * @memberof PhotoViewComponent
+     */
     updateLikes() {
         var promise = new Promise((resolve, reject) => {
             var adding = this.canGiveLike;
@@ -83,6 +104,12 @@ export class PhotoViewComponent {
         });
     }
 
+    /**
+     * 
+     * 
+     * @param {any} result 
+     * @memberof PhotoViewComponent
+     */
     addComment(result) {
         this.add(result.text).then(() => {
             dialogs.alert("Comment added").then(() => {
@@ -95,6 +122,14 @@ export class PhotoViewComponent {
         result.text = "";
         }
 
+    /**
+     * 
+     * 
+     * @private
+     * @param {string} text 
+     * @returns 
+     * @memberof PhotoViewComponent
+     */
     private add(text: string) {
         return new Promise((resolve, reject)=> {
             if (text.length < 1) {
@@ -108,6 +143,12 @@ export class PhotoViewComponent {
         }
     }) }
 
+    /**
+     * 
+     * 
+     * @param {number} commentId 
+     * @memberof PhotoViewComponent
+     */
     removeComment(commentId: number) {
         dialogs.confirm({
             title: "Are you sure you want to remove that comment?",
@@ -125,6 +166,14 @@ export class PhotoViewComponent {
         })
     }
 
+    /**
+     * 
+     * 
+     * @private
+     * @param {number} commentId 
+     * @returns 
+     * @memberof PhotoViewComponent
+     */
     private remove(commentId: number) {
         return new Promise((resolve, reject) => {
             this.server.removeComment(commentId).then(() => {
@@ -135,6 +184,11 @@ export class PhotoViewComponent {
         })
     }
 
+    /**
+     * 
+     * 
+     * @memberof PhotoViewComponent
+     */
     onDeletePhoto() {
         var type;
         if (this.eventOwner == null) {

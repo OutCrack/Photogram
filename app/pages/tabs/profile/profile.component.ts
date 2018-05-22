@@ -11,6 +11,12 @@ var http = require("http");
 var layout = require("ui/layouts/grid-layout");
 const firebase = require("nativescript-plugin-firebase");
 
+/**
+ * 
+ * 
+ * @export
+ * @class ProfileComponent
+ */
 @Component({
     selector: "profile-tab",
     templateUrl: "./pages/tabs/profile/profile.tab.html",
@@ -39,6 +45,13 @@ export class ProfileComponent {
     public isMale: boolean;
     
 
+    /**
+     * Creates an instance of ProfileComponent.
+     * @param {Router} router 
+     * @param {Data} data 
+     * @param {ChangeDetectorRef} _changeDetectionRef 
+     * @memberof ProfileComponent
+     */
     constructor(private router: Router, private data: Data, private _changeDetectionRef: ChangeDetectorRef) {
         this.firstName = this.data.storage["firstName"];
         this.lastName = this.data.storage["lastName"];
@@ -65,6 +78,11 @@ export class ProfileComponent {
         this.checkAvatar();
     }
 
+    /**
+     * 
+     * 
+     * @memberof ProfileComponent
+     */
     checkAvatar() {
         if (this.data.storage["avatar"] == "default-avatar.png") {
             this.hasAvatar = false;
@@ -73,13 +91,29 @@ export class ProfileComponent {
         }
     }
 
+    /**
+     * 
+     * 
+     * @memberof ProfileComponent
+     */
     editData() {
         this.editing = true;
     }
+
+    /**
+     * 
+     * 
+     * @memberof ProfileComponent
+     */
     cancel() { 
         this.editing = false;
     }
 
+    /**
+     * 
+     * 
+     * @memberof ProfileComponent
+     */
     changePhoto() {
         if (this.data.storage["avatar"] == "default-avatar.png") {
             this.openGallery();
@@ -91,6 +125,11 @@ export class ProfileComponent {
         this.checkAvatar();
     }
 
+    /**
+     * 
+     * 
+     * @memberof ProfileComponent
+     */
     openGallery() {
         this.id = this.data.storage["id"];
         let context = imagepicker.create({
@@ -99,6 +138,13 @@ export class ProfileComponent {
         this.startSelecting(context);
     }
 
+    /**
+     * 
+     * 
+     * @private
+     * @param {any} context 
+     * @memberof ProfileComponent
+     */
     private startSelecting(context) {
         let _that = this;
         context
@@ -120,6 +166,13 @@ export class ProfileComponent {
             })
     }
 
+    /**
+     * 
+     * 
+     * @param {string} fileUri 
+     * @returns 
+     * @memberof ProfileComponent
+     */
     uploadPhoto(fileUri: string) {
         return new Promise((resolve, reject) => {
             this.server.uploadProfilPhoto(fileUri, this.data.storage["id"]).then((fileName) => {
@@ -130,6 +183,12 @@ export class ProfileComponent {
         });
     }
 
+    /**
+     * 
+     * 
+     * @returns 
+     * @memberof ProfileComponent
+     */
     deletePhoto() {
         return new Promise((resolve, reject) => {
             this.server.deletePhoto(this.data.storage["id"], this.data.storage["avatar"], "avatar", 0, null, null);
@@ -140,6 +199,11 @@ export class ProfileComponent {
         });
     }
 
+    /**
+     * 
+     * 
+     * @memberof ProfileComponent
+     */
     changeGender() {
         if (this.isMale) {
             this.newData.gender = "Female";
@@ -150,6 +214,11 @@ export class ProfileComponent {
         }
     }
     
+    /**
+     * 
+     * 
+     * @memberof ProfileComponent
+     */
     saveData() {
         if (this.newData.first && this.newData.last) {
             this.firstName = this.newData.first;

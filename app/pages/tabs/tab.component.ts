@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-//import { Page } from "ui/page";
 import { Router } from '@angular/router';
 import { HomeComponent } from "./home/home.component";
 import { Data } from "../../shared/Data";
@@ -7,12 +6,19 @@ import { RouterExtensions } from "nativescript-angular";
 import { Server } from "../../shared/Server/Server";
 const firebase = require("nativescript-plugin-firebase");
 
+/**
+ * 
+ * 
+ * @export
+ * @class TabComponent
+ */
 @Component({
     selector: "tab",
     moduleId: module.id,
     templateUrl: "./tab.html",
     styleUrls: [ "./tab.css" ]
 })
+
 
 export class TabComponent {
     isHome: boolean = true;
@@ -23,12 +29,23 @@ export class TabComponent {
     public tabName: string = "Feed";
     server: Server;
 
-
-    constructor(private routerExtensions: RouterExtensions, private router: Router, /*private page: Page,*/ protected data: Data,) {
+    /**
+     * Creates an instance of TabComponent.
+     * @param {RouterExtensions} routerExtensions 
+     * @param {Router} router 
+     * @param {Data} data 
+     * @memberof TabComponent
+     */
+    constructor(private routerExtensions: RouterExtensions, private router: Router, protected data: Data,) {
         this.tabName = "feed";
         this.server = new Server();
     }
 
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
     onBackButtonTap() {
         if (this.isHome) {
             //do nothing
@@ -37,16 +54,31 @@ export class TabComponent {
         }
     }
 
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
     onNewEvent() {
         this.tabName = "New event";
         this.router.navigate(["/newEvent"]);
     }
 
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
     onInvitation() {
         this.router.navigate(["/invitation"]);
         this.tabName="Invitation";
     }
 
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
     onHome() {
         this.isHome = true;
         this.isSearch = false;
@@ -56,6 +88,11 @@ export class TabComponent {
         this.tabName = "Feed";
     }
 
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
     onSearch() {
         this.isHome = false;
         this.isSearch = true;
@@ -65,6 +102,11 @@ export class TabComponent {
         this.tabName = "Search";
     }
 
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
     onGallery() {
         this.isHome = false;
         this.isSearch = false;
@@ -74,6 +116,11 @@ export class TabComponent {
         this.tabName = "My gallery";          
     }
 
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
     onEventGallery() {
         this.isHome = false;
         this.isSearch = false;
@@ -83,6 +130,11 @@ export class TabComponent {
         this.tabName = "Event Gallery";  
     }
 
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
     onProfile() {
         this.isHome = false;
         this.isSearch = false;
@@ -92,6 +144,12 @@ export class TabComponent {
         this.tabName = "Profile";
     }
 
+    /**
+     * 
+     * 
+     * @param {number} index 
+     * @memberof TabComponent
+     */
     tabViewIndexChange(index: number) {
         switch (index) {
             case 0:
@@ -112,10 +170,20 @@ export class TabComponent {
         }
     }
 
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
     addAlbum() {
         this.router.navigate(["/newAlbum"]);
     }
 
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
     onCamera() {
         var albumId;
         this.server.getAlbumForFeedPhotos(this.data.storage["id"]).then((r) => {
@@ -131,6 +199,11 @@ export class TabComponent {
         })
     }
 
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
     logout() {
         var router = this.router;
         this.data.storage = {};

@@ -6,6 +6,12 @@ import { SegmentedBar, SegmentedBarItem } from "ui/segmented-bar";
 import { Router, NavigationExtras } from "@angular/router";
 import * as dialogs from "ui/dialogs";
 
+/**
+ * 
+ * 
+ * @export
+ * @class EventGalleryComponent
+ */
 @Component({
     selector: "event-tab",
     templateUrl: "./pages/tabs/event.gallery/event.gallery.component.html",
@@ -24,6 +30,12 @@ export class EventGalleryComponent {
     public invitedToEvents: Array<Event>;
     server: Server;
 
+    /**
+     * Creates an instance of EventGalleryComponent.
+     * @param {Data} data 
+     * @param {Router} router 
+     * @memberof EventGalleryComponent
+     */
     constructor(private data: Data, private router: Router) {
         this.server = new Server();
 
@@ -41,18 +53,34 @@ export class EventGalleryComponent {
         this.selectedIndex = 0;
     }
 
+    /**
+     * 
+     * 
+     * @memberof EventGalleryComponent
+     */
     stack1Loaded = function(args) {
         this.participEvents = this.server.getMyEvents(this.data.storage["id"], "User");
         this.myEvents = this.server.getMyEvents(this.data.storage["id"], "Admin");
         this.invitedToEvents = this.server.getMyEvents(this.data.storage["id"], "Invited");
     }
 
+    /**
+     * 
+     * 
+     * @memberof EventGalleryComponent
+     */
     stack2Loaded = function(args) {
         this.publicEvents = this.server.getPublicEvents(this.data.storage["id"]);
         this.invitedToEvents = this.server.getMyEvents(this.data.storage["id"], "Invited");
     }
 
 
+    /**
+     * 
+     * 
+     * @param {number} eventId 
+     * @memberof EventGalleryComponent
+     */
     joinEvent(eventId: number) {
         this.server.joinEvent(eventId, this.data.storage["id"], "User");
         dialogs.alert("You successfully joined the event").then(() => {
@@ -60,6 +88,12 @@ export class EventGalleryComponent {
         })
     }
 
+    /**
+     * 
+     * 
+     * @param {number} eventId 
+     * @memberof EventGalleryComponent
+     */
     openEvent(eventId: number) {
         var selectedEvent: Event = this.participEvents.find(i => i.id === eventId);
         if (selectedEvent == null) {
@@ -79,6 +113,12 @@ export class EventGalleryComponent {
         this.router.navigate(["/eventView"], navigationExtras);
     }
 
+    /**
+     * 
+     * 
+     * @param {any} args 
+     * @memberof EventGalleryComponent
+     */
     public onSelectedIndexChange(args) {
         let segmetedBar = <SegmentedBar>args.object;
         this.selectedIndex = segmetedBar.selectedIndex;
@@ -96,6 +136,12 @@ export class EventGalleryComponent {
         }
     }
 
+    /**
+     * 
+     * 
+     * @param {number} eventId 
+     * @memberof EventGalleryComponent
+     */
     public acceptInvitation(eventId: number) {
         this.server.leaveEvent(eventId, this.data.storage["id"]);
         this.server.joinEvent(eventId, this.data.storage["id"], "User");
@@ -104,6 +150,12 @@ export class EventGalleryComponent {
         })
     }
 
+    /**
+     * 
+     * 
+     * @param {number} eventId 
+     * @memberof EventGalleryComponent
+     */
     public declineInvitation(eventId: number) {
         dialogs.confirm({
             title: "Are you sure?",

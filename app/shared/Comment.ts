@@ -1,6 +1,12 @@
 
 import { Server } from "./Server/Server";
 
+/**
+ * 
+ * 
+ * @export
+ * @class Comment
+ */
 export class Comment {
     id: number;
     userId: number;
@@ -9,6 +15,14 @@ export class Comment {
     userName: string;
     server: Server;
 
+    /**
+     * Creates an instance of Comment.
+     * @param {number} id 
+     * @param {number} userId 
+     * @param {string} text 
+     * @param {boolean} rights 
+     * @memberof Comment
+     */
     constructor(id: number, userId: number, text: string, rights: boolean) {
         this.server = new Server();
         this.id = id;
@@ -18,6 +32,11 @@ export class Comment {
         this.rights = rights;
     }
 
+    /**
+     * 
+     * 
+     * @memberof Comment
+     */
     public getUser() {
         this.server.getUsername(this.userId).then((res) => {
             this.userName = JSON.stringify(res).slice(1, JSON.stringify(res).length - 1);

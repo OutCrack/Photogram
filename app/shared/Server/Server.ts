@@ -18,6 +18,13 @@ export class Server {
         
     }
 
+    /**
+     * 
+     * 
+     * @param {number} userId 
+     * @returns 
+     * @memberof Server
+     */
     getAlbumForFeedPhotos(userId: number) {
         return new Promise((resolve, reject) => {
             var query = this.db + "albums?transform=1&filter[]=album_Description,eq,Album%20for%20feed%20photos&filter[]=user_Id,eq," + userId;
@@ -33,6 +40,12 @@ export class Server {
 
     }
 
+    /**
+     * 
+     * 
+     * @returns 
+     * @memberof Server
+     */
     getPublicPhotos() {
         var photos = new Array();
         //get all public photos that are max 2 days old
@@ -58,7 +71,7 @@ export class Server {
                 console.log(e);
             });
 
-        //get string that represents the day before yesterday
+        //returns string that represents the day before yesterday
         function getLimitDate() {
             var date = new Date();
             date.setDate(date.getDate() - 2); //2 for ma 2-day old pictures should show
@@ -82,6 +95,14 @@ export class Server {
 
     }
 
+    /**
+     * 
+     * 
+     * @param {number} id 
+     * @param {string} role 
+     * @returns 
+     * @memberof Server
+     */
     getMyEvents(id: number, role: string) {
         var myEvents: Array<Event> = [];
         var query: string = this.db + "participants?transform=1&filter[]=user_Id,eq," + id + "&filter[]=participant_Role,eq," + role;
@@ -113,6 +134,16 @@ export class Server {
         return myEvents;
     }
 
+    /**
+     * 
+     * 
+     * @param {number} photoId 
+     * @param {number} userId 
+     * @param {number} photoOwner 
+     * @param {number} eventOwner 
+     * @returns 
+     * @memberof Server
+     */
     getComments(photoId: number, userId: number, photoOwner: number, eventOwner: number) {
         var comments: Array<Comment> = [];
         var query: string = this.db + "comments?transform=1&filter=file_Id,eq," + photoId;
@@ -141,6 +172,13 @@ export class Server {
         return comments;
     }
 
+    /**
+     * 
+     * 
+     * @param {number} id 
+     * @returns 
+     * @memberof Server
+     */
     getUsername(id: number) {
         return new Promise((resolve, reject) => {
             var username: string;
@@ -159,6 +197,15 @@ export class Server {
         
     }
 
+    /**
+     * 
+     * 
+     * @param {number} photoId 
+     * @param {number} userId 
+     * @param {string} text 
+     * @returns 
+     * @memberof Server
+     */
     updateComment(photoId: number, userId: number, text: string) {
             return new Promise((resolve, reject) => {
             var result;
@@ -178,6 +225,13 @@ export class Server {
             });
     }
 
+    /**
+     * 
+     * 
+     * @param {number} id 
+     * @returns 
+     * @memberof Server
+     */
     getEventParticipants(id: number) {
         var participants: Array<User> = [];
         var query = this.db + "participants?transform=1&filter=event_Id,eq," + id;
@@ -200,6 +254,13 @@ export class Server {
         return participants;
     }
 
+    /**
+     * 
+     * 
+     * @param {number} userId 
+     * @returns 
+     * @memberof Server
+     */
     getPublicEvents(userId: number) {
         var publicEvents: Array<Event> = [];
         var query: string = this.db + "events?transform=1&filter=event_Privacy,eq,public"; 
@@ -232,6 +293,17 @@ export class Server {
         return publicEvents;
     }
 
+    /**
+     * 
+     * 
+     * @param {string} firstName 
+     * @param {string} lastName 
+     * @param {string} location 
+     * @param {string} profession 
+     * @param {string} email 
+     * @returns 
+     * @memberof Server
+     */
     saveUser(firstName: string, lastName: string, location: string, profession: string, email: string) {
         var result;
         http.request({
@@ -250,6 +322,18 @@ export class Server {
     return result;
     }
 
+    /**
+     * 
+     * 
+     * @param {number} userId 
+     * @param {string} eventName 
+     * @param {string} eventLocation 
+     * @param {string} eventDescription 
+     * @param {string} eventType 
+     * @param {string} eventPrivacy 
+     * @returns 
+     * @memberof Server
+     */
     newEvent(userId: number, eventName: string, eventLocation: string, eventDescription: string, 
         eventType: string, eventPrivacy: string){
         return new Promise((resolve, reject) => {
@@ -278,6 +362,14 @@ export class Server {
         })  
     }
 
+    /**
+     * 
+     * 
+     * @param {number} eventId 
+     * @param {number} userId 
+     * @param {string} role 
+     * @memberof Server
+     */
     joinEvent(eventId: number, userId: number, role: string) {
             var result;
             http.request({
@@ -292,6 +384,13 @@ export class Server {
             })
     }
 
+    /**
+     * 
+     * 
+     * @param {number} eventId 
+     * @param {number} userId 
+     * @memberof Server
+     */
     leaveEvent(eventId: number, userId: number) {
         var participId: number;
         var query = this.db + "participants?transform=1&filter[]=event_Id,eq," + eventId + "&filter[]=user_Id,eq," + userId;
@@ -317,6 +416,13 @@ export class Server {
         });
     }
 
+    /**
+     * 
+     * 
+     * @param {number} commentId 
+     * @returns 
+     * @memberof Server
+     */
     removeComment(commentId: number) {
         return new Promise((resolve, reject) => {
             var result;
@@ -335,6 +441,13 @@ export class Server {
 
     } 
 
+    /**
+     * 
+     * 
+     * @param {number} eventId 
+     * @returns 
+     * @memberof Server
+     */
     getEventPhotos(eventId: number) {
         var photos : Array<Photo> = [];
         var query : string = this.db + "files?transform=1&filter=event_Id,eq," + eventId;
@@ -360,6 +473,13 @@ export class Server {
 
     }
 
+    /**
+     * 
+     * 
+     * @param {number} albumId 
+     * @returns 
+     * @memberof Server
+     */
     getAlbumName(albumId: number) {
         return new Promise((resolve, reject) => {
             if (albumId == null) {
@@ -374,6 +494,18 @@ export class Server {
         
     }
 
+    /**
+     * 
+     * 
+     * @param {string} fileUrl 
+     * @param {number} id 
+     * @param {number} albumId 
+     * @param {string} albumName 
+     * @param {string} permission 
+     * @param {string} description 
+     * @param {string} location 
+     * @memberof Server
+     */
     uploadPhoto(fileUrl: string, id: number, albumId: number, albumName: string, permission: string, 
         description: string, location: string) {
         var fileName = this.getTimeStamp();
@@ -406,6 +538,13 @@ export class Server {
         }  
     }
 
+    /**
+     * 
+     * 
+     * @param {any} eventId 
+     * @returns 
+     * @memberof Server
+     */
     getEventOwner(eventId) {
         return new Promise((resolve, reject) => {
             var query = this.db + "participants?transform=1&filter[]=event_Id,eq," + eventId + "&filter[]=participant_Role,eq,Admin";
@@ -420,6 +559,17 @@ export class Server {
 
     }
 
+    /**
+     * 
+     * 
+     * @param {string} fileUrl 
+     * @param {number} userId 
+     * @param {number} eventId 
+     * @param {string} privacy 
+     * @param {string} description 
+     * @param {string} location 
+     * @memberof Server
+     */
     uploadEventPhoto(fileUrl: string, userId: number, eventId: number, privacy: string, 
         description: string, location: string) {
         var fileName = this.getTimeStamp();
@@ -452,6 +602,14 @@ export class Server {
         }  
     }
 
+    /**
+     * 
+     * 
+     * @param {string} fileUrl 
+     * @param {number} id 
+     * @returns 
+     * @memberof Server
+     */
     uploadProfilPhoto(fileUrl: string, id: number) {
         return new Promise((resolve, reject) => {
         var fileName = this.getTimeStamp();
@@ -487,6 +645,19 @@ export class Server {
         });
     }
 
+    /**
+     * 
+     * 
+     * @private
+     * @param {string} fileName 
+     * @param {number} id 
+     * @param {string} type 
+     * @param {number} albumId 
+     * @param {string} permission 
+     * @param {string} description 
+     * @param {string} location 
+     * @memberof Server
+     */
     private updateDb(fileName: string, id: number, type: string, albumId: number, 
         permission: string, description: string, location: string) {
         var result;
@@ -532,6 +703,13 @@ export class Server {
 
     }
 
+    /**
+     * 
+     * 
+     * @private
+     * @returns 
+     * @memberof Server
+     */
     private getTimeStamp() {
         var date = new Date(); 
         var string = date.getFullYear().toString() + date.getMonth().toString() + date.getDate().toString()
@@ -540,7 +718,14 @@ export class Server {
         return string;
     }
 
-    public removePhoto(photoId: number) {
+    /**
+     * 
+     * 
+     * @param {number} photoId 
+     * @returns 
+     * @memberof Server
+     */
+    removePhoto(photoId: number) {
         return new Promise((resolve, reject) => {
         var result;
         http.request({
@@ -556,8 +741,15 @@ export class Server {
     resolve(result);
     }); }
 
-    //returns promise with number of likes as a parameter
-    public getLikes(photoId: number, userId: number) {
+    /**
+     * 
+     * 
+     * @param {number} photoId 
+     * @param {number} userId 
+     * @returns 
+     * @memberof Server
+     */
+    getLikes(photoId: number, userId: number) {
         var query = this.db + "reacts?transform=1&filter=file_Id,eq," + photoId;
         return new Promise((resolve, reject) => {
             var likes = 0;
@@ -581,7 +773,15 @@ export class Server {
         }); 
     }
 
-    public updateLikes(photoId: number, userId: number, add: boolean) {
+    /**
+     * 
+     * 
+     * @param {number} photoId 
+     * @param {number} userId 
+     * @param {boolean} add 
+     * @memberof Server
+     */
+    updateLikes(photoId: number, userId: number, add: boolean) {
         var result;
         if (add) {
             http.request({
@@ -614,7 +814,20 @@ export class Server {
         }
     }
 
-    public saveDetails(id: number, first: string, last: string, gender: string, 
+    /**
+     * 
+     * 
+     * @param {number} id 
+     * @param {string} first 
+     * @param {string} last 
+     * @param {string} gender 
+     * @param {string} bDate 
+     * @param {string} location 
+     * @param {string} hobby 
+     * @param {string} profession 
+     * @memberof Server
+     */
+    saveDetails(id: number, first: string, last: string, gender: string, 
         bDate: string, location: string, hobby: string, profession: string) {
         var result;
         http.request({
@@ -630,7 +843,19 @@ export class Server {
         });
     }
 
-    public deletePhoto(userId: number, fileName: string, type: string, photoId: number, albumName: string, eventId: number) {
+
+    /**
+     * 
+     * 
+     * @param {number} userId 
+     * @param {string} fileName 
+     * @param {string} type 
+     * @param {number} photoId 
+     * @param {string} albumName 
+     * @param {number} eventId 
+     * @memberof Server
+     */
+    deletePhoto(userId: number, fileName: string, type: string, photoId: number, albumName: string, eventId: number) {
         var pathToFile;
         if (albumName != null) {
             pathToFile = albumName + "/" + fileName; 
@@ -675,7 +900,13 @@ export class Server {
 
     }
 
-    //delete comments of the removed photo from db
+    /**
+     * 
+     * 
+     * @private
+     * @param {number} photoId 
+     * @memberof Server
+     */
     private deleteComments(photoId: number) {
         console.log("Deleting comments for file " + photoId);
         var query = this.db + "comments?transform=1&filter=file_id,eq," + photoId;
@@ -694,7 +925,13 @@ export class Server {
         })
     }
 
-    //delete likes (reacts) of the removed photo from db
+    /**
+     * 
+     * 
+     * @private
+     * @param {number} photoId 
+     * @memberof Server
+     */
     private deleteLikes(photoId: number) {
         console.log("Deleting likes for file " + photoId);
         var query = this.db + "reacts?transform=1&filter=file_id,eq," + photoId;
@@ -714,6 +951,13 @@ export class Server {
         })
     }
 
+    /**
+     * 
+     * 
+     * @private
+     * @param {number} photoId 
+     * @memberof Server
+     */
     private deleteDBPhoto(photoId: number) {
         http.request({
             url: this.db + "files/" + photoId,
@@ -725,7 +969,17 @@ export class Server {
         })
     }
 
-    public saveAlbum(userId: number, name: string, publicR: boolean, description: string) {
+    /**
+     * 
+     * 
+     * @param {number} userId 
+     * @param {string} name 
+     * @param {boolean} publicR 
+     * @param {string} description 
+     * @returns 
+     * @memberof Server
+     */
+    saveAlbum(userId: number, name: string, publicR: boolean, description: string) {
         return new Promise((resolve, reject) => {
             var result;
             var permission: string;
@@ -749,8 +1003,14 @@ export class Server {
         })
     }
 
-    //Get albums of the user with given userId
-    public getAlbums(userId: number) {
+    /**
+     * 
+     * 
+     * @param {number} userId 
+     * @returns 
+     * @memberof Server
+     */
+    getAlbums(userId: number) {
         var albums: Array<Album> = [];
         var query: string = this.db + "albums?transform=1&filter=user_Id,eq," + userId;
         http.getJSON(query).
@@ -770,7 +1030,14 @@ export class Server {
         return albums;
     }
 
-    public getAlbumPhotos(albumId: number) {
+    /**
+     * 
+     * 
+     * @param {number} albumId 
+     * @returns 
+     * @memberof Server
+     */
+    getAlbumPhotos(albumId: number) {
         var photos : Array<Photo> = [];
         var query : string = this.db + "files?transform=1&filter=album_Id,eq," + albumId;
         http.getJSON(query).then((r) => {
@@ -794,6 +1061,13 @@ export class Server {
         return photos;
     }
 
+    /**
+     * 
+     * 
+     * @param {number} userId 
+     * @returns 
+     * @memberof Server
+     */
     getFeedId(userId: number) {
         return new Promise((resolve, reject) => {
             var query = this.db + "albums?transform=1&filter[]=user_Id,eq," + userId + "&filter[]=album_Description,cs,Album&filter[]=album_Description,cs,for&filter[]=album_Description,cs,feed&filter[]=album_Description,cs,photos&satisfy=all";
@@ -804,6 +1078,13 @@ export class Server {
 
     }
 
+    /**
+     * 
+     * 
+     * @param {any} albumId 
+     * @returns 
+     * @memberof Server
+     */
     getAlbumRights(albumId) {
         return new Promise((resolve, reject) => {
             var query = this.db + "albums?transform=1&filter=album_Id,eq," + albumId;
@@ -817,6 +1098,13 @@ export class Server {
         })
     }
 
+    /**
+     * 
+     * 
+     * @param {number} photoId 
+     * @returns 
+     * @memberof Server
+     */
     getPhoto(photoId: number) {
         return new Promise((resolve, reject) => {
             var query = this.db + "files?transform=1&filter=file_Id,eq," + photoId;
@@ -837,6 +1125,14 @@ export class Server {
 
     }
 
+    /**
+     * 
+     * 
+     * @param {string} hint 
+     * @param {number} userId 
+     * @returns 
+     * @memberof Server
+     */
     getUsersByHint(hint: string, userId: number) {
         var users : Array<User> = [];
         var query = this.db + "users?transform=1&filter[]=first_Name,cs," + hint + "&filter[]=last_Name,cs," + hint +
@@ -862,6 +1158,13 @@ export class Server {
             return users;
     }
 
+    /**
+     * 
+     * 
+     * @param {string} hint 
+     * @returns 
+     * @memberof Server
+     */
     getEventsByHint(hint: string) {
         var events : Array<Event> = [];
         var query = this.db + "events?transform=1&filter[]=event_Name,cs," + hint + "&filter[]=event_Description,cs," + hint +
@@ -886,7 +1189,14 @@ export class Server {
             return events;
     }
 
-    public deleteEvent(eventId) {
+    /**
+     * 
+     * 
+     * @param {any} eventId 
+     * @returns 
+     * @memberof Server
+     */
+    deleteEvent(eventId) {
         return new Promise((resolve, reject) => {
             var request = {
                 url: this.dbDelete,
@@ -930,6 +1240,13 @@ export class Server {
         })
     }
 
+    /**
+     * 
+     * 
+     * @private
+     * @param {number} eventId 
+     * @memberof Server
+     */
     private deleteParticipants(eventId: number) {
         var query = this.db + "participants?transform=1&filter=event_Id,eq," + eventId;
         http.getJSON(query).then((r) => {
@@ -946,7 +1263,15 @@ export class Server {
         })
     }
 
-    public deleteAlbum(albumId: number, userId: number, albumName: string) {
+    /**
+     * 
+     * 
+     * @param {number} albumId 
+     * @param {number} userId 
+     * @param {string} albumName 
+     * @memberof Server
+     */
+    deleteAlbum(albumId: number, userId: number, albumName: string) {
         var request = {
             url: this.dbDelete,
             method: "POST",
@@ -983,7 +1308,5 @@ export class Server {
             }
         })
     }
-
-
 
 }

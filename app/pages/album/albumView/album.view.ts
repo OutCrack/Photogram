@@ -7,6 +7,12 @@ import { Data } from "../../../shared/Data";
 import * as dialogs from "ui/dialogs";
 
 
+/**
+ * 
+ * 
+ * @export
+ * @class AlbumViewComponent
+ */
 @Component({
     templateUrl: "./pages/album/albumView/album.view.html",
     styleUrls: [ "./pages/album/albumView/album.view.css" ]
@@ -18,6 +24,14 @@ export class AlbumViewComponent {
     public albumName: string;
     public server: Server;
 
+    /**
+     * Creates an instance of AlbumViewComponent.
+     * @param {RouterExtensions} routerExtensions 
+     * @param {ActivatedRoute} route 
+     * @param {Router} router 
+     * @param {Data} data 
+     * @memberof AlbumViewComponent
+     */
     constructor(private routerExtensions: RouterExtensions, private route: ActivatedRoute, private router: Router, private data: Data) {
         this.server = new Server();
         this.route.params.subscribe((params) => {
@@ -25,6 +39,11 @@ export class AlbumViewComponent {
         });
     }
 
+    /**
+     * 
+     * 
+     * @memberof AlbumViewComponent
+     */
     stackLoaded = function(args) {
         this.albumPhotos = this.server.getAlbumPhotos(this.albumId);
         this.server.getAlbumName(this.albumId).then((r) => {
@@ -32,6 +51,12 @@ export class AlbumViewComponent {
         });
     }
 
+    /**
+     * 
+     * 
+     * @param {number} photoId 
+     * @memberof AlbumViewComponent
+     */
     selectPhoto(photoId: number) {
         var selectedPhoto: Photo = this.albumPhotos.find(i => i.id === photoId)
         let navigationExtras: NavigationExtras = {
@@ -51,6 +76,11 @@ export class AlbumViewComponent {
         this.router.navigate(["/photoView"], navigationExtras);
     }
 
+    /**
+     * 
+     * 
+     * @memberof AlbumViewComponent
+     */
     onDeleteAlbum() {
         dialogs.confirm({
             title: "Are you sure you want to delete this album?",
@@ -66,6 +96,11 @@ export class AlbumViewComponent {
         });
     }
 
+    /**
+     * 
+     * 
+     * @memberof AlbumViewComponent
+     */
     onCamera() {
         var navigationExtras = {
             queryParams: {

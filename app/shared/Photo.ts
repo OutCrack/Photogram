@@ -1,6 +1,12 @@
 import { Comment } from "./Comment";
 import { Server } from "./Server/Server";
 
+/**
+ * 
+ * 
+ * @export
+ * @class Photo
+ */
 export class Photo {
     id: number;
     userId: number;
@@ -17,6 +23,18 @@ export class Photo {
     userName: string;
     urlCommon = "http://188.166.127.207:8000/uploads/";
 
+    /**
+     * Creates an instance of Photo.
+     * @param {number} id 
+     * @param {string} url 
+     * @param {number} userId 
+     * @param {string} created 
+     * @param {string} description 
+     * @param {number} albumId 
+     * @param {string} fileName 
+     * @param {number} eventId 
+     * @memberof Photo
+     */
     constructor(id: number, url:string, userId: number, created: string, description: string,
          albumId: number, fileName: string, eventId: number) {
         this.id = id;
@@ -50,6 +68,12 @@ export class Photo {
         }
     }
 
+    /**
+     * 
+     * 
+     * @private
+     * @memberof Photo
+     */
     private getUser() {
         this.server.getUsername(this.userId).then((res) => {
             this.userName = JSON.stringify(res).slice(1, JSON.stringify(res).length - 1);
@@ -58,6 +82,14 @@ export class Photo {
         })
     }
 
+    /**
+     * 
+     * 
+     * @private
+     * @param {any} albumId 
+     * @returns 
+     * @memberof Photo
+     */
     private getUrl(albumId) {
         return new Promise((resolve, reject) => {
             this.server.getAlbumName(albumId).then((res) => {
@@ -71,6 +103,12 @@ export class Photo {
         }) 
     }
 
+    /**
+     * 
+     * 
+     * @returns 
+     * @memberof Photo
+     */
     public getComments() {
         return new Promise((resolve, reject) => {
             this.comments = [];

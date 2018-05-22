@@ -14,19 +14,19 @@ import { RouterExtensions } from "nativescript-angular";
 const imageSourceModule = require("tns-core-modules/image-source");
 var plugin = require("nativescript-screenshot");
 var image = require("ui/image");
-//var bghttp = require("nativescript-background-http");
-//var session = bghttp.session("image-upload");
-//var http = require("http");
 var stackLayout, photo;
 
+/**
+ * 
+ * 
+ * @export
+ * @class ImageComponent
+ */
 @Component({
     selector: "imageview",
     templateUrl: "./pages/new-image/image.html",
     styleUrls: ["./pages/new-image/image.css" ]
 })
-
-
-
 
 export class ImageComponent {
 
@@ -42,6 +42,14 @@ export class ImageComponent {
     public eventId;
     public eventPrivacy;
 
+    /**
+     * Creates an instance of ImageComponent.
+     * @param {RouterExtensions} routerExtensions 
+     * @param {Data} data 
+     * @param {ChangeDetectorRef} _changeDetectionRef 
+     * @param {ActivatedRoute} route 
+     * @memberof ImageComponent
+     */
     public constructor(private routerExtensions: RouterExtensions, private data: Data, 
         private _changeDetectionRef: ChangeDetectorRef, private route: ActivatedRoute) {
 
@@ -52,16 +60,26 @@ export class ImageComponent {
             this.albumId = params["albumId"];
             this.eventPrivacy = params["eventPrivacy"];
         })
-        //this.picture = "https://placehold.it";
+        this.picture = "https://placehold.it";
         this.items = [];
         this.details = [];
     }
 
+    /**
+     * 
+     * 
+     * @memberof ImageComponent
+     */
     stackLoaded = function(args) {
         stackLayout = args.object;
         photo = stackLayout.getElementById("picture");
      }
 
+    /**
+     * 
+     * 
+     * @memberof ImageComponent
+     */
     public takePicture() {
         camera.requestPermissions();
         camera.takePicture().then(picture => {
@@ -89,6 +107,11 @@ export class ImageComponent {
         });  
     }
 
+    /**
+     * 
+     * 
+     * @memberof ImageComponent
+     */
     chooseFromFile() {
         this.id = this.data.storage["id"];
         let context = imagepicker.create({
@@ -97,6 +120,13 @@ export class ImageComponent {
         this.startSelecting(context);
     }
 
+    /**
+     * 
+     * 
+     * @private
+     * @param {any} context 
+     * @memberof ImageComponent
+     */
     private startSelecting(context) {
         let _that = this;
         context
@@ -119,6 +149,11 @@ export class ImageComponent {
             })
     }
     
+    /**
+     * 
+     * 
+     * @memberof ImageComponent
+     */
     public uploadPicture() {
         var promise = new Promise((resolve, reject) => {
             if (this.albumId != null) {

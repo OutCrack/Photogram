@@ -6,11 +6,16 @@ import { View } from "ui/core/view";
 import * as dialogs from "ui/dialogs";
 import { Data } from "../../shared/Data";
 import { Server } from "../../shared/Server/Server";
-
 const firebase = require("nativescript-plugin-firebase");
-
 var http = require("http");
 
+/**
+ * 
+ * 
+ * @export
+ * @class LoginComponent
+ * @implements {OnInit}
+ */
 @Component({
   selector: "my-app",
   templateUrl: "./pages/login/login.html",
@@ -23,12 +28,18 @@ export class LoginComponent implements OnInit{
   userData: any;
   userCreated = false;
   signingUp = false;
-  //@ViewChild("container") container: ElementRef;
   site: string = "http://188.166.127.207:5555/api.php/";
   userId: any;
   server: Server;
 
 
+  /**
+   * Creates an instance of LoginComponent.
+   * @param {Router} router 
+   * @param {Page} page 
+   * @param {Data} data 
+   * @memberof LoginComponent
+   */
   constructor(private router: Router, private page: Page, private data: Data) {
     this.user = {
       "email" : "kasia.zubowicz@gmail.com",
@@ -38,6 +49,11 @@ export class LoginComponent implements OnInit{
     this.server = new Server();
   } 
 
+  /**
+   * 
+   * 
+   * @memberof LoginComponent
+   */
   login() {
     if (this.user.email && this.user.password) {
       firebase.login({
@@ -55,6 +71,11 @@ export class LoginComponent implements OnInit{
     }
   }
 
+  /**
+   * 
+   * 
+   * @memberof LoginComponent
+   */
   faceLogin() {
     var router = this.router;
     var that = this;
@@ -73,6 +94,11 @@ export class LoginComponent implements OnInit{
       );
   }
 
+  /**
+   * 
+   * 
+   * @memberof LoginComponent
+   */
   googleLogin() {
     var router = this.router;
     var that = this;
@@ -90,7 +116,12 @@ export class LoginComponent implements OnInit{
   );
 }
 
-  signUp() {
+/**
+ * 
+ * 
+ * @memberof LoginComponent
+ */
+signUp() {
     this.signingUp = true;
     this.newUser = {
       "email" : "newUser@user.com",
@@ -98,6 +129,11 @@ export class LoginComponent implements OnInit{
     }
   }
 
+  /**
+   * 
+   * 
+   * @memberof LoginComponent
+   */
   signUpToFirebase() {
     if (this.newUser.email && this.newUser.password) {
       firebase.createUser({
@@ -126,6 +162,11 @@ export class LoginComponent implements OnInit{
     }
   }
 
+  /**
+   * 
+   * 
+   * @memberof LoginComponent
+   */
   saveData() {
       if (this.userData.firstName && this.userData.lastName) {
         firebase.getCurrentUser() 
@@ -149,6 +190,11 @@ export class LoginComponent implements OnInit{
       }
   }
 
+  /**
+   * 
+   * 
+   * @memberof LoginComponent
+   */
   findUser() {
     firebase.getCurrentUser()
     .then(user => {
@@ -194,11 +240,21 @@ export class LoginComponent implements OnInit{
     .catch(error => console.error(error)); 
 }
 
+/**
+ * 
+ * 
+ * @memberof LoginComponent
+ */
 cancel() {
   this.signingUp = false;
 }
 
-  ngOnInit() {
+/**
+ * 
+ * 
+ * @memberof LoginComponent
+ */
+ngOnInit() {
     this.page.actionBarHidden = true;
     firebase.getCurrentUser()
     .then( () => {

@@ -16,11 +16,18 @@ var stackLayout;
 var inviteBody;
 var sendButton;
 
+/**
+ * 
+ * 
+ * @export
+ * @class InvitationComponent
+ */
 @Component({
     selector: "Invitation",
     templateUrl: "./pages/invitation/invitation.html",
     styleUrls: ["./pages/invitation/invitation.css" ]
 })
+
 
 export class InvitationComponent {
 
@@ -33,6 +40,11 @@ export class InvitationComponent {
     
     }
 
+    /**
+     * 
+     * 
+     * @memberof InvitationComponent
+     */
     stackLoaded = function(args) {
         stackLayout = args.object;
         inviteBody = stackLayout.getElementById("body");
@@ -43,6 +55,11 @@ export class InvitationComponent {
      }
 
 
+    /**
+     * 
+     * 
+     * @memberof InvitationComponent
+     */
     public changeBackground() {
         if (this.bodyColor == "bgr_white") {
             this.bodyColor = "bgr_black";
@@ -57,6 +74,11 @@ export class InvitationComponent {
         }
     }
 
+    /**
+     * 
+     * 
+     * @memberof InvitationComponent
+     */
     public setFont() {
         if (this.fontStyle == "font1") {
             this.fontStyle = "font2";
@@ -72,6 +94,11 @@ export class InvitationComponent {
         }
     }
 
+    /**
+     * 
+     * 
+     * @memberof InvitationComponent
+     */
     public setFontColor() {
         if (this.fontColor == "gold") {
             this.fontColor = "red";
@@ -94,6 +121,11 @@ export class InvitationComponent {
     }
 
 
+    /**
+     * 
+     * 
+     * @memberof InvitationComponent
+     */
     public sendInvitation() {
         var promise = new Promise((resolve, reject)=> {
         var img = new image.Image();

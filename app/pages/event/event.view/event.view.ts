@@ -10,11 +10,18 @@ import * as dialogs from "ui/dialogs";
 import { User } from "../../../shared/User";
 import { Photo } from "../../../shared/Photo";
 
+/**
+ * 
+ * 
+ * @export
+ * @class EventViewComponent
+ */
 @Component({
     templateUrl: "./pages/event/event.view/event.view.html",
     styleUrls: [ "./pages/event/event.view/event.view.css" ]
 
 })
+
 export class EventViewComponent {
     
     public server: Server;
@@ -35,6 +42,11 @@ export class EventViewComponent {
     public photoList: Array<Photo>;
     public eventOwner: number;
 
+    /**
+     * 
+     * 
+     * @memberof EventViewComponent
+     */
     stackLoaded = function(args) {
         this.photoList = this.server.getEventPhotos(this.eventId);
         this.pictures = true;
@@ -45,6 +57,14 @@ export class EventViewComponent {
         })
         }
 
+    /**
+     * Creates an instance of EventViewComponent.
+     * @param {RouterExtensions} routerExtensions 
+     * @param {Router} router 
+     * @param {ActivatedRoute} route 
+     * @param {Data} data 
+     * @memberof EventViewComponent
+     */
     constructor(private routerExtensions: RouterExtensions, private router: Router, private route: ActivatedRoute, private data: Data) {
         this.server = new Server();
         this.inviting = false;
@@ -69,10 +89,20 @@ export class EventViewComponent {
 
     }
 
+    /**
+     * 
+     * 
+     * @memberof EventViewComponent
+     */
     onBackButtonTap() {
         this.routerExtensions.back();
     }
 
+    /**
+     * 
+     * 
+     * @memberof EventViewComponent
+     */
     public deleteEvent() {
         dialogs.confirm({
             title: "Are you sure you want to delete this event",
@@ -92,6 +122,11 @@ export class EventViewComponent {
         });
     }
 
+    /**
+     * 
+     * 
+     * @memberof EventViewComponent
+     */
     leaveEvent() {
         dialogs.confirm({
             title: "Are you sure?",
@@ -107,6 +142,11 @@ export class EventViewComponent {
         })
     }
 
+    /**
+     * 
+     * 
+     * @memberof EventViewComponent
+     */
     showGuests() {
         if (!this.showingParticipants) {
             this.participants = this.server.getEventParticipants(this.eventId);
@@ -121,6 +161,12 @@ export class EventViewComponent {
         } 
     }
 
+    /**
+     * 
+     * 
+     * @param {number} userId 
+     * @memberof EventViewComponent
+     */
     removeParticipant(userId: number) {
         if (this.data.storage["id"] == userId) {
             alert("You can't remove yourself from this event");
@@ -141,26 +187,54 @@ export class EventViewComponent {
         }
     }
 
+    /**
+     * 
+     * 
+     * @memberof EventViewComponent
+     */
     invite() {
         this.inviting = true;
     }
 
+    /**
+     * 
+     * 
+     * @param {any} args 
+     * @memberof EventViewComponent
+     */
     public onTextChanged(args) {
         let searchBar = <SearchBar>args.object;
         this.firstSearch = true;
         this.searchList = this.server.getUsersByHint(searchBar.text, this.data.storage["id"]);
     }
 
+    /**
+     * 
+     * 
+     * @param {any} args 
+     * @memberof EventViewComponent
+     */
     public onTextSubmit(args) {
         this.onTextChanged(args);
     }
 
+    /**
+     * 
+     * 
+     * @memberof EventViewComponent
+     */
     public doneInviting() {
         this.inviting = false;
         this.searchList = [];
         this.firstSearch = false;
     }
 
+    /**
+     * 
+     * 
+     * @param {number} userId 
+     * @memberof EventViewComponent
+     */
     inviteUser(userId: number) {
         if (this.participants.find(i => i.id === userId) == null) {
             this.server.joinEvent(this.eventId, userId, "Invited");
@@ -171,6 +245,11 @@ export class EventViewComponent {
         }
     }
 
+    /**
+     * 
+     * 
+     * @memberof EventViewComponent
+     */
     showPictures() {
         if (this.pictures) {
             let navigationExtras: NavigationExtras = {
@@ -188,6 +267,12 @@ export class EventViewComponent {
         }
     }
 
+    /**
+     * 
+     * 
+     * @param {number} photoId 
+     * @memberof EventViewComponent
+     */
     selectPhoto(photoId: number) {
         var selectedPhoto: Photo = this.photoList.find(i => i.id === photoId)
         let navigationExtras: NavigationExtras = {

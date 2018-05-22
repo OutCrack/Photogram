@@ -2,12 +2,18 @@ import { Component } from "@angular/core";
 import { Server } from "../../../shared/Server/Server"
 import { Data } from "../../../shared/Data";
 import { Router, NavigationExtras } from "@angular/router";
-
+/**
+ * 
+ * 
+ * @export
+ * @class NewEventComponent
+ */
 @Component({
     selector: "NewEvent",
     templateUrl: "./pages/event/event-new/event-new.html",
     styleUrls: ["./pages/event/event-new/event-new.css" ]
 })
+
 
 export class NewEventComponent {
     event: any;
@@ -15,6 +21,12 @@ export class NewEventComponent {
     public wedding: boolean;
     public privacy: boolean;
 
+    /**
+     * Creates an instance of NewEventComponent.
+     * @param {Data} data 
+     * @param {Router} router 
+     * @memberof NewEventComponent
+     */
     public constructor(private data: Data, private router: Router){
         this.server = new Server();
         this.wedding = true;
@@ -26,6 +38,11 @@ export class NewEventComponent {
         }
     }
 
+    /**
+     * 
+     * 
+     * @memberof NewEventComponent
+     */
     public saveEvent(){
         if (this.event.name.length < 1 || this.event.description < 1) {
             alert("Fields event name and description can't be empty");
@@ -67,10 +84,20 @@ export class NewEventComponent {
         
     }
 
+    /**
+     * 
+     * 
+     * @memberof NewEventComponent
+     */
     public changeEventType() {
         this.wedding = !this.wedding;
     }
 
+    /**
+     * 
+     * 
+     * @memberof NewEventComponent
+     */
     public changeEventPrivacy() {
         this.privacy = !this.privacy;
     }
