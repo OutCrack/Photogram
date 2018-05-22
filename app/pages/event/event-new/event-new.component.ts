@@ -99,6 +99,6 @@ export class NewEventComponent {
      * @memberof NewEventComponent
      */
     public changeEventPrivacy() {
-        this.privacy = !this.privacy;
+        this.privacy = !this.privacy;    
     }
 }
