@@ -1,0 +1,95 @@
+.bgr_white {
+    background-color: white;
+}
+
+.bgr_black {
+    background-color: black;
+}
+
+.bgr_golden {
+    background-color: goldenrod;
+}
+
+.bgr_pink {
+    background-color: palevioletred;
+}
+
+.font1{
+    font-style: italic;
+    font-family: BerkshireSwash, Berkshire Swash;
+    margin: 3px;
+}
+
+.font2 {
+    font-style: normal;
+    font-family: Pacifico, Pacifico;
+    margin: 3px;
+}
+
+.font3 {
+    font-style: normal;
+    font-family: Lobster, Lobster;
+    margin: 3px;
+}
+
+.font4 {
+    font-style: normal;
+    font-family: DancingScript, Dancing Script;
+    margin: 3px;
+}
+
+#body {
+    padding-top: 5px;
+    margin-top: 20px;
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+    width: 90%;
+    height: 90%;
+    opacity: 0.8;
+    text-align: center;
+}
+
+#title {
+    font-size: 30dp;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+Button {
+    text-transform: lowercase;
+}
+
+TextField {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+  .gold {
+    color: gold;
+  }
+
+  .red {
+    color: red
+  }
+
+  .white {
+    color: whitesmoke;
+  }
+
+  .black {
+    color: black;
+  }
+
+  .green {
+    color: green;
+  }
+
+  .violet {
+    color: darkorchid;
+  }
+
+
+

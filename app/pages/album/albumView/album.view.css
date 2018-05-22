@@ -1,0 +1,10 @@
+WrapLayout {
+    width: 90%;
+    margin: auto;
+    padding: 5;
+}
+
+.photo {
+    padding: 5;
+    margin: 5;
+}

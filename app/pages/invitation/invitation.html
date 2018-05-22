@@ -1,0 +1,22 @@
+<ActionBar title="">
+    <ActionItem text="style" (tap)="setFont()" ios.position="right"></ActionItem>
+    <ActionItem text="color" (tap)="setFontColor()" ios.position="right"></ActionItem>
+    <ActionItem text="background" (tap)="changeBackground()"></ActionItem>
+    <ActionItem (tap)="sendInvitation()" ios.systemIcon="17" ios.position="right" android.systemIcon="ic_menu_send"></ActionItem>
+    
+</ActionBar>
+<StackLayout (loaded)="stackLoaded($event)">   
+    <StackLayout [class]="bodyColor" id="body">
+        <StackLayout [class]="fontColor">
+            <StackLayout [class]= "fontStyle">
+            <TextField [class]="fontColor" id="title" text="Invitation" cols="50" rows="10" ></TextField>
+            <TextField [class]="fontColor" text="Your text" cols="50" rows="10" ></TextField>
+            <TextField [class]="fontColor"  cols="50" rows="10" ></TextField>
+            <TextField [class]="fontColor" cols="50" rows="10" ></TextField>
+            <TextField [class]="fontColor" cols="50" rows="10" ></TextField>
+            <TextField [class]="fontColor" cols="50" rows="10" ></TextField>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+</StackLayout>
+

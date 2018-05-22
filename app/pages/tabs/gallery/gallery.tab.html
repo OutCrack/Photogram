@@ -1,13 +1,22 @@
-<StackLayout>
-    <Label text="My gallery" *ngIf="!selected"></Label> 
-    <Button [text]="photos ? 'Hide photos' : 'My pictures'" *ngIf="!selected" (tap)="getPhotos()"></Button>
+<StackLayout (loaded)="stackLoaded($event)">
+    <ScrollView>
+        <WrapLayout>
+            <StackLayout *ngFor = "let album of myAlbums" (tap)="selectAlbum(album.id)" class="album_ctn">
+                <Image *ngIf="album.privacy == 'private'" src="res://album"></Image>
+                <Image *ngIf="album.privacy == 'public'" src="res://album_green"></Image>
+                <Label class="title"text="{{album.name}}"></Label>
+                <Label class="description"text="{{album.description}}"></Label>
+            </StackLayout>
+        </WrapLayout>
+    </ScrollView>
+    <!-- <Button [text]="photos ? 'Hide photos' : 'My pictures'" *ngIf="!selected" (tap)="getPhotos()"></Button>
     <Button [text]="mEvents ? 'Hide events' : 'Show my events'" *ngIf="!selected" (tap)="getEvents()"></Button>
     <Button text="New event" (tap)="newEvent()"></Button>
     <Button text="Upload photo" *ngIf="!selected" (tap)="openGallery()"></Button>
     <ScrollView *ngIf="photos && !selected">
         <WrapLayout id="photoView" width="300" orientaton="vertical">
             <StackLayout *ngFor="let myPhoto of myPhotos">
-                <!--<Label class="date" text="{{myPhoto.created}}"></Label>-->
+                <Label class="date" text="{{myPhoto.created}}"></Label>
                 <Image  src="{{myPhoto.url}}" width="50dp" height="50dp" margin="5" id="{{myPhoto.id}}" (tap)="selectPhoto($event)"></Image>
                 <Button text="remove" (tap)="removePhoto(myPhoto.id, myPhoto.fileName)"></Button>
             </StackLayout>
@@ -46,7 +55,7 @@
                 </StackLayout>
         </StackLayout>
     </ScrollView>
-    <ScrollVIew *ngIf="eventSelected">
+    <ScrollView *ngIf="eventSelected">
         <StackLayout>
             <Label text="Event participants"></Label>
             <WrapLayout *ngFor="let participant of participants">
@@ -55,5 +64,5 @@
                 <Label text="{{participant.role}}"></Label>
             </WrapLayout>
         </StackLayout>
-    </ScrollVIew>
+    </ScrollView>-->
 </StackLayout>

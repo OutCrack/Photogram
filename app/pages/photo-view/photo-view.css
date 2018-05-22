@@ -1,0 +1,47 @@
+.photo {
+    margin-left: 20dp;
+    margin-right: 20dp;
+    margin-top: 10dp;
+    margin-bottom: 10dp;
+}
+
+.like_ctn {
+    width: 30%;
+    margin: auto;;
+}
+
+.like_count {
+    font-size: 20px;
+    padding-top: 16px;
+}
+
+.like_img {
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+}
+
+StackLayout{
+    padding: 40px 10px 40px 10px;
+    margin: 40px 10px 40px 10px;
+}
+
+.owner {
+    font-size: 24px;
+}
+
+.like_btn {
+    margin: auto;
+    width: 30%;
+    padding-bottom: 60px;
+}
+
+#x_button {
+    margin: 5px;
+    padding: 5px;
+}
+
+.comment_list {
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+}

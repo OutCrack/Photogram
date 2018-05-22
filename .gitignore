@@ -50,9 +50,11 @@ Temporary Items
 npm-debug.log
 .DS_Store
 
-
+*.js
 *.js.map
+app/*.js
 app/**/*.js
+app/*/*.js
 hooks/
 lib/
 node_modules/
@@ -60,4 +62,5 @@ platforms/
 tmp/
 typings/
 report/
+.vscode
 

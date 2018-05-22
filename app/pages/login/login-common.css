@@ -10,8 +10,8 @@ StackLayout {
   }
 
   .logo-img {
-    height: 30;
-    width: 30;
+    height: 50;
+    width: 50;
     margin: 0;
     padding: 5;
   }
@@ -36,23 +36,27 @@ StackLayout {
   }
 
   .face-button {
-    width: 40%;
+    margin-top: 10%;
+    width: 25%;
     border-radius: 5;
     border-width: 1;
-    margin: 10;
+    margin-left: 10%;
+    margin-right: 3%;
     border-color: #2b3c6a;
     background-color: #3b5998;
     color: white;
   }
 
   .ggl-btn {
-    width: 40%;
+    margin-top: 10%;
+    width: 25%;
     border-radius: 5;
     border-width: 1;
-    margin: 10;
+    margin-right: 10%;
+    margin-left: 3%;
     border-color: whitesmoke;
     background-color: antiquewhite;
-    color: gray;
+    color: #2f2f2f;
   }
 
   .sign-up-btn {

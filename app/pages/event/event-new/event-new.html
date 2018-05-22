@@ -1,8 +1,9 @@
-<stacklayout>
+<ActionBar title="New event"></ActionBar>
+<StackLayout>
     <TextField hint="Event Name" [(ngModel)]="event.name"></TextField>
     <TextField hint="Location" [(ngModel)]="event.location"></TextField>
     <TextField hint="Description" [(ngModel)]="event.description"></TextField>
-    <TextField hint="Type" [(ngModel)]="event.type"></TextField>
-    <TextField hint="Privacy" [(ngModel)]="event.privacy"></TextField>
+    <Button [text] = "wedding ? 'wedding' : 'party'" (tap)="changeEventType()" ></Button>
+    <Button [text] = "privacy ? 'private' : 'public'" (tap)="changeEventPrivacy()" ></Button>
     <Button text="Save" class="submit-button" (tap)="saveEvent()"></Button>
-</stacklayout>
+</StackLayout>

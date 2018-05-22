@@ -1,0 +1,16 @@
+<ActionBar title="{{albumName}}">
+    <ActionItem (tap)="onCamera()" ios.systemIcon="15" ios.position="right" android.systemIcon="ic_menu_camera"></ActionItem>
+    <ActionItem (tap)="onDeleteAlbum()" ios.systemIcon="16" ios.position="right" android.systemIcon="ic_menu_delete"></ActionItem>
+</ActionBar>
+
+<ScrollView>
+<StackLayout (loaded)="stackLoaded($event)">
+    <WrapLayout>
+        <StackLayout *ngFor="let photo of albumPhotos" class="photo" (tap)="selectPhoto(photo.id)">
+            <Image src="{{photo.url}}" style="width: 150; height: 150"></Image>
+            <Label text="{{photo.created}}"></Label>
+            <Label text="{{photo.description}}"></Label>
+        </StackLayout>
+    </WrapLayout>
+</StackLayout>
+</ScrollView>

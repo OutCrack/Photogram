@@ -1,0 +1,12 @@
+TextField {
+    margin-bottom: 5px;
+    margin-right: 3px;
+    margin-left: 5px;
+}
+
+#details {
+    width: 90%;
+    margin: auto;
+    margin-bottom: 60px;
+    padding-top: 60px;
+}

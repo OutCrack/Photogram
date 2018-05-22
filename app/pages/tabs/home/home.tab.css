@@ -1,44 +1,24 @@
 .user {
     font-size: 20dp;
-    padding: 10dp;
 }
 
-.title {
-    font-size: 30dp;
-    margin-bottom: 10dp;
-    margin-top: 10dp;
-    color: black;
-    text-align: center;
-}
 
 Image {
     margin-left: 20dp;
     margin-right: 20dp;
     margin-top: 10dp;
     margin-bottom: 10dp;
-}
-
-.close {
-    margin-left: 90%;
-    margin-top: 15px;
-    color: black;
-    width: 10%;
-    background-color: white;
+    padding-bottom: 20dp;
 }
 
 .list-group-item {
-    padding: 0 8 8 8;    
+    padding: 30 10 20 10;    
 }
 
-.list-group-item-content {
-    padding: 8 15 4 15;
-    background-color: #FFFFFF;
+Label {
+    color: #FFFDD0;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
-hr.thin {
-    height: 1px;
-    border: 0;
-    color: #333;
-    background-color: #333;
-    width: 80%;
-    } 
+

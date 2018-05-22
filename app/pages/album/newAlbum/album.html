@@ -1,0 +1,11 @@
+<ActionBar title="New album">
+</ActionBar>
+<StackLayout>
+    <TextField hint="album name" [(ngModel)]="album.name" style="width: 50%; align-self: center;"></TextField>
+    <StackLayout orientation="horizontal" style="width: 50%; align-self: center;">
+        <Label text="Permission"></Label>
+        <Button [text] = "public ? 'public' : 'private'" (tap)="changePrivacy()" class="public_btn" ></Button> 
+    </StackLayout>
+     <TextField hint="description" [(ngModel)]="album.description" style="width: 80%; align-self: center;"></TextField>
+    <Button text="save" (tap)="saveAlbum()"></Button>
+</StackLayout>

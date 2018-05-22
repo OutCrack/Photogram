@@ -1,15 +1,17 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { Page } from "ui/page";
 import { Router } from '@angular/router';
 import { HomeComponent } from "./home/home.component";
 import { Data } from "../../shared/Data";
+import { RouterExtensions } from "nativescript-angular";
+import { Server } from "../../shared/Server/Server";
 const firebase = require("nativescript-plugin-firebase");
 
-export class DataItem {
-    constructor(public itemDesc: string) { 
-    }
-}
-
+/**
+ * 
+ * 
+ * @export
+ * @class TabComponent
+ */
 @Component({
     selector: "tab",
     moduleId: module.id,
@@ -17,84 +19,137 @@ export class DataItem {
     styleUrls: [ "./tab.css" ]
 })
 
+
 export class TabComponent {
-    public items: Array<DataItem>;
-    public activeTab: string;
-    public selectedIndex: number = 0;
     isHome: boolean = true;
     isSearch: boolean = false;
     isGallery: boolean = false;
-    isNotification: boolean = false;
+    isEventGallery: boolean = false;
     isProfile: boolean = false;
-    public firstName: string;
-    public lastName: string;
+    public tabName: string = "Feed";
+    server: Server;
 
-    constructor(private router: Router, private page: Page, protected data: Data) {
-        /*this.items = new Array<DataItem>();
-        for (let i = 0; i < 5; i++) {
-            this.items.push(new DataItem("item " + i));
-        }*/
-    }
-    onCamera() {
-        console.log("Camera tapped.");
-        this.router.navigate(["/image"]);
-        //Kjører kamera funksjon------
+    /**
+     * Creates an instance of TabComponent.
+     * @param {RouterExtensions} routerExtensions 
+     * @param {Router} router 
+     * @param {Data} data 
+     * @memberof TabComponent
+     */
+    constructor(private routerExtensions: RouterExtensions, private router: Router, protected data: Data,) {
+        this.tabName = "feed";
+        this.server = new Server();
     }
 
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
+    onBackButtonTap() {
+        if (this.isHome) {
+            //do nothing
+        } else {
+            this.tabViewIndexChange(0);
+        }
+    }
+
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
     onNewEvent() {
-        console.log("New event tapped.");
+        this.tabName = "New event";
         this.router.navigate(["/newEvent"]);
     }
 
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
+    onInvitation() {
+        this.router.navigate(["/invitation"]);
+        this.tabName="Invitation";
+    }
+
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
     onHome() {
-        console.log("Home-tab tapped.");
         this.isHome = true;
         this.isSearch = false;
         this.isGallery = false;
-        this.isNotification = false;
+        this.isEventGallery = false;
         this.isProfile = false;
+        this.tabName = "Feed";
     }
 
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
     onSearch() {
-        console.log("Search-tab tapped.");
         this.isHome = false;
         this.isSearch = true;
         this.isGallery = false;
-        this.isNotification = false;
+        this.isEventGallery = false;
         this.isProfile = false;
-        console.log("Users name" + this.firstName);
-        //console.log("Last name" + this.lastName);
+        this.tabName = "Search";
     }
 
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
     onGallery() {
-        console.log("Gallery-tab tapped.");
         this.isHome = false;
         this.isSearch = false;
         this.isGallery = true;
-        this.isNotification = false;
-        this.isProfile = false;           
+        this.isEventGallery  = false;
+        this.isProfile = false; 
+        this.tabName = "My gallery";          
     }
 
-    onNotification() {
-        console.log("Notification-tab tapped.");
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
+    onEventGallery() {
         this.isHome = false;
         this.isSearch = false;
         this.isGallery = false;
-        this.isNotification = true;
-        this.isProfile = false;   
+        this.isEventGallery  = true;
+        this.isProfile = false; 
+        this.tabName = "Event Gallery";  
     }
 
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
     onProfile() {
-        console.log("Profile-tab tapped.");
         this.isHome = false;
         this.isSearch = false;
         this.isGallery = false;
-        this.isNotification = false;
+        this.isEventGallery  = false;
         this.isProfile = true;  
-        this.firstName = this.data.storage["firstName"];
-        this.lastName = this.data.storage["lastName"];
+        this.tabName = "Profile";
     }
 
+    /**
+     * 
+     * 
+     * @param {number} index 
+     * @memberof TabComponent
+     */
     tabViewIndexChange(index: number) {
         switch (index) {
             case 0:
@@ -107,11 +162,52 @@ export class TabComponent {
                 this.onGallery();
                 break;
             case 3:
-                this.onNotification();
+                this.onEventGallery();
                 break;
             case 4:
                 this.onProfile();
                 break;
         }
+    }
+
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
+    addAlbum() {
+        this.router.navigate(["/newAlbum"]);
+    }
+
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
+    onCamera() {
+        var albumId;
+        this.server.getAlbumForFeedPhotos(this.data.storage["id"]).then((r) => {
+            albumId = r;
+            var navigationExtras = {
+                queryParams: {
+                    "albumId" : albumId
+                }
+            };
+            this.router.navigate(["/image"], navigationExtras);
+        }).catch(() => {
+            alert("Error occurred. Please log out and in again");
+        })
+    }
+
+    /**
+     * 
+     * 
+     * @memberof TabComponent
+     */
+    logout() {
+        var router = this.router;
+        this.data.storage = {};
+        firebase.logout();
+        router.navigate(["/"]);
     }
 }

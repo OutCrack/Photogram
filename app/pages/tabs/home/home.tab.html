@@ -1,67 +1,13 @@
-<SegmentedBar [items]="items" (selectedIndexChange)="onSelectedIndexChange($event)" class="m-5"></SegmentedBar>
-<GridLayout visibility="{{ visibility1 ? 'visible' : 'collapsed' }}">
-        <PullToRefresh (refresh)="refreshFeed($event)">
+<GridLayout>
+        <PullToRefresh (refresh)="refreshFeed($event)" (loaded)="stackLoaded($event)">
                 <ScrollView>
                         <StackLayout *ngIf="!selected">
-                                <Label text="Latest photos" class="title"></Label>
-                                <StackLayout *ngFor="let photo of photos" class="list-group-item">
-                                        <!--<Label text="User:"></Label><Label text="{{photo.user.firstN}} {{photo.user.lastN}}" class="user"></Label>-->
-                                        <GridLayout>
-                                                <Label text="Uploaded:"></Label>
-                                                <Label text="{{photo.created}}" class="user" horizontalAlignment="right"></Label>
-                                        </GridLayout>
-                                        <Label text="{{photo.description}}"></Label>
-                                        <Image src="{{photo.url}}" width="120dp" height="120dp" id="{{photo.id}}" (tap)="selectPhoto($event)"></Image>
+                                <StackLayout *ngFor="let photo of photos" class="list-group-item">  
+                                        <Label text="{{photo.created}}" class="user"></Label>
+                                        <Label text="{{photo.userName}}" class="user" ></Label>
+                                        <Image src="{{photo.url}}" id="{{photo.id}}" (tap)="selectPhoto(photo.id)"></Image>
                                 </StackLayout>
-
-                                <!--<StackLayout  class="list-group-item">
-                                        <GridLayout rows="*, *, *" columns="*,* ">
-                                                <Label text="{{username}}"></Label>
-                                                <Label text="{{photo.created}}" col="1" horizontalAlignment="right"></Label>
-                                                <Image src="{{photo.url}}" width="120dp" height="400dp" id="{{photo.id}}" (tap)="selectPhoto($event)"></Image>
-                                        </GridLayout>
-                                </StackLayout>-->
-                        </StackLayout>
-                        <StackLayout *ngIf="selected">
-                                <Label text="{{photoCreated}}"></Label>
-                                <Label *ngFor="let user of users" text={{user.firstN}}></Label>
-                                <Label text="{{username}}"></Label>
-                                <Label text="{{photoDescription}}"></Label>
-                                <Button text="X" class="close" (tap)="closePhoto()"></Button>
-                                <Image src="{{photoUrl}}"></Image>
-                                <GridLayout *ngFor="let comment of photoComments" columns="*, 40">
-                                        <Label text="{{comment.user.firstN}} {{comment.user.lastN}} : {{comment.text}}" col="0"></Label>
-                                        <Button text="x" *ngIf="comment.rights" col="1" (tap)="removeComment(comment.id)"></Button>
-                                </GridLayout>
-                                <GridLayout columns="250, 80">
-                                        <TextField #newComment hint="comment" width="80%" height="50dp" col="0"></TextField>
-                                        <Button text="Add" (tap)="addComment(newComment)" col="1"></Button>
-                                </GridLayout>
                         </StackLayout>
                 </ScrollView>
         </PullToRefresh>
-</GridLayout>
-
-<GridLayout rows="*" visibility="{{ visibility2 ? 'visible' : 'collapsed' }}" backgroundColor="white">
-        <ScrollView>
-                <StackLayout>
-                        <Label text="------Your Events------" horizontalAlignment="center"></Label>
-                        <StackLayout id="{{event.id}}" *ngFor="let event of participEvents" (tap)="selectEvent($event)" orientation="horizontal">
-                                <StackLayout>
-                                        <Label text="{{event.name}}"></Label>
-                                        <Label text="{{event.type}}"></Label>
-                                </StackLayout>
-                                <Button text="Open" (tap)="openEvent(event.id)"></Button>
-                        </StackLayout>
-
-                        <Label text="------Public Events------" horizontalAlignment="center"></Label>
-                        <StackLayout *ngFor="let event of publicEvents" orientation="horizontal">
-                                <StackLayout>
-                                        <Label text="{{event.id}}"></Label>
-                                        <Label text="{{event.name}}"></Label>
-                                </StackLayout>
-                                <Button text="join" id="{{event.id}}" (tap)="joinEvent(event.id)"></Button>
-                        </StackLayout>
-                </StackLayout>
-        </ScrollView>
 </GridLayout>

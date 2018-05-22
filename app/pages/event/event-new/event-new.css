@@ -1,0 +1,10 @@
+TextField {
+    width: 70%;
+    height: 100px;
+    padding: 5px;
+    margin: 10px;
+}
+
+StackLayout {
+    margin-top: 150px;
+}

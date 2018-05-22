@@ -1,5 +1,5 @@
-import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { platformNativeScriptDynamic } from "nativescript-angular";
+import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { NgModule } from "@angular/core";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptHttpModule } from "nativescript-angular/http";
@@ -7,6 +7,7 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 
 import { AppComponent } from "./app.component";
 import { routes, navigatableComponents } from "./app.routing";
+import { ActivatedRoute } from "@angular/router";
 
 import firebase = require("nativescript-plugin-firebase");
 import { Data } from "./shared/Data";

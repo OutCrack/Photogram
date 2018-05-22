@@ -1,6 +1,9 @@
-import { Photo } from "../shared/Photo";
-import { Server } from "../shared/Server/Server";
-
+/**
+ * 
+ * 
+ * @export
+ * @class Event
+ */
 export class Event {
     id: number;
     name: string;
@@ -10,15 +13,30 @@ export class Event {
     privacy: string;
     photo_url: string;
     role: string;
-    photos: Array<Photo>;
-    server = new Server();
 
-    constructor(id: number, name: string, role: string, description: string, type: string) {
+    /**
+     * Creates an instance of Event.
+     * @param {number} id 
+     * @param {string} name 
+     * @param {string} role 
+     * @param {string} description 
+     * @param {string} type 
+     * @param {string} privacy 
+     * @param {string} photo_url 
+     * @memberof Event
+     */
+    constructor(id: number, name: string, role: string, description: string, type: string, privacy: string, photo_url: string) {
         this.id = id;
         this.name = name;
         this.role = role;
         this.description = description;
         this.type = type;
+        this.privacy = privacy;
+        if (type.toLowerCase() == "wedding") {
+            this.photo_url = "http://sergphoto.com:8000/uploads/events/wedding.jpeg";
+        } else {
+            this.photo_url = "http://sergphoto.com:8000/uploads/events/party.jpeg";
+        }
     }
 
 

@@ -11,6 +11,12 @@ var http = require("http");
 var layout = require("ui/layouts/grid-layout");
 const firebase = require("nativescript-plugin-firebase");
 
+/**
+ * 
+ * 
+ * @export
+ * @class ProfileComponent
+ */
 @Component({
     selector: "profile-tab",
     templateUrl: "./pages/tabs/profile/profile.tab.html",
@@ -31,18 +37,21 @@ export class ProfileComponent {
     public id: any;
     public profile: boolean;
     public photos: boolean;
-    public selectedPhoto: string;
-    site: string = "http://188.166.127.207:5555/api.php/";
-    public myPhotos: Array<Photo>;
-    public photoUrl: string;
-    public photoCreated: string;
     public editing: boolean;
     public newData: any;
     public server: Server;
     public item: any;
     public hasAvatar: boolean;
+    public isMale: boolean;
     
 
+    /**
+     * Creates an instance of ProfileComponent.
+     * @param {Router} router 
+     * @param {Data} data 
+     * @param {ChangeDetectorRef} _changeDetectionRef 
+     * @memberof ProfileComponent
+     */
     constructor(private router: Router, private data: Data, private _changeDetectionRef: ChangeDetectorRef) {
         this.firstName = this.data.storage["firstName"];
         this.lastName = this.data.storage["lastName"];
@@ -51,6 +60,7 @@ export class ProfileComponent {
         this.profession = this.data.storage["profession"];
         this.location = this.data.storage["location"];
         this.gender = this.data.storage["gender"];
+        this.isMale = this.data.storage["gender"].toLowerCase() == "male" ? true : false;
         this.avatar = "http://188.166.127.207:8000/uploads/avatars/" + this.data.storage["avatar"];
         this.birthDate = this.data.storage["dob"];
         this.hobby = this.data.storage["hobby"];
@@ -68,6 +78,11 @@ export class ProfileComponent {
         this.checkAvatar();
     }
 
+    /**
+     * 
+     * 
+     * @memberof ProfileComponent
+     */
     checkAvatar() {
         if (this.data.storage["avatar"] == "default-avatar.png") {
             this.hasAvatar = false;
@@ -76,13 +91,29 @@ export class ProfileComponent {
         }
     }
 
+    /**
+     * 
+     * 
+     * @memberof ProfileComponent
+     */
     editData() {
         this.editing = true;
     }
+
+    /**
+     * 
+     * 
+     * @memberof ProfileComponent
+     */
     cancel() { 
         this.editing = false;
     }
 
+    /**
+     * 
+     * 
+     * @memberof ProfileComponent
+     */
     changePhoto() {
         if (this.data.storage["avatar"] == "default-avatar.png") {
             this.openGallery();
@@ -94,34 +125,38 @@ export class ProfileComponent {
         this.checkAvatar();
     }
 
+    /**
+     * 
+     * 
+     * @memberof ProfileComponent
+     */
     openGallery() {
         this.id = this.data.storage["id"];
-        //console.log(this.getTimeStamp());
-        //console.log("Id " + this.id);
         let context = imagepicker.create({
             mode: "single" 
         });
         this.startSelecting(context);
     }
 
+    /**
+     * 
+     * 
+     * @private
+     * @param {any} context 
+     * @memberof ProfileComponent
+     */
     private startSelecting(context) {
         let _that = this;
-        console.log("in Gallery constructor");
         context
             .authorize() 
             .then(function() {
-                //_that.items = [];
                 return context.present();
             })
             .then((selection) => {
                 selection.forEach(function(selected) {
-                    console.log("----------------");
-                    console.log("uri: " + selected.uri);
-                    console.log("fileUri: " + selected.fileUri);
                     _that.uploadPhoto(selected.fileUri).then(() => {
                         _that.hasAvatar = true;
                     });
-                    //this is not file name - must relog to see the changes
                 }
             ); 
                 _that.item = selection;
@@ -131,6 +166,13 @@ export class ProfileComponent {
             })
     }
 
+    /**
+     * 
+     * 
+     * @param {string} fileUri 
+     * @returns 
+     * @memberof ProfileComponent
+     */
     uploadPhoto(fileUri: string) {
         return new Promise((resolve, reject) => {
             this.server.uploadProfilPhoto(fileUri, this.data.storage["id"]).then((fileName) => {
@@ -141,23 +183,44 @@ export class ProfileComponent {
         });
     }
 
+    /**
+     * 
+     * 
+     * @returns 
+     * @memberof ProfileComponent
+     */
     deletePhoto() {
         return new Promise((resolve, reject) => {
-            console.log("Deleting photo " + this.data.storage["id"] + this.data.storage["avatar"]);
-            this.server.deletePhoto(this.data.storage["id"], this.data.storage["avatar"], "avatar", 0);
+            this.server.deletePhoto(this.data.storage["id"], this.data.storage["avatar"], "avatar", 0, null, null);
             this.data.storage["avatar"] = "default-avatar.png";
             this.avatar = "http://188.166.127.207:8000/uploads/avatars/" + "default-avatar.png";
             this.hasAvatar = false;
             resolve();
         });
     }
+
+    /**
+     * 
+     * 
+     * @memberof ProfileComponent
+     */
+    changeGender() {
+        if (this.isMale) {
+            this.newData.gender = "Female";
+            this.isMale = false;
+        } else {
+            this.newData.gender = "Male";
+            this.isMale = true;
+        }
+    }
     
+    /**
+     * 
+     * 
+     * @memberof ProfileComponent
+     */
     saveData() {
-        console.log(this.firstName);
-        console.log(this.lastName);
         if (this.newData.first && this.newData.last) {
-            console.log("OK");
-            console.log(this.newData.first + " " + this.newData.last);
             this.firstName = this.newData.first;
             this.lastName = this.newData.last;
             this.gender = this.newData.gender;
@@ -171,13 +234,6 @@ export class ProfileComponent {
         } else {
             alert("Fields first and last name can't be empty");
         }
-    }
-    //logs out from both Google+ and Facebook accounts
-    logout() {
-        var router = this.router;
-        this.data.storage = {};
-        firebase.logout();
-        router.navigate([""]);
     }
 
 }
