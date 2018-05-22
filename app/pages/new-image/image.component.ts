@@ -118,13 +118,6 @@ export class ImageComponent {
                 console.log(e);
             })
     }
-
-    public test() {
-        console.log("SOURCE" + JSON.stringify(this.source));
-        console.log("XxXXXXXXXXXXXXXXXXX");
-        console.log("XxXXXXXXXXXXXXXXXXX");
-        console.log("XxXXXXXXXXXXXXXXXXX");
-    }
     
     public uploadPicture() {
         var promise = new Promise((resolve, reject) => {
