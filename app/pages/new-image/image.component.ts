@@ -12,15 +12,19 @@ import { ImageSource } from "tns-core-modules/image-source/image-source";
 import { ActivatedRoute, Router } from "@angular/router";
 import { RouterExtensions } from "nativescript-angular";
 const imageSourceModule = require("tns-core-modules/image-source");
-var bghttp = require("nativescript-background-http");
-var session = bghttp.session("image-upload");
-var http = require("http");
+var plugin = require("nativescript-screenshot");
+var image = require("ui/image");
+//var bghttp = require("nativescript-background-http");
+//var session = bghttp.session("image-upload");
+//var http = require("http");
+var stackLayout, photo;
 
 @Component({
     selector: "imageview",
-    templateUrl: "./pages/new-image/image.xml",
+    templateUrl: "./pages/new-image/image.html",
     styleUrls: ["./pages/new-image/image.css" ]
 })
+
 
 
 
@@ -38,25 +42,26 @@ export class ImageComponent {
     public eventId;
     public eventPrivacy;
 
-    public constructor(private routerExtensions: RouterExtensions, private data: Data, private _changeDetectionRef: ChangeDetectorRef, private route: ActivatedRoute) {
+    public constructor(private routerExtensions: RouterExtensions, private data: Data, 
+        private _changeDetectionRef: ChangeDetectorRef, private route: ActivatedRoute) {
+
         this.server = new Server();
         this.pictureSelected = false;
         this.route.queryParams.subscribe(params => {
-            alert("IM IPIcture view " + JSON.stringify(params));
             this.eventId = params["eventId"];
             this.albumId = params["albumId"];
             this.eventPrivacy = params["eventPrivacy"];
         })
-        console.log("The album id is " + this.albumId);
-        if (this.albumId == null) {
-            console.log("ISSSS NUUUUUL");
-        } 
-        this.picture = "https://placehold.it/";
+        //this.picture = "https://placehold.it";
         this.items = [];
         this.details = [];
     }
 
-    //fix uploading for ios
+    stackLoaded = function(args) {
+        stackLayout = args.object;
+        photo = stackLayout.getElementById("picture");
+     }
+
     public takePicture() {
         camera.requestPermissions();
         camera.takePicture().then(picture => {
@@ -66,24 +71,26 @@ export class ImageComponent {
                 this.source = picture["_android"]; 
             }
             else {
-                this.source = picture["_ios"];
-                /*var imageSource = new ImageSource.fromAsset(picture);
-                var folder = fs.knownFolders.documents().path;
-                var path = fs.path.join(folder, "Photo.png");
-                var saved = imageSource.saveToFile(path, "png");
-                console.log("Saved? " + saved);
-                this.source = folder + "/Photo.png"
-                var path: string = (picture["_ios"]).toString();
-                console.log(path);
-                this.source = picture
-                console.log("SOURCE" + JSON.stringify(this.source));*/
+                var promise = new Promise((resolve, reject)=> {
+                    var img = new image.Image();
+                    var imageSource = plugin.getImage(photo);
+                    img.imageSource = imageSource;
+                    var folder = fs.knownFolders.documents().path;
+                    var path = fs.path.join(folder, "Photo.png");
+                    var saved = imageSource.saveToFile(path, "png");
+                    console.log("Saved?" + saved);
+                    resolve(folder + "/Photo.png");
+                    });
+                    promise.then((file) => {
+                        var path: string = JSON.stringify(file);
+                        this.source = path.slice(1, path.length - 1);
+                    });  
             }   
         });  
     }
 
     chooseFromFile() {
         this.id = this.data.storage["id"];
-        console.log("Id " + this.id);
         let context = imagepicker.create({
             mode: "single" //"multiple"
         });
@@ -92,7 +99,6 @@ export class ImageComponent {
 
     private startSelecting(context) {
         let _that = this;
-        console.log("in Gallery constructor");
         context
             .authorize() 
             .then(function() {
@@ -101,12 +107,8 @@ export class ImageComponent {
             })
             .then((selection) => {
                 selection.forEach(function(selected) {
-                    console.log("----------------");
-                    console.log("uri: " + selected.uri);
-                    console.log("fileUri: " + selected.fileUri);
                     _that.picture = selected
                     _that.source = selected.fileUri;
-                    //_that.server.uploadPhoto(selected.fileUri, this.id);
                 }
             ); 
                 _that.items = selection;
@@ -116,6 +118,13 @@ export class ImageComponent {
                 console.log(e);
             })
     }
+
+    public test() {
+        console.log("SOURCE" + JSON.stringify(this.source));
+        console.log("XxXXXXXXXXXXXXXXXXX");
+        console.log("XxXXXXXXXXXXXXXXXXX");
+        console.log("XxXXXXXXXXXXXXXXXXX");
+    }
     
     public uploadPicture() {
         var promise = new Promise((resolve, reject) => {
@@ -123,24 +132,24 @@ export class ImageComponent {
                 this.server.getAlbumName(this.albumId).then((res) => {
                     var name = JSON.stringify(res);
                     var albumName = name.slice(1, name.length - 1);
-                    console.log("Album " + albumName);
-                    console.log("Uploading " + this.source + " user id " + this.data.storage["id"]);
                     this.server.getAlbumRights(this.albumId).then(() => {
-                        this.server.uploadPhoto(this.source, this.data.storage["id"], this.albumId, albumName, "Public", this.details.description, this.details.location);
+                        this.server.uploadPhoto(this.source, this.data.storage["id"], this.albumId, 
+                        albumName, "Public", this.details.description, this.details.location);
                     }).catch(() => {
-                        this.server.uploadPhoto(this.source, this.data.storage["id"], this.albumId, albumName, "Private", this.details.description, this.details.location);
+                        this.server.uploadPhoto(this.source, this.data.storage["id"], this.albumId, 
+                        albumName, "Private", this.details.description, this.details.location);
                     })
                 }).catch(() => {
                     var albumName = this.data.storage["firstName"] + "'s album";
                     this.server.getFeedId(this.data.storage["id"]).then((r) => {
-                        console.log("Album name to upload " + albumName);
-                        console.log("The album id is " + JSON.stringify(r));
-                        this.server.uploadPhoto(this.source, this.data.storage["id"], parseInt(JSON.stringify(r)), albumName, "Public", this.details.description, this.details.location);
+                        this.server.uploadPhoto(this.source, this.data.storage["id"], 
+                        parseInt(JSON.stringify(r)), albumName, "Public", this.details.description, this.details.location);
                     })
                     
                 })}
                 else {
-                    this.server.uploadEventPhoto(this.source, this.data.storage["id"], this.eventId, this.eventPrivacy, this.details.description, this.details.location);
+                    this.server.uploadEventPhoto(this.source, this.data.storage["id"], this.eventId, 
+                    this.eventPrivacy, this.details.description, this.details.location);
                 }
                 resolve();
         })

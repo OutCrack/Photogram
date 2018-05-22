@@ -40,10 +40,8 @@ export class EventViewComponent {
         this.pictures = true;
         this.server.getEventOwner(this.eventId).then((res) => {
             this.eventOwner = res;
-            alert("Event owner is " + this.eventOwner);
         }).catch(() => {
             this.eventOwner = 0;
-            alert("Event owner is " + this.eventOwner);
         })
         }
 
@@ -55,7 +53,6 @@ export class EventViewComponent {
         this.participants = [];
         this.searchList = [];
         this.route.queryParams.subscribe(params => {
-            console.log("IM IN EVENTVIEW " + JSON.stringify(params));
             this.eventId = params["id"];
             this.eventName = params["name"];
             this.role = params["role"];
@@ -93,7 +90,6 @@ export class EventViewComponent {
 
             }
         });
-        //delete all users from db
     }
 
     leaveEvent() {
@@ -166,7 +162,6 @@ export class EventViewComponent {
     }
 
     inviteUser(userId: number) {
-        console.log("You are inviting " + userId);
         if (this.participants.find(i => i.id === userId) == null) {
             this.server.joinEvent(this.eventId, userId, "Invited");
             alert("Invitation sent");
@@ -204,7 +199,7 @@ export class EventViewComponent {
                 "eventOwner" : this.eventOwner,
                 "eventId" : this.eventId,
                 "description" : selectedPhoto.description,
-                "ownerName" : selectedPhoto.user.firstN + " " + selectedPhoto.user.lastN,
+                "ownerName" : selectedPhoto.userName,
                 "fileName" : selectedPhoto.fileName,
                 "albumPath" : selectedPhoto.albumPath
             }

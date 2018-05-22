@@ -10,7 +10,6 @@
                 <Button *ngIf="editing" text="change" (tap)="changePhoto()"></Button>
             </StackLayout>
             <GridLayout columns="auto, 80, *" rows="40, 40, 40, 40, 40, 40. 40, 40, 40" *ngIf="!editing">
-                <!--<Label text="Name: " col="0" row="0"></Label><Label text="{{firstName}}" col="1" row="0"></Label><Label text="{{lastName}}" col="2" row="0"></Label>-->
                 <Label text="Email address: " col="0" row="1"></Label><Label text="{{email}}" col="1" row="1" colSpan="2"></Label>
                 <Label text="Gender: " col="0" row="2"></Label><Label text ="{{gender}}" col="1" row="2" colSpan="2"></Label>
                 <Label text="Birth date: " col="0" row="3"></Label><Label text="{{birthDate}}" col="1" row="3" colSpan="2"></Label>
@@ -22,7 +21,7 @@
             <GridLayout columns="auto, 120, *" rows="40, 40, 40, 40, 40, 40. 40, 40, 40" *ngIf="editing">
                 <Label text="Name: " col="0" row="0"></Label><TextField [(ngModel)] = "newData.first" col="1" row="0"></TextField><TextField [(ngModel)] = "newData.last" col="2" row="0"></TextField>
                 <Label text="Email address: " col="0" row="1"></Label><Label text="{{email}}" col="1" row="1" colSpan="2"></Label>
-                <Label text="Gender: " col="0" row="2"></Label><TextField [(ngModel)] = "newData.gender" col="1" row="2" colSpan="2"></TextField>
+                <Label text="Gender: " col="0" row="2"></Label><Button text="{{newData.gender}}" (tap)="changeGender()" col="1" row="2" colSpan="2" id="gender_btn"></Button>
                 <Label text="Birth date: " col="0" row="3"></Label><TextField [(ngModel)] = "newData.bdate" col="1" row="3" colSpan="2"></TextField>
                 <Label text="Location: " col="0" row="4"></Label><TextField [(ngModel)] = "newData.location" col="1" row="4" colSpan="2"></TextField>
                 <Label text="Hobby:" col="0" row="5"></Label><TextField [(ngModel)] = "newData.hobby" col="1" row="5" colSpan="2"></TextField>

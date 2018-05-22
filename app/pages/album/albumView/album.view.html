@@ -3,6 +3,7 @@
     <ActionItem (tap)="onDeleteAlbum()" ios.systemIcon="16" ios.position="right" android.systemIcon="ic_menu_delete"></ActionItem>
 </ActionBar>
 
+<ScrollView>
 <StackLayout (loaded)="stackLoaded($event)">
     <WrapLayout>
         <StackLayout *ngFor="let photo of albumPhotos" class="photo" (tap)="selectPhoto(photo.id)">
@@ -12,3 +13,4 @@
         </StackLayout>
     </WrapLayout>
 </StackLayout>
+</ScrollView>

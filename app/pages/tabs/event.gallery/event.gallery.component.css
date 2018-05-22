@@ -1,6 +1,6 @@
 #eventList {
     margin-left: 30px;
-    width: 25%;
+    width: 35%;
     align-content: center;
     margin-bottom: 30px;
 }
@@ -33,4 +33,9 @@ Label {
     font-style: italic;
     font-size: 14px;
     text-align: center;
+}
+
+.event {
+    padding: 5px;
+    margin: 10px;
 }

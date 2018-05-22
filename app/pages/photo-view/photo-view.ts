@@ -31,7 +31,9 @@ export class PhotoViewComponent {
     public canDelete: boolean;
     public eventId: number;
 
-    constructor(private routerExtensions: RouterExtensions  ,private data: Data, private route: ActivatedRoute, private _changeDetectionRef: ChangeDetectorRef) {
+    constructor(private routerExtensions: RouterExtensions  ,private data: Data, private route: ActivatedRoute, 
+        private _changeDetectionRef: ChangeDetectorRef) {
+
         this.server = new Server();
         this.route.queryParams.subscribe(params => {
             this.photoId = params["photoId"];
@@ -62,13 +64,7 @@ export class PhotoViewComponent {
     }
 
     stackLoaded = function(args) {
-        console.log("Stack Loaded");
         this.comments = this.server.getComments(this.photoId, this.data.storage["id"], this.photoOwner, this.eventOwner);
-    }
-
-    test() {
-        console.log("URL " + this.albumPath);
-        alert("My id is " + this.data.storage["id"] + " owner " + this.photoOwner + " " + this.canDelete);
     }
 
     updateLikes() {
@@ -90,7 +86,8 @@ export class PhotoViewComponent {
     addComment(result) {
         this.add(result.text).then(() => {
             dialogs.alert("Comment added").then(() => {
-                this.comments = this.server.getComments(this.photoId, this.data.storage["id"], this.photoOwner, this.eventOwner);
+                this.comments = this.server.getComments(this.photoId, this.data.storage["id"], 
+                this.photoOwner, this.eventOwner);
             })
         }).catch(() => {
             alert("Cannot insert empty comment");
@@ -100,40 +97,38 @@ export class PhotoViewComponent {
 
     private add(text: string) {
         return new Promise((resolve, reject)=> {
-            console.log("Comment " + text);
             if (text.length < 1) {
                 reject();
             } else {
                 this.server.updateComment(this.photoId, this.data.storage["id"], text).then(() => {
                 resolve();
+            }).catch(() => {
+                reject();
             });
-            //var comment = new Comment(commentId, this.data.storage["id"], result.text, true); 
         }
     }) }
 
     removeComment(commentId: number) {
         dialogs.confirm({
-            title: "Are you sure?",
+            title: "Are you sure you want to remove that comment?",
             okButtonText: "Yes",
             cancelButtonText: "Cancel"
         }).then(result => {
             if(result) {
                 this.remove(commentId).then(() => {
                     dialogs.alert("Comment successfully removed").then(() => {
-                        this.comments = this.server.getComments(this.photoId, this.data.storage["id"], this.photoOwner, this.eventOwner);
+                        this.comments = this.server.getComments(this.photoId, this.data.storage["id"], 
+                        this.photoOwner, this.eventOwner);
                     })
                 })
             }
         })
-        this.comments = this.server.getComments(this.photoId, this.data.storage["id"], this.photoOwner, this.eventOwner);
     }
 
-    remove(commentId: number) {
+    private remove(commentId: number) {
         return new Promise((resolve, reject) => {
-            console.log("You click comment id " + commentId);
             this.server.removeComment(commentId).then(() => {
                 resolve();
-                
             }).catch(() => {
                 alert("Something went wrong. Try again");
             });
@@ -141,7 +136,6 @@ export class PhotoViewComponent {
     }
 
     onDeletePhoto() {
-        console.log("Deleting photo " + this.fileName);
         var type;
         if (this.eventOwner == null) {
             type = "photo";
@@ -154,7 +148,8 @@ export class PhotoViewComponent {
             cancelButtonText: "Cancel"
         }).then(result => {
             if (result) {
-                this.server.deletePhoto(this.data.storage["id"], this.fileName, type, this.photoId, this.albumPath, this.eventId);
+                this.server.deletePhoto(this.data.storage["id"], this.fileName, type, this.photoId, 
+                this.albumPath, this.eventId);
                 dialogs.alert("Photo deleted").then(()=> {
                     this.routerExtensions.back();
                 })
@@ -162,5 +157,3 @@ export class PhotoViewComponent {
         }); 
     }
 }
-
-//this.comments = this.server.getComments(this.photoId, this.data.storage["id"], this.photoOwner, this.eventOwner);

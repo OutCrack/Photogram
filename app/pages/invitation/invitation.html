@@ -6,27 +6,10 @@
     
 </ActionBar>
 <StackLayout (loaded)="stackLoaded($event)">   
-    <!--<StackLayout id="style_panel"> 
-        <Label text="rotate your phone for full screen"></Label>
-        <StackLayout orientation="horizontal">
-            <Label text="background color: "></Label>
-            <Button class="color_btn" style="background-color: white" (tap)="changeBackground('white')"></Button>
-            <Button class="color_btn" style="background-color: black" (tap)="changeBackground('black')"></Button>
-            <Button class="color_btn" style="background-color: goldenrod" (tap)="changeBackground('golden')"></Button>
-            <Button class="color_btn" style="background-color: palevioletred" (tap)="changeBackground('pink')"></Button>
-        </StackLayout>
-        <StackLayout orientation="horizontal">
-                <Label text="font"></Label>
-                <Button class="font1" text="style" (tap)="changeFont('font1')"></Button>
-                <Button class="font2" text="style"  (tap)="changeFont('font2')"></Button>
-                <Button class="font3" text="style"  (tap)="changeFont('font3')"></Button>
-                <Button class="font4" text="style"  (tap)="changeFont('font4')"></Button>
-            </StackLayout>
-    </StackLayout>-->
     <StackLayout [class]="bodyColor" id="body">
         <StackLayout [class]="fontColor">
             <StackLayout [class]= "fontStyle">
-            <Label id="title" text="Invitation"></Label>
+            <TextField [class]="fontColor" id="title" text="Invitation" cols="50" rows="10" ></TextField>
             <TextField [class]="fontColor" text="Your text" cols="50" rows="10" ></TextField>
             <TextField [class]="fontColor"  cols="50" rows="10" ></TextField>
             <TextField [class]="fontColor" cols="50" rows="10" ></TextField>

@@ -43,7 +43,7 @@ export class AlbumViewComponent {
                 "eventOwner" : null,
                 "eventId" : null,
                 "description" : selectedPhoto.description,
-                "ownerName" : selectedPhoto.user.firstN + " " + selectedPhoto.user.lastN,
+                "ownerName" : selectedPhoto.userName,
                 "fileName" : selectedPhoto.fileName,
                 "albumPath" : selectedPhoto.albumPath
             }
@@ -67,7 +67,6 @@ export class AlbumViewComponent {
     }
 
     onCamera() {
-        console.log("Camera tapped.");
         var navigationExtras = {
             queryParams: {
                 "albumId" : this.albumId

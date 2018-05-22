@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit{
   userData: any;
   userCreated = false;
   signingUp = false;
-  @ViewChild("container") container: ElementRef;
+  //@ViewChild("container") container: ElementRef;
   site: string = "http://188.166.127.207:5555/api.php/";
   userId: any;
   server: Server;
@@ -50,7 +50,6 @@ export class LoginComponent implements OnInit{
       .then(
         () => {
           this.findUser();
-          console.log("Logged inn");
         })
       .catch(error => alert(error));
     }
@@ -66,11 +65,9 @@ export class LoginComponent implements OnInit{
         }
       }).then(
         function(fb_result) {
-          console.log("Facebook login succeded");
           that.findUser();
         },
         function(err) {
-          console.log("Error logging to Facebook" + err);
           alert("Login unsuccessfull " + err);
         }
       );
@@ -84,7 +81,6 @@ export class LoginComponent implements OnInit{
     }).then(
       function (result) {
         JSON.stringify(result);
-        console.log("Google login succeded");
         that.findUser();
     },
     function(err) {
@@ -195,8 +191,7 @@ export class LoginComponent implements OnInit{
         
     })
     
-    .catch(error => console.error(error));
-    console.log("Users id " + this.userId);   
+    .catch(error => console.error(error)); 
 }
 
 cancel() {

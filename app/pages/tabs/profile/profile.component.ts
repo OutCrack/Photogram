@@ -31,16 +31,12 @@ export class ProfileComponent {
     public id: any;
     public profile: boolean;
     public photos: boolean;
-    public selectedPhoto: string;
-    site: string = "http://188.166.127.207:5555/api.php/";
-    public myPhotos: Array<Photo>;
-    public photoUrl: string;
-    public photoCreated: string;
     public editing: boolean;
     public newData: any;
     public server: Server;
     public item: any;
     public hasAvatar: boolean;
+    public isMale: boolean;
     
 
     constructor(private router: Router, private data: Data, private _changeDetectionRef: ChangeDetectorRef) {
@@ -51,6 +47,7 @@ export class ProfileComponent {
         this.profession = this.data.storage["profession"];
         this.location = this.data.storage["location"];
         this.gender = this.data.storage["gender"];
+        this.isMale = this.data.storage["gender"].toLowerCase() == "male" ? true : false;
         this.avatar = "http://188.166.127.207:8000/uploads/avatars/" + this.data.storage["avatar"];
         this.birthDate = this.data.storage["dob"];
         this.hobby = this.data.storage["hobby"];
@@ -96,8 +93,6 @@ export class ProfileComponent {
 
     openGallery() {
         this.id = this.data.storage["id"];
-        //console.log(this.getTimeStamp());
-        //console.log("Id " + this.id);
         let context = imagepicker.create({
             mode: "single" 
         });
@@ -106,22 +101,16 @@ export class ProfileComponent {
 
     private startSelecting(context) {
         let _that = this;
-        console.log("in Gallery constructor");
         context
             .authorize() 
             .then(function() {
-                //_that.items = [];
                 return context.present();
             })
             .then((selection) => {
                 selection.forEach(function(selected) {
-                    console.log("----------------");
-                    console.log("uri: " + selected.uri);
-                    console.log("fileUri: " + selected.fileUri);
                     _that.uploadPhoto(selected.fileUri).then(() => {
                         _that.hasAvatar = true;
                     });
-                    //this is not file name - must relog to see the changes
                 }
             ); 
                 _that.item = selection;
@@ -143,7 +132,6 @@ export class ProfileComponent {
 
     deletePhoto() {
         return new Promise((resolve, reject) => {
-            console.log("Deleting photo " + this.data.storage["id"] + this.data.storage["avatar"]);
             this.server.deletePhoto(this.data.storage["id"], this.data.storage["avatar"], "avatar", 0, null, null);
             this.data.storage["avatar"] = "default-avatar.png";
             this.avatar = "http://188.166.127.207:8000/uploads/avatars/" + "default-avatar.png";
@@ -151,13 +139,19 @@ export class ProfileComponent {
             resolve();
         });
     }
+
+    changeGender() {
+        if (this.isMale) {
+            this.newData.gender = "Female";
+            this.isMale = false;
+        } else {
+            this.newData.gender = "Male";
+            this.isMale = true;
+        }
+    }
     
     saveData() {
-        console.log(this.firstName);
-        console.log(this.lastName);
         if (this.newData.first && this.newData.last) {
-            console.log("OK");
-            console.log(this.newData.first + " " + this.newData.last);
             this.firstName = this.newData.first;
             this.lastName = this.newData.last;
             this.gender = this.newData.gender;
@@ -172,6 +166,5 @@ export class ProfileComponent {
             alert("Fields first and last name can't be empty");
         }
     }
-    //logs out from both Google+ and Facebook accounts
 
 }

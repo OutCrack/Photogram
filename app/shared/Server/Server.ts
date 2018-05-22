@@ -11,9 +11,26 @@ var http = require("http");
 export class Server {
 
     db: string = "http://188.166.127.207:5555/api.php/";
+    dbDelete = "http://188.166.127.207:8889/ServerDel.js";
+    dbUpload = "http://188.166.127.207:8888/Server.js";
 
     constructor() {
         
+    }
+
+    getAlbumForFeedPhotos(userId: number) {
+        return new Promise((resolve, reject) => {
+            var query = this.db + "albums?transform=1&filter[]=album_Description,eq,Album%20for%20feed%20photos&filter[]=user_Id,eq," + userId;
+            http.getJSON(query).then((r) => {
+                if (r.albums.length > 0) {
+                    resolve(r.albums[0].album_Id);
+                } else {
+                    reject();
+                }
+            })
+        })
+        
+
     }
 
     getPublicPhotos() {
@@ -21,11 +38,9 @@ export class Server {
         //get all public photos that are max 2 days old
         var limitDate: string = getLimitDate();
         var query: string = this.db + "files?transform=1&filter[]=file_Permission,eq,public&filter[]=album_Id,not,null&filter[]=created_at,gt," + limitDate + "&order=created_at,desc";
-        console.log("LIMIT DATE IN QUERY " + query);
         http.getJSON(query)
             .then((r) => {
                 for (var i = 0; i < r.files.length; i++) {
-                    console.log("album id " + r.files[i].album_Id);
                     photos.push(
                         new Photo(
                             r.files[i].file_Id,
@@ -46,9 +61,7 @@ export class Server {
         //get string that represents the day before yesterday
         function getLimitDate() {
             var date = new Date();
-            console.log("Date is " + date.toDateString());
-            date.setDate(date.getDate() - 2); //Antall dager gamle bilder som skal vises
-            console.log("Date new date is " + date.toDateString());
+            date.setDate(date.getDate() - 2); //2 for ma 2-day old pictures should show
             var dateString = date.getFullYear() + "-";
             var month: number = date.getMonth() + 1;
             if (month < 10) {
@@ -57,13 +70,11 @@ export class Server {
                 dateString += date.getMonth();
             }
             dateString += "-";
-            console.log("Day " + date.getDate())
             if (date.getDay() < 10) {
                 dateString += "0" + date.getDate();
             } else {
                 dateString += date.getDate();
             }
-            console.log("The date " + dateString);
             return dateString;
         }
 
@@ -72,27 +83,17 @@ export class Server {
     }
 
     getMyEvents(id: number, role: string) {
-        console.log("+++++++++++++++++++++++++++++");
-        console.log("+++++++++++++++++++++++++++++");
-        console.log("+++++++++++++++++++++++++++++");
-        console.log("+++++++++++++++++++++++++++++");
-        console.log("Searching for events " + id + " " + role);
         var myEvents: Array<Event> = [];
         var query: string = this.db + "participants?transform=1&filter[]=user_Id,eq," + id + "&filter[]=participant_Role,eq," + role;
-        console.log("QUERY for events " + query);
         myEvents = [];
         http.getJSON(query)
         .then((r) => {
             //testing
             for (let i = 0; i < r.participants.length; i++) {
-                console.log("Event id" + r.participants[i].event_Id);
                 var queryEvents: string = this.db + "events?transform=1&filter=event_Id,eq," + r.participants[i].event_Id;
-                console.log("query " + queryEvents);
                 http.getJSON(queryEvents)
                 .then((res) => {
-                    console.log(JSON.stringify(res));
-                    console.log("Descritpion " + res.events[0].event_Description);
-                    console.log("Type " + res.events[0].event_Type);
+
                     myEvents.push(
                         new Event(
                             res.events[0].event_Id,
@@ -113,14 +114,8 @@ export class Server {
     }
 
     getComments(photoId: number, userId: number, photoOwner: number, eventOwner: number) {
-        console.log("Getting comments for id " + photoId);
-        console.log("my id " + userId);
-        console.log("owner id " + photoOwner);
-        console.log("event owner " + eventOwner);
-
         var comments: Array<Comment> = [];
         var query: string = this.db + "comments?transform=1&filter=file_Id,eq," + photoId;
-        console.log("The query " + query);
         http.getJSON(query).
         then((r) => {
             for (let i = 0; i < r.comments.length; i++) {
@@ -147,15 +142,21 @@ export class Server {
     }
 
     getUsername(id: number) {
-        var username: string;
-        var query = this.db + "users?transform=1&filter=user_Id,eq," + id;
-        http.getJSON(query)
-        .then((r) => {
-            username = r.users[0].first_Name + " " + r.users[0].last_Name;
-        }, function(e) {
-            console.log(e);
+        return new Promise((resolve, reject) => {
+            var username: string;
+            var query = this.db + "users?transform=1&filter=user_Id,eq," + id;
+            http.getJSON(query)
+                .then((r) => {
+                if (r.users.length == 0) {
+                    reject("User deleted");
+                } else {
+                    resolve(r.users[0].first_Name + " " + r.users[0].last_Name)
+                }
+            }, function(e) {
+                reject("User deleted");
+            })
         })
-        return username;
+        
     }
 
     updateComment(photoId: number, userId: number, text: string) {
@@ -169,9 +170,9 @@ export class Server {
                 comment_Text : text})
             }).then(function(response) {
             result = response.content.toJSON();
-            console.log(result);
             }, function(e) {
             console.log("Error occured " + e);
+            reject();
             });
             resolve(result);
             });
@@ -180,17 +181,14 @@ export class Server {
     getEventParticipants(id: number) {
         var participants: Array<User> = [];
         var query = this.db + "participants?transform=1&filter=event_Id,eq," + id;
-        console.log(query);
         http.getJSON(query)
         .then((r) => {
             for (let i = 0; i < r.participants.length; i++) {
                 var userQuery = this.db + "users?transform=1&filter=user_Id,eq," + r.participants[i].user_Id;
-                console.log("userQuery " + userQuery);
                 http.getJSON(userQuery)
                 .then((res) => {
                     var user: User = new User(r.participants[i].user_Id, res.users[0].first_Name, res.users[0].last_Name);
                     user.role = r.participants[i].participant_Role;
-                    console.log(JSON.stringify(user));
                     participants.push(user);
                 }, function(e) {
                     console.log(e);
@@ -205,18 +203,13 @@ export class Server {
     getPublicEvents(userId: number) {
         var publicEvents: Array<Event> = [];
         var query: string = this.db + "events?transform=1&filter=event_Privacy,eq,public"; 
-        console.log("QUERY for events " + query);
         publicEvents = [];
         http.getJSON(query)
         .then((r) => {
-            //testing
             for (let i = 0; i < r.events.length; i++) {
-                console.log("Event id" + r.events[i].event_Id);
                 var query2: string = this.db + "participants?transform=1&filter[]=event_Id,eq," + r.events[i].event_Id + "&filter[]=user_Id,eq," + userId;
-                console.log("query " + query2);
                 http.getJSON(query2)
                 .then((res) => {
-                    console.log(JSON.stringify(res));
                     //show only events that the user hasn't joined yet
                     if (res.participants.length == 0) {
                         publicEvents.push(
@@ -257,15 +250,10 @@ export class Server {
     return result;
     }
 
-    newEvent(userId: number, eventName: string, eventLocation: string, eventDescription: string, eventType: string, eventPrivacy: string){
+    newEvent(userId: number, eventName: string, eventLocation: string, eventDescription: string, 
+        eventType: string, eventPrivacy: string){
         return new Promise((resolve, reject) => {
             var result;
-            var default_Header;
-            if (eventType.toLowerCase() == "party") {
-                default_Header = "party-default.png";
-            } else {
-                default_Header = "wedding-default.png";
-            }
             var that = this;
             http.request({
                 url: this.db + "events",
@@ -277,18 +265,16 @@ export class Server {
                     event_Description : eventDescription,
                     event_Type : eventType,
                     event_Privacy : eventPrivacy,
-                    event_Header : default_Header
+                    event_Header : "default-avatar.png"
                     })
             }).then(function(response) {
                 result = response.content.toJSON();
-                console.log(result);
                 that.joinEvent(result, userId, "Admin");
                 resolve(result);
             }, function(e) {
                 console.log("Error occured " + e);
                 reject();
-            }
-    );
+            });
         })  
     }
 
@@ -301,7 +287,6 @@ export class Server {
                 content: JSON.stringify({ event_Id : eventId, user_Id : userId, participant_Role: role })
             }).then(function(response) {
                 result = response.content.toJSON();
-                console.log(result);
             }, function(e) {
                 console.log(e);
             })
@@ -310,23 +295,18 @@ export class Server {
     leaveEvent(eventId: number, userId: number) {
         var participId: number;
         var query = this.db + "participants?transform=1&filter[]=event_Id,eq," + eventId + "&filter[]=user_Id,eq," + userId;
-        console.log("DELETE " + userId + " FROM EVENT " + eventId);
-        console.log(query);
         http.getJSON(query)
         .then((r) => {
             if (r.participants == 0) {
                 return null;
             }
-            console.log("Will be deleting entry nr " + r.participants[0].participant_Id);
             var result;
             http.request({
             url: this.db + "participants/" + r.participants[0].participant_Id,
             method : "DELETE",
             headers : { "Content-Type" : "application/json" },
-            //where : JSON.stringify({ event_Id : eventId, user_Id : userId, participant_Role : "User" })
         }).then(function(response) {
             result = response.content.toJSON();
-            console.log(JSON.stringify(response));
         }, function(e) {
             console.log(e);
         });
@@ -346,7 +326,6 @@ export class Server {
             headers : { "Content-Type" : "application/json" },
         }).then(function(response) {
             result = response.content.toJSON();
-            console.log(JSON.stringify(response));
         }, function(e) {
             console.log(e);
             reject();
@@ -387,7 +366,6 @@ export class Server {
                 reject();
             } else {
                 var query = this.db + "albums?transform=1&filter=album_Id,eq," + albumId;
-                console.log("QUERY " + query);
                 http.getJSON(query).then((r) => {
                     resolve(r.albums[0].album_Name);
                 });
@@ -396,11 +374,12 @@ export class Server {
         
     }
 
-    uploadPhoto(fileUrl: string, id: number, albumId: number, albumName: string, permission: string, description: string, location: string) {
+    uploadPhoto(fileUrl: string, id: number, albumId: number, albumName: string, permission: string, 
+        description: string, location: string) {
         var fileName = this.getTimeStamp();
         var that = this;
         var request = {
-            url: "http://188.166.127.207:8888/Server.js",
+            url: this.dbUpload,
             method: "POST",
             headers: {
                 "Content-Type": "application/octet-stream",
@@ -423,8 +402,7 @@ export class Server {
             if (e.eventName == "complete") {
                 that.updateDb(fileName, id, "photo", albumId, permission, description, location);
                 alert("Upload complete");
-            }
-            console.log(e.eventName);       
+            } 
         }  
     }
 
@@ -442,11 +420,12 @@ export class Server {
 
     }
 
-    uploadEventPhoto(fileUrl: string, userId: number, eventId: number, privacy: string, description: string, location: string) {
+    uploadEventPhoto(fileUrl: string, userId: number, eventId: number, privacy: string, 
+        description: string, location: string) {
         var fileName = this.getTimeStamp();
         var that = this;
         var request = {
-            url: "http://188.166.127.207:8888/Server.js",
+            url: this.dbUpload,
             method: "POST",
             headers: {
                 "Content-Type": "application/octet-stream",
@@ -469,8 +448,7 @@ export class Server {
             if (e.eventName == "complete") {
                 that.updateDb(fileName, userId, "event", eventId, privacy, description, location);
                 alert("Upload complete");
-            }
-            console.log(e.eventName);       
+            }     
         }  
     }
 
@@ -502,57 +480,51 @@ export class Server {
                 _that.updateDb(fileName, id, "avatar", null, "Public", null, null);
                 alert("Upload complete");
             }
-            console.log(e.eventName);       
+     
         }  
 
         resolve ("img" + fileName + ".jpg");
         });
     }
 
-    private updateDb(fileName: string, id: number, type: string, albumId: number, permission: string, description: string, location: string) {
+    private updateDb(fileName: string, id: number, type: string, albumId: number, 
+        permission: string, description: string, location: string) {
         var result;
         var name = "img" + fileName + ".jpg";
-        console.log("The id " + id);
         if (type == "photo") {
             http.request({
-                url: "http://188.166.127.207:5555/api.php/files/",
+                url: this.db + "files/",
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                //put file url instead of just name
                 content: JSON.stringify({ user_Id : id, file_Name : name, album_Id : albumId, file_URL : name, 
                 file_Permission : permission, file_Description : description, file_Location : location })
             }).then(function(response) {
                 result = response.content.toJSON();
-                console.log(result);
             }, function(e) {
                 console.log("Error occured " + e);
             });
         }
         else if (type == "event") {
             http.request({
-                url: "http://188.166.127.207:5555/api.php/files/",
+                url: this.db + "files/",
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                //put file url instead of just name
                 content: JSON.stringify({ user_Id : id, file_Name : name, event_Id : albumId, file_URL : name, 
                 file_Permission : permission, file_Description : description, file_Location : location })
             }).then(function(response) {
                 result = response.content.toJSON();
-                console.log(result);
             }, function(e) {
                 console.log("Error occured " + e);
             });
         }
         else if (type == "avatar") {
             http.request({
-                url: "http://188.166.127.207:5555/api.php/users/" + id,
+                url: this.db + "users/" + id,
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                //put file url instead of just name
                 content: JSON.stringify({ avatar : "img" + fileName + ".jpg"}),
             }).then(function(response) {
                 result = response.content.toJSON();
-                console.log(result);
             }, function(e) {
                 console.log("Error occured " + e);
             });
@@ -568,7 +540,6 @@ export class Server {
         return string;
     }
 
-    //rfix removing from server - removes only from db
     public removePhoto(photoId: number) {
         return new Promise((resolve, reject) => {
         var result;
@@ -578,7 +549,6 @@ export class Server {
         headers : { "Content-Type" : "application/json" },
     }).then(function(response) {
         result = response.content.toJSON();
-        console.log(JSON.stringify(response));
     }, function(e) {
         console.log(e);
         reject();
@@ -588,9 +558,7 @@ export class Server {
 
     //returns promise with number of likes as a parameter
     public getLikes(photoId: number, userId: number) {
-        console.log("Getting likes for " + photoId + " and my user id is " + userId);
         var query = this.db + "reacts?transform=1&filter=file_Id,eq," + photoId;
-        console.log("Query " + query);
         return new Promise((resolve, reject) => {
             var likes = 0;
             http.getJSON(query).then((result) => {
@@ -598,36 +566,31 @@ export class Server {
                 likes++;
             }
             var query2 = this.db + "reacts?transform=1&filter[]=user_Id,eq," + userId + "&filter[]=file_Id,eq," + photoId;
-            console.log("Query 2 " + query2);
             http.getJSON(query2).then((res) => {
                 if (res.reacts.length > 0) {
-                    console.log("Resolving with " + likes + " likes");
                     resolve(likes);
                 } else {
-                    console.log("Rejecting with " + likes + " likes");
                     reject(likes)
                 }
             }), function(e) {
-                console.log("Error in query2 getLikes in Server" + e);
+                console.log(e)
             }
         }), function(e) {
-            console.log("Error in query1 getLikes in Server" + e);
+            console.log(e)
         }
         }); 
     }
 
     public updateLikes(photoId: number, userId: number, add: boolean) {
-        console.log("Updating likes for " + photoId + " userId " + userId + " Adding? " + add);
         var result;
         if (add) {
             http.request({
-                url: "http://188.166.127.207:5555/api.php/reacts/",
+                url: this.db + "reacts/",
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 content: JSON.stringify({ user_Id : userId, file_Id : photoId})
             }).then(function(response) {
                 result = response.content.toJSON();
-                console.log(result);
             }, function(e) {
                 console.log("Error occured " + e);
             });
@@ -662,7 +625,6 @@ export class Server {
             DOB: bDate, profession: profession, location: location, hobby: hobby})
         }).then(function(response) {
             result = response.content.toJSON();
-            console.log(result);
         }, function(e) {
             console.log("Error occured " + e);
         });
@@ -679,7 +641,7 @@ export class Server {
             pathToFile = fileName;
         }
         var request = {
-            url: "http://188.166.127.207:8889/ServerDel.js",
+            url: this.dbDelete,
             method: "POST",
             headers: {
                 "Content-Type": "application/octet-stream",
@@ -691,19 +653,16 @@ export class Server {
             description: "{ 'deleting': fileName }"
         };
         http.getJSON(request).then((response) => {
-            var status = response["status"];
-            console.log(status); //response is either OK or ERROR
+            var status = response["status"]; //response is either OK or ERROR
             if (status == "OK" && type == "avatar") {
                 var result;
                 http.request({
                 url: this.db + "users/" + userId,
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-            //put file url instead of just name
             content: JSON.stringify({ avatar: "default-avatar.png"})
             }).then(function(response) {
             result = response.content.toJSON();
-            console.log(result);
             }, function(e) {
             console.log("Error occured " + e);
             });
@@ -720,7 +679,6 @@ export class Server {
     private deleteComments(photoId: number) {
         console.log("Deleting comments for file " + photoId);
         var query = this.db + "comments?transform=1&filter=file_id,eq," + photoId;
-        console.log("QUERY in delete comments " + query);
         http.getJSON(query).then((result) => {
             for (var i = 0; i < result.comments.length; i++) {
                 http.request({
@@ -729,7 +687,6 @@ export class Server {
                     headers : { "Content-Type" : "application/json" },
                 }).then(function(response) {
                     result = response.content.toJSON();
-                    console.log(JSON.stringify(response));
                 }, function(e) {
                     console.log(e);
                 })
@@ -750,7 +707,6 @@ export class Server {
                     headers : { "Content-Type" : "application/json" }
                 }).then(function(response) {
                     result = response.content.toJSON();
-                    console.log(JSON.stringify(response));
                 }, function(e) {
                     console.log(e);
                 })
@@ -764,7 +720,6 @@ export class Server {
             method: "DELETE",
             headers : { "Content-Type" : "application/json" }
         }).then((response) => {
-            console.log(JSON.stringify(response));
         }, function(e) {
             console.log(e);
         })
@@ -787,7 +742,6 @@ export class Server {
                 album_Description: description })
             }).then(function(response) {
                 result = response.content.toJSON();
-                console.log(result);
             }, function(e) {
                 console.log("Error occured " + e);
             });
@@ -797,10 +751,8 @@ export class Server {
 
     //Get albums of the user with given userId
     public getAlbums(userId: number) {
-        console.log("Getting albums for user " + userId);
         var albums: Array<Album> = [];
         var query: string = this.db + "albums?transform=1&filter=user_Id,eq," + userId;
-        console.log("The query " + query);
         http.getJSON(query).
         then((r) => {
             for (let i = 0; i < r.albums.length; i++) {
@@ -819,10 +771,8 @@ export class Server {
     }
 
     public getAlbumPhotos(albumId: number) {
-        console.log("Getting photos fot album id " + albumId);
         var photos : Array<Photo> = [];
         var query : string = this.db + "files?transform=1&filter=album_Id,eq," + albumId;
-        console.log("The query " + query);
         http.getJSON(query).then((r) => {
             for (let i = 0; i < r.files.length; i++) {
                 photos.push(
@@ -847,7 +797,6 @@ export class Server {
     getFeedId(userId: number) {
         return new Promise((resolve, reject) => {
             var query = this.db + "albums?transform=1&filter[]=user_Id,eq," + userId + "&filter[]=album_Description,cs,Album&filter[]=album_Description,cs,for&filter[]=album_Description,cs,feed&filter[]=album_Description,cs,photos&satisfy=all";
-            console.log("GGGGGGGGGGGGGGGGGGGGGG" + query);
             http.getJSON(query).then((r) => {
                 resolve(r.albums[0].album_Id);
             })
@@ -859,7 +808,6 @@ export class Server {
         return new Promise((resolve, reject) => {
             var query = this.db + "albums?transform=1&filter=album_Id,eq," + albumId;
             http.getJSON(query).then((res) => {
-                console.log("AAAAAAAAAAAAAAAAAAAAAlbum rights to lower case " + (res.albums[0].album_Permission).toLowerCase());
                 if ((res.albums[0].album_Permission).toLowerCase() == "public") {
                     resolve();
                 } else {
@@ -893,7 +841,6 @@ export class Server {
         var users : Array<User> = [];
         var query = this.db + "users?transform=1&filter[]=first_Name,cs," + hint + "&filter[]=last_Name,cs," + hint +
         "&filter[]=email,cs," + hint + "&satisfy=any";
-        console.log(query);
         http.getJSON(query).then((res) => {
             for (let i = 0; i < res.users.length; i++) {
                if (res.users[i].user_Id == userId) {
@@ -919,7 +866,6 @@ export class Server {
         var events : Array<Event> = [];
         var query = this.db + "events?transform=1&filter[]=event_Name,cs," + hint + "&filter[]=event_Description,cs," + hint +
         "&satisfy=any";
-        console.log(query);
         http.getJSON(query).then((res) => {
             for (let i = 0; i < res.events.length; i++) {
                 if (res.events[i].event_Privacy == "private") {
@@ -943,7 +889,7 @@ export class Server {
     public deleteEvent(eventId) {
         return new Promise((resolve, reject) => {
             var request = {
-                url: "http://188.166.127.207:8889/ServerDel.js",
+                url: this.dbDelete,
                 method: "POST",
                 headers: {
                     "Content-Type": "application/octet-stream",
@@ -956,7 +902,6 @@ export class Server {
             }
             http.getJSON(request).then((response) => {
                 var status = response["status"];
-                console.log("Status " + status);
                 if (status == "OK") {
                 //delete photos and its comments and likes
                 var query = this.db + "files?transform=1&filter=event_Id,eq," + eventId;
@@ -965,7 +910,6 @@ export class Server {
                         this.deleteDBPhoto(r.files[i].file_Id);
                         this.deleteLikes(r.files[i].file_Id);
                         this.deleteComments(r.files[i].file_Id);
-                        console.log("Deleted photo " + r.files[i].file_Id);
                     }
                 });
                 //delete event from db
@@ -974,7 +918,6 @@ export class Server {
                     method : "DELETE",
                     headers : { "Content-Type" : "application/json" },
                 }).then(() => {
-                    console.log("Album " + eventId + "deleted");
                 }), function(e) {
                     console.log(e);
                 }
@@ -996,7 +939,6 @@ export class Server {
                     method: "DELETE",
                     headers : { "Content-Type" : "application/json" },
                 }).then(() => {
-                    console.log("Participant " + r.participants[i].participant_Id + " deleted");
                 }), function(e) {
                     console.log(e);
                 }
@@ -1005,9 +947,8 @@ export class Server {
     }
 
     public deleteAlbum(albumId: number, userId: number, albumName: string) {
-        console.log("Deleting album " + albumName + " id " + albumId);
         var request = {
-            url: "http://188.166.127.207:8889/ServerDel.js",
+            url: this.dbDelete,
             method: "POST",
             headers: {
                 "Content-Type": "application/octet-stream",
@@ -1020,7 +961,6 @@ export class Server {
         }
         http.getJSON(request).then((response) => {
             var status = response["status"];
-            console.log("Status " + status);
             if (status == "OK") {
                 //delete photos and its comments and likes
                 var query = this.db + "files?transform=1&filter=album_Id,eq," + albumId;
@@ -1029,7 +969,6 @@ export class Server {
                         this.deleteDBPhoto(r.files[i].file_Id);
                         this.deleteLikes(r.files[i].file_Id);
                         this.deleteComments(r.files[i].file_Id);
-                        console.log("Deleted photo " + r.files[i].file_Id);
                     }
                 });
                 //delete album from db
@@ -1038,7 +977,6 @@ export class Server {
                     method : "DELETE",
                     headers : { "Content-Type" : "application/json" },
                 }).then(() => {
-                    console.log("Album " + albumId + "deleted");
                 }), function(e) {
                     console.log(e);
                 }

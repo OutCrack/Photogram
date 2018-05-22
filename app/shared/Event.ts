@@ -1,5 +1,3 @@
-import { Photo } from "../shared/Photo";
-import { Server } from "../shared/Server/Server";
 
 export class Event {
     id: number;
@@ -18,7 +16,11 @@ export class Event {
         this.description = description;
         this.type = type;
         this.privacy = privacy;
-        this.photo_url = "http://sergphoto.com:8000/uploads/events/" + photo_url;
+        if (type.toLowerCase() == "wedding") {
+            this.photo_url = "http://sergphoto.com:8000/uploads/events/wedding.jpeg";
+        } else {
+            this.photo_url = "http://sergphoto.com:8000/uploads/events/party.jpeg";
+        }
     }
 
 

@@ -1,9 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { Page } from "ui/page";
+//import { Page } from "ui/page";
 import { Router } from '@angular/router';
 import { HomeComponent } from "./home/home.component";
 import { Data } from "../../shared/Data";
 import { RouterExtensions } from "nativescript-angular";
+import { Server } from "../../shared/Server/Server";
 const firebase = require("nativescript-plugin-firebase");
 
 @Component({
@@ -20,10 +21,12 @@ export class TabComponent {
     isEventGallery: boolean = false;
     isProfile: boolean = false;
     public tabName: string = "Feed";
+    server: Server;
 
 
-    constructor(private routerExtensions: RouterExtensions, private router: Router, private page: Page, protected data: Data) {
+    constructor(private routerExtensions: RouterExtensions, private router: Router, /*private page: Page,*/ protected data: Data,) {
         this.tabName = "feed";
+        this.server = new Server();
     }
 
     onBackButtonTap() {
@@ -114,7 +117,18 @@ export class TabComponent {
     }
 
     onCamera() {
-        this.router.navigate(["/image"]);
+        var albumId;
+        this.server.getAlbumForFeedPhotos(this.data.storage["id"]).then((r) => {
+            albumId = r;
+            var navigationExtras = {
+                queryParams: {
+                    "albumId" : albumId
+                }
+            };
+            this.router.navigate(["/image"], navigationExtras);
+        }).catch(() => {
+            alert("Error occurred. Please log out and in again");
+        })
     }
 
     logout() {

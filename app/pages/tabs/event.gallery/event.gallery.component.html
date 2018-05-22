@@ -26,7 +26,7 @@
             <StackLayout>
                     <Label text="Invited to events" class="header" horizontalAlignment="center"></Label>
                     <Label *ngIf="invitedToEvents.length == 0" text="No invitations" class="no_data"></Label>
-                    <StackLayout id="{{event.id}}" *ngFor="let event of invitedToEvents" (tap)="openEvent(event.id)" orientation="horizontal">
+                    <StackLayout id="{{event.id}}" *ngFor="let event of invitedToEvents" (tap)="openEvent(event.id)" orientation="horizontal" class="event">
                             <StackLayout id="eventList">
                                     <Label text="{{event.name}}"></Label>
                                     <Label text="{{event.type}}"></Label>
@@ -39,7 +39,7 @@
                     </StackLayout>
 
                     <Label text="Public Events" class="header" horizontalAlignment="center"></Label>
-                    <StackLayout *ngFor="let event of publicEvents" orientation="horizontal">
+                    <StackLayout *ngFor="let event of publicEvents" orientation="horizontal" class="event">
                             <StackLayout id="eventList">
                                     <Label text="{{event.name}}"></Label>
                                     <Label text="{{event.description}}"></Label>

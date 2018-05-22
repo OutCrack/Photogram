@@ -44,20 +44,50 @@ export class HomeComponent {
 
 
     selectPhoto(photoId: number) {
-        var selectedPhoto: Photo = this.photos.find(i => i.id === photoId)
-        let navigationExtras: NavigationExtras = {
-            queryParams: {
-                "photoId" : photoId,
-                "url" : selectedPhoto.url,
-                "created" : selectedPhoto.created,
-                "photoOwner" : selectedPhoto.userId,
-                "eventOwner" : null,
-                "eventId" : selectedPhoto.eventId,
-                "description" : selectedPhoto.description,
-                "ownerName" : selectedPhoto.user.firstN + " " + selectedPhoto.user.lastN
-            }
-        };
-        this.router.navigate(["/photoView"], navigationExtras);
+        var selectedPhoto;
+        var promise = new Promise((resolve, reject) => {
+            selectedPhoto = this.photos.find(i => i.id === photoId);
+            this.server.getEventOwner(selectedPhoto.eventId).then((r) => {
+                resolve(r);
+            }).catch(() => {
+                reject();
+            })
+
+        });
+        promise.then((owner) => {
+            let navigationExtras: NavigationExtras = {
+                queryParams: {
+                    "photoId" : photoId,
+                    "url" : selectedPhoto.url,
+                    "created" : selectedPhoto.created,
+                    "photoOwner" : selectedPhoto.userId,
+                    "eventOwner" : owner,
+                    "eventId" : selectedPhoto.eventId,
+                    "description" : selectedPhoto.description,
+                    "ownerName" : selectedPhoto.userName,
+                    "fileName" : selectedPhoto.fileName,
+                    "albumPath" : selectedPhoto.albumPath
+                }
+            };
+            this.router.navigate(["/photoView"], navigationExtras);
+        }).catch(() => {
+            let navigationExtras: NavigationExtras = {
+                queryParams: {
+                    "photoId" : photoId,
+                    "url" : selectedPhoto.url,
+                    "created" : selectedPhoto.created,
+                    "photoOwner" : selectedPhoto.userId,
+                    "eventOwner" : null,
+                    "eventId" : selectedPhoto.eventId,
+                    "description" : selectedPhoto.description,
+                    "ownerName" : selectedPhoto.userName,
+                    "fileName" : selectedPhoto.fileName,
+                    "albumPath" : selectedPhoto.albumPath
+                }
+            };
+            this.router.navigate(["/photoView"], navigationExtras);
+        })
+
     }
 
 }

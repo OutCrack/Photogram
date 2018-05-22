@@ -53,13 +53,11 @@ export class EventGalleryComponent {
     }
 
 
-    fetchPublicEvents() {
-        
-    }
-
     joinEvent(eventId: number) {
-        var ok = this.server.joinEvent(eventId, this.data.storage["id"], "User");
-        this.fetchPublicEvents();
+        this.server.joinEvent(eventId, this.data.storage["id"], "User");
+        dialogs.alert("You successfully joined the event").then(() => {
+            this.publicEvents = this.server.getPublicEvents(this.data.storage["id"]);
+        })
     }
 
     openEvent(eventId: number) {
@@ -107,7 +105,6 @@ export class EventGalleryComponent {
     }
 
     public declineInvitation(eventId: number) {
-        console.log("You are declining " + eventId);
         dialogs.confirm({
             title: "Are you sure?",
             okButtonText: "Yes",
@@ -122,6 +119,3 @@ export class EventGalleryComponent {
     }
 
 }
-
-//part 1 -> my events
-//part 2 first events i got invited to, then public events
