@@ -1,4 +1,5 @@
 <resources>
-<string name="facebook_app_id">163605604272974</string>
+<string name="app_name">SergPhoto</string>
+<string name="facebook_app_id">2089952534621105</string>
 <string name="title_activity_kimera"></string>
 </resources>

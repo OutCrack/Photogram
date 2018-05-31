@@ -1,8 +1,9 @@
 <ActionBar title="New album">
+        <NavigationButton android.systemIcon="ic_menu_back" (tap)="onBackButtonTap()"></NavigationButton>
 </ActionBar>
 <StackLayout>
     <TextField hint="album name" [(ngModel)]="album.name" style="width: 50%; align-self: center;"></TextField>
-    <StackLayout orientation="horizontal" style="width: 50%; align-self: center;">
+    <StackLayout orientation="horizontal" style="width: 70%; align-self: center;">
         <Label text="Permission"></Label>
         <Button [text] = "public ? 'public' : 'private'" (tap)="changePrivacy()" class="public_btn" ></Button> 
     </StackLayout>

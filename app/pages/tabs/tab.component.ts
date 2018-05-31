@@ -6,6 +6,7 @@ import { RouterExtensions } from "nativescript-angular";
 import { Server } from "../../shared/Server/Server";
 const firebase = require("nativescript-plugin-firebase");
 
+
 /**
  * 
  * 
@@ -48,7 +49,7 @@ export class TabComponent {
      */
     onBackButtonTap() {
         if (this.isHome) {
-            //do nothing
+            this.logout();
         } else {
             this.tabViewIndexChange(0);
         }
@@ -208,6 +209,6 @@ export class TabComponent {
         var router = this.router;
         this.data.storage = {};
         firebase.logout();
-        router.navigate(["/"]);
+        router.navigate(["/login"]);
     }
 }

@@ -4,6 +4,7 @@ import { Server } from "../../../shared/Server/Server"
 import { User } from "../../../shared/User";
 import { Data } from "../../../shared/Data";
 import { Event } from "../../../shared/Event";
+import { Router } from "@angular/router";
 
 /**
  * 
@@ -40,7 +41,7 @@ export class SearchComponent {
      * @param {Data} data 
      * @memberof SearchComponent
      */
-    constructor(private data: Data) {
+    constructor(private data: Data, private router: Router) {
         this.server = new Server;
         this.users = [];
         this.events = [];

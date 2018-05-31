@@ -1,4 +1,6 @@
-<ActionBar title="New event"></ActionBar>
+<ActionBar title="New event">
+        <NavigationButton android.systemIcon="ic_menu_back" (tap)="onBackButtonTap()"></NavigationButton>
+</ActionBar>
 <StackLayout>
     <TextField hint="Event Name" [(ngModel)]="event.name"></TextField>
     <TextField hint="Location" [(ngModel)]="event.location"></TextField>

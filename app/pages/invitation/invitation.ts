@@ -8,7 +8,7 @@ import * as email from "nativescript-email";
 import * as fs from "file-system";
 import { ImageAsset } from "tns-core-modules/image-asset/image-asset";
 import { isNavigationCancelingError } from "@angular/router/src/shared";
-//var orientation = require("nativescript-orientation");
+import { RouterExtensions } from "nativescript-angular";
 var dom = require("nativescript-dom");
 var plugin = require("nativescript-screenshot");
 var image = require("ui/image");
@@ -36,7 +36,7 @@ export class InvitationComponent {
     public fontStyle: string;
     public fontColor: string = "gold";
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private routerExtensions: RouterExtensions) {
     
     }
 
@@ -52,6 +52,11 @@ export class InvitationComponent {
         this.bodyColor = "bgr_black";
         this.fontStyle = "font1";
         sendButton = stackLayout.getElementById("send_btn");
+     }
+
+
+     onBackButtonTap() {
+         this.routerExtensions.backToPreviousPage();
      }
 
 

@@ -6,7 +6,9 @@ import { View } from "ui/core/view";
 import * as dialogs from "ui/dialogs";
 import { Data } from "../../shared/Data";
 import { Server } from "../../shared/Server/Server";
+import * as application from "application";
 const firebase = require("nativescript-plugin-firebase");
+import { AndroidApplication, AndroidActivityBackPressedEventData} from "application";
 var http = require("http");
 
 /**
@@ -261,5 +263,8 @@ ngOnInit() {
       this.findUser();
     }) 
     .catch(error => console.log("Not logged in " + error));
+    application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData)=> { 
+    data.cancel = true; 
+    })
   }
 }

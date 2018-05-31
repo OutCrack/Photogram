@@ -1,8 +1,8 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Data } from "../../../shared/Data";
 import { Server } from "../../../shared/Server/Server";
 import { RouterExtensions } from "nativescript-angular";
-
+import { Router } from "@angular/router";
 
 /**
  * 
@@ -26,13 +26,17 @@ export class AlbumComponent {
      * @param {RouterExtensions} routerExtensions 
      * @memberof AlbumComponent
      */
-    constructor(private data: Data, private routerExtensions: RouterExtensions) {
+    constructor(private data: Data, private routerExtensions: RouterExtensions, private router: Router) {
         this.server = new Server();
         this.album = {
             name : "",
             description: ""
         };
         this.public = true;
+    }
+
+    onBackButtonTap() {
+        this.routerExtensions.backToPreviousPage();
     }
 
     /**

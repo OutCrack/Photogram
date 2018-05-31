@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from "@angular/core";
+import { Component, ChangeDetectorRef, OnInit } from "@angular/core";
 import { Photo } from "../../../shared/Photo";
 import { Router, ActivatedRoute } from "@angular/router";
 import { TabComponent } from "../tab.component";
@@ -60,7 +60,7 @@ export class ProfileComponent {
         this.profession = this.data.storage["profession"];
         this.location = this.data.storage["location"];
         this.gender = this.data.storage["gender"];
-        this.isMale = this.data.storage["gender"].toLowerCase() == "male" ? true : false;
+        this.isMale = true;
         this.avatar = "http://188.166.127.207:8000/uploads/avatars/" + this.data.storage["avatar"];
         this.birthDate = this.data.storage["dob"];
         this.hobby = this.data.storage["hobby"];

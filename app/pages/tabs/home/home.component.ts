@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from "@angular/core";
+import { Component, ChangeDetectorRef, OnInit } from "@angular/core";
 import { Photo } from "../../../shared/Photo";
 import { Server } from "../../../shared/Server/Server";
 import { registerElement } from "nativescript-angular/element-registry";
@@ -61,7 +61,7 @@ export class HomeComponent {
      * @memberof HomeComponent
      */
     stackLoaded = function(args) {
-        this.photos = this.server.getPublicPhotos();
+        this.refreshFeed(null);
     }
 
 

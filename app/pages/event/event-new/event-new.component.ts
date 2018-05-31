@@ -1,7 +1,9 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Server } from "../../../shared/Server/Server"
 import { Data } from "../../../shared/Data";
 import { Router, NavigationExtras } from "@angular/router";
+import { RouterExtensions } from "nativescript-angular";
+
 /**
  * 
  * 
@@ -27,7 +29,7 @@ export class NewEventComponent {
      * @param {Router} router 
      * @memberof NewEventComponent
      */
-    public constructor(private data: Data, private router: Router){
+    public constructor(private data: Data, private router: Router, private routerExtensions: RouterExtensions){
         this.server = new Server();
         this.wedding = true;
         this.privacy = false;
@@ -36,6 +38,10 @@ export class NewEventComponent {
             description: "",
             location: ""
         }
+    }
+
+    onBackButtonTap() {
+        this.routerExtensions.backToPreviousPage();
     }
 
     /**
@@ -76,7 +82,7 @@ export class NewEventComponent {
                     "privacy" : privacy
                 }
             }; 
-            this.router.navigate(["/eventView"], navigationExtras);
+            this.routerExtensions.back();
         }).catch(() => {
             alert("Something went wrong. Please try again later");
         })
