@@ -44,8 +44,8 @@ export class LoginComponent implements OnInit{
    */
   constructor(private router: Router, private page: Page, private data: Data) {
     this.user = {
-      "email" : "kasia.zubowicz@gmail.com",
-      "password" : "qwerty123"
+      "email" : "",
+      "password" : ""
     }
     this.userId = 0;
     this.server = new Server();
@@ -126,8 +126,8 @@ export class LoginComponent implements OnInit{
 signUp() {
     this.signingUp = true;
     this.newUser = {
-      "email" : "newUser@user.com",
-      "password" : "newPassword"
+      "email" : "",
+      "password" : ""
     }
   }
 

@@ -10,10 +10,18 @@
       "client_info": {
         "mobilesdk_app_id": "1:214558979005:android:a0914f8b977ec1fd",
         "android_client_info": {
-          "package_name": "org.nativescript.Sergphoto"
+          "package_name": "org.nativescript.sergphoto"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "214558979005-e4piqkcfv6gj10rmhnr6tro0m21t8rr7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.nativescript.sergphoto",
+            "certificate_hash": "38877d7da30e75b0533533cdd6c16ac66d600b19"
+          }
+        },
         {
           "client_id": "214558979005-cg5sge01a5p3o1prtosutu5efuc31qjv.apps.googleusercontent.com",
           "client_type": 3
@@ -33,8 +41,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "214558979005-cg5sge01a5p3o1prtosutu5efuc31qjv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

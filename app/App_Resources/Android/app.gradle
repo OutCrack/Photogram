@@ -8,7 +8,7 @@
 android {  
   defaultConfig {  
     generatedDensities = []
-    applicationId = "org.nativescript.Sergphoto"  
+    applicationId = "org.nativescript.sergphoto"  
   }  
   aaptOptions {  
     additionalParameters "--no-version-vectors"  
