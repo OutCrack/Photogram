@@ -56,10 +56,11 @@ export class SearchComponent {
     public onSubmit(args) {
         let searchBar = <SearchBar>args.object;
         if (searchBar.text.length < 3) {
+            /*
             this.users = [];
             this.events = [];
             this.search = false;
-            alert("The search phrase must be at least 3 characters long");
+            alert("The search phrase must be at least 3 characters long");*/
         } else {
             this.search = true;
             this.users = this.server.getUsersByHint(searchBar.text, this.data.storage["id"]);
