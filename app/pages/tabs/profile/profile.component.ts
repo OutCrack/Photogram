@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from "@angular/core";
+import { Component, ChangeDetectorRef, OnInit } from "@angular/core";
 import { Photo } from "../../../shared/Photo";
 import { Router, ActivatedRoute } from "@angular/router";
 import { TabComponent } from "../tab.component";
@@ -43,6 +43,9 @@ export class ProfileComponent {
     public item: any;
     public hasAvatar: boolean;
     public isMale: boolean;
+    public password: boolean;
+    public facebook: boolean;
+    public google: boolean;
     
 
     /**
@@ -60,8 +63,15 @@ export class ProfileComponent {
         this.profession = this.data.storage["profession"];
         this.location = this.data.storage["location"];
         this.gender = this.data.storage["gender"];
-        this.isMale = this.data.storage["gender"].toLowerCase() == "male" ? true : false;
-        this.avatar = "http://188.166.127.207:8000/uploads/avatars/" + this.data.storage["avatar"];
+        if (this.data.storage["provider1"] == "google.com") {
+            this.google = true;
+        } else if (this.data.storage["provider1"] == "facebook.com") {
+            this.facebook = true;
+        } else {
+            this.password = true;
+        }
+        this.isMale = true;
+        this.avatar = "http://188.166.127.207/uploads/avatars/" + this.data.storage["avatar"];
         this.birthDate = this.data.storage["dob"];
         this.hobby = this.data.storage["hobby"];
         this.editing = false;
@@ -177,7 +187,7 @@ export class ProfileComponent {
         return new Promise((resolve, reject) => {
             this.server.uploadProfilPhoto(fileUri, this.data.storage["id"]).then((fileName) => {
                 this.data.storage["avatar"] = fileName;
-                this.avatar = "http://188.166.127.207:8000/uploads/avatars/" + this.data.storage["avatar"];
+                this.avatar = "http://188.166.127.207/uploads/avatars/" + this.data.storage["avatar"];
             })
             resolve();
         });
@@ -193,7 +203,7 @@ export class ProfileComponent {
         return new Promise((resolve, reject) => {
             this.server.deletePhoto(this.data.storage["id"], this.data.storage["avatar"], "avatar", 0, null, null);
             this.data.storage["avatar"] = "default-avatar.png";
-            this.avatar = "http://188.166.127.207:8000/uploads/avatars/" + "default-avatar.png";
+            this.avatar = "http://188.166.127.207/uploads/avatars/" + "default-avatar.png";
             this.hasAvatar = false;
             resolve();
         });
@@ -234,6 +244,31 @@ export class ProfileComponent {
         } else {
             alert("Fields first and last name can't be empty");
         }
+    }
+
+    addFacebook() {
+        // det er en feil med provider her
+        var provider = new firebase.auth.FacebookAuthProvider();
+        alert(provider);
+        firebase.auth.currentUser.linkWithRedirect(provider).then(function(result) {
+            // Accounts successfully linked.
+            var credential = result.credential;
+            var user = result.user;
+            this.facebook = true;
+            // ...
+          }).catch(function(error) {
+            alert(error);
+          });
+    }
+
+    addGoogle() {
+        alert("Adding google account");
+    }
+
+    addPassword() {
+        var provider = new firebase.auth();
+        alert(provider);
+        //alert("Adding password");
     }
 
 }

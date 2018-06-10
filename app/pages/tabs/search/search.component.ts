@@ -4,6 +4,7 @@ import { Server } from "../../../shared/Server/Server"
 import { User } from "../../../shared/User";
 import { Data } from "../../../shared/Data";
 import { Event } from "../../../shared/Event";
+import { Router } from "@angular/router";
 
 /**
  * 
@@ -40,7 +41,7 @@ export class SearchComponent {
      * @param {Data} data 
      * @memberof SearchComponent
      */
-    constructor(private data: Data) {
+    constructor(private data: Data, private router: Router) {
         this.server = new Server;
         this.users = [];
         this.events = [];
@@ -54,16 +55,17 @@ export class SearchComponent {
      */
     public onSubmit(args) {
         let searchBar = <SearchBar>args.object;
-        if (searchBar.text.length < 3) {
+        /*if (searchBar.text.length < 3) {
+            
             this.users = [];
             this.events = [];
             this.search = false;
             alert("The search phrase must be at least 3 characters long");
-        } else {
+        } else {*/
             this.search = true;
             this.users = this.server.getUsersByHint(searchBar.text, this.data.storage["id"]);
             this.events = this.server.getEventsByHint(searchBar.text);
-        }
+        //}
         
     }
 
@@ -75,14 +77,14 @@ export class SearchComponent {
      */
     public onTextChanged(args) {
         let searchBar = <SearchBar>args.object;
-        if (searchBar.text.length < 3) {
+        /*if (searchBar.text.length < 3) {
             this.users = [];
             this.events = [];
             this.search = false;
-        } else {
+        } else {*/
             this.users = this.server.getUsersByHint(searchBar.text, this.data.storage["id"]);
             this.events = this.server.getEventsByHint(searchBar.text);
-        }
+        /*}*/
     }
 
 }

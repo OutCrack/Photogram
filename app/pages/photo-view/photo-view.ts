@@ -1,10 +1,11 @@
-import { Component, ChangeDetectorRef } from "@angular/core"
+import { Component, ChangeDetectorRef, OnInit } from "@angular/core"
 import { Data } from "../../shared/Data";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Server } from "../../shared/Server/Server";
 import { Comment } from "../../shared/Comment";
 import * as dialogs from "ui/dialogs";
 import { RouterExtensions } from "nativescript-angular";
+
 
 /**
  * 
@@ -43,7 +44,7 @@ export class PhotoViewComponent {
      * @memberof PhotoViewComponent
      */
     constructor(private routerExtensions: RouterExtensions  ,private data: Data, private route: ActivatedRoute, 
-        private _changeDetectionRef: ChangeDetectorRef) {
+        private _changeDetectionRef: ChangeDetectorRef, private router: Router) {
 
         this.server = new Server();
         this.route.queryParams.subscribe(params => {
@@ -74,6 +75,7 @@ export class PhotoViewComponent {
         this.comments = this.server.getComments(this.photoId, this.data.storage["id"], this.photoOwner, this.eventOwner);
     }
 
+
     /**
      * 
      * 
@@ -81,6 +83,10 @@ export class PhotoViewComponent {
      */
     stackLoaded = function(args) {
         this.comments = this.server.getComments(this.photoId, this.data.storage["id"], this.photoOwner, this.eventOwner);
+    }
+
+    onBackButtonTap() {
+        this.routerExtensions.backToPreviousPage();
     }
 
     /**

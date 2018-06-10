@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Server } from "../../../shared/Server/Server";
 import { Event } from "../../../shared/Event";
 import { Data } from "../../../shared/Data";
@@ -23,7 +23,6 @@ export class EventGalleryComponent {
     public selectedIndex = 0;
     public visibility1 = true;
     public visibility2 = false;
-
     public publicEvents: Array<Event>;
     public participEvents: Array<Event>;
     public myEvents: Array<Event>;
@@ -38,6 +37,9 @@ export class EventGalleryComponent {
      */
     constructor(private data: Data, private router: Router) {
         this.server = new Server();
+        this.participEvents = this.server.getMyEvents(this.data.storage["id"], "User");
+        this.myEvents = this.server.getMyEvents(this.data.storage["id"], "Admin");
+        this.invitedToEvents = this.server.getMyEvents(this.data.storage["id"], "Invited");
 
         this.items = [];
         for (let i = 1; i < 3; i++) {
@@ -126,10 +128,12 @@ export class EventGalleryComponent {
             case 0:
                 this.visibility1 = true;
                 this.visibility2 = false;
+                this.stack1Loaded(null);
                 break;
             case 1:
                 this.visibility1 = false;
                 this.visibility2 = true;
+                this.stack2Loaded(null);
                 break;
             default:
                 break;

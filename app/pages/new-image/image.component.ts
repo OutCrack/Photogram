@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef  } from "@angular/core";
+import { Component, ChangeDetectorRef, OnInit  } from "@angular/core";
 import { Server } from "../../shared/Server/Server"
 import { Image } from "ui/image";
 import * as imagepicker from "nativescript-imagepicker";
@@ -11,6 +11,8 @@ import * as app from "tns-core-modules/application";
 import { ImageSource } from "tns-core-modules/image-source/image-source";
 import { ActivatedRoute, Router } from "@angular/router";
 import { RouterExtensions } from "nativescript-angular";
+import * as application from "application";
+import { AndroidApplication, AndroidActivityBackPressedEventData} from "application";
 const imageSourceModule = require("tns-core-modules/image-source");
 var plugin = require("nativescript-screenshot");
 var image = require("ui/image");
@@ -28,7 +30,7 @@ var stackLayout, photo;
     styleUrls: ["./pages/new-image/image.css" ]
 })
 
-export class ImageComponent {
+export class ImageComponent implements OnInit {
 
     public picture: any;
     public server: Server;
@@ -51,7 +53,7 @@ export class ImageComponent {
      * @memberof ImageComponent
      */
     public constructor(private routerExtensions: RouterExtensions, private data: Data, 
-        private _changeDetectionRef: ChangeDetectorRef, private route: ActivatedRoute) {
+        private _changeDetectionRef: ChangeDetectorRef, private route: ActivatedRoute, private router: Router) {
 
         this.server = new Server();
         this.pictureSelected = false;
@@ -65,6 +67,14 @@ export class ImageComponent {
         this.details = [];
     }
 
+    ngOnInit() {
+        if (this.router.isActive("/login", false)) {
+            application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData)=> { 
+            data.cancel = true;
+            })
+        }
+    }
+
     /**
      * 
      * 
@@ -73,6 +83,10 @@ export class ImageComponent {
     stackLoaded = function(args) {
         stackLayout = args.object;
         photo = stackLayout.getElementById("picture");
+     }
+
+     onBackButtonTap() {
+         this.routerExtensions.backToPreviousPage();
      }
 
     /**

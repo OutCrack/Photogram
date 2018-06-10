@@ -1,4 +1,5 @@
-<ActionBar title="{{albumName}}">
+<ActionBar title="{{albumName}}">    
+    <NavigationButton android.systemIcon="ic_menu_back" (tap)="onBackButtonTap()"></NavigationButton>
     <ActionItem (tap)="onCamera()" ios.systemIcon="15" ios.position="right" android.systemIcon="ic_menu_camera"></ActionItem>
     <ActionItem (tap)="onDeleteAlbum()" ios.systemIcon="16" ios.position="right" android.systemIcon="ic_menu_delete"></ActionItem>
 </ActionBar>

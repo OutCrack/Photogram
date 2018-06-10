@@ -1,5 +1,5 @@
 StackLayout {
-    padding: 20px;
+    padding: 10px;
     padding-top: 60px;
 }
 
@@ -15,6 +15,7 @@ Label, Button, TextField {
 }
 
 .public_btn {
-    margin-left: 30px;
-    padding-left: 30px;
+    margin-left: 20px;
+    padding-left: 20px;
+    font-size: 14px;
 }

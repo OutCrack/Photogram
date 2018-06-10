@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Server } from "../../../shared/Server/Server";
 import { RouterExtensions } from "nativescript-angular";
 import { Photo } from "../../../shared/Photo";
@@ -49,6 +49,10 @@ export class AlbumViewComponent {
         this.server.getAlbumName(this.albumId).then((r) => {
             this.albumName = r;
         });
+    }
+
+    onBackButtonTap() {
+        this.routerExtensions.backToPreviousPage();
     }
 
     /**

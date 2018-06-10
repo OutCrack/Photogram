@@ -33,9 +33,9 @@ export class Event {
         this.type = type;
         this.privacy = privacy;
         if (type.toLowerCase() == "wedding") {
-            this.photo_url = "http://sergphoto.com:8000/uploads/events/wedding.jpeg";
+            this.photo_url = "https://sergphoto.com/uploads/events/wedding-default.png";
         } else {
-            this.photo_url = "http://sergphoto.com:8000/uploads/events/party.jpeg";
+            this.photo_url = "https://sergphoto.com/uploads/events/party-default.png";
         }
     }
 

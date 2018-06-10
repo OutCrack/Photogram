@@ -6,7 +6,10 @@ import { View } from "ui/core/view";
 import * as dialogs from "ui/dialogs";
 import { Data } from "../../shared/Data";
 import { Server } from "../../shared/Server/Server";
+import * as application from "application";
 const firebase = require("nativescript-plugin-firebase");
+import { AndroidApplication, AndroidActivityBackPressedEventData} from "application";
+import { componentFactoryName } from "@angular/compiler";
 var http = require("http");
 
 /**
@@ -42,8 +45,8 @@ export class LoginComponent implements OnInit{
    */
   constructor(private router: Router, private page: Page, private data: Data) {
     this.user = {
-      "email" : "kasia.zubowicz@gmail.com",
-      "password" : "qwerty123"
+      "email" : "",
+      "password" : ""
     }
     this.userId = 0;
     this.server = new Server();
@@ -65,6 +68,7 @@ export class LoginComponent implements OnInit{
       })
       .then(
         () => {
+          firebase.login();
           this.findUser();
         })
       .catch(error => alert(error));
@@ -86,10 +90,18 @@ export class LoginComponent implements OnInit{
         }
       }).then(
         function(fb_result) {
+          console.log(JSON.stringify(fb_result));
           that.findUser();
         },
         function(err) {
-          alert("Login unsuccessfull " + err);
+          if (err.localeCompare("Logging in the user failed. com.google.firebase.auth.FirebaseAuthUserCollisionException: An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.") == 0) 
+          {
+            alert("The email address is already associated with another account. Log in and link the accounts");
+
+          }
+          else {
+            //alert("WOOOW");
+          }
         }
       );
   }
@@ -106,7 +118,7 @@ export class LoginComponent implements OnInit{
     type: firebase.LoginType.GOOGLE
     }).then(
       function (result) {
-        JSON.stringify(result);
+        console.log(JSON.stringify(result));
         that.findUser();
     },
     function(err) {
@@ -124,8 +136,8 @@ export class LoginComponent implements OnInit{
 signUp() {
     this.signingUp = true;
     this.newUser = {
-      "email" : "newUser@user.com",
-      "password" : "newPassword"
+      "email" : "",
+      "password" : ""
     }
   }
 
@@ -173,13 +185,15 @@ signUp() {
           .then(user => {
             var ok = new Promise((resolve, reject) => {
               this.server.saveUser(this.userData.firstName, this.userData.lastName, this.userData.location, 
-                this.userData.profession, user.email)
+              this.userData.profession, user.email)
               this.signingUp = false;
               this.userCreated = false;
               resolve();
             }); 
             ok.then(() => {
-              this.findUser();
+              //this.findUser();
+              //this.router.navigate(["/tab"]);
+              alert("User created. You can now log in to SergPhoto");
             });
             
           })
@@ -199,7 +213,9 @@ signUp() {
     firebase.getCurrentUser()
     .then(user => {
         this.user.email = user.email;
-        var query: string = this.site + "users?transform=1&filter=email,eq,"+user.email;
+        //alert("Provider " + user.providers[1].id);
+        console.log("Users email is " + this.user.email);
+        var query: string = this.site + "users?transform=1&filter=email,eq,"+this.user.email;
         http.getJSON(query)
         .then((r) => { 
             if (r.users.length > 0) {
@@ -208,6 +224,9 @@ signUp() {
                   "firstName" : r.users[0].first_Name,
                   "lastName" : r.users[0].last_Name,
                   "email" : r.users[0].email,
+                  //"provider1" : user.providers[1].id,
+                  //"provider2" : user.providers[2] == null ? null : user.providers[2].id,
+                  //"provider3" : user.providers[3] == null ? null : user.providers[3].id,
                   "id" : r.users[0].user_Id,
                   "gender" : r.users[0].gender,
                   "dob" : r.users[0].DOB,
@@ -221,6 +240,7 @@ signUp() {
                 true, "Album for feed photos");
                 this.router.navigate(["/tab"]);
             } else {
+              console.log("IN ELSE");
               this.userData = {
                 "firstName" : "",
                 "lastName" : "",
@@ -232,7 +252,8 @@ signUp() {
                 this.server = new Server();
             }
         }, function(e) {
-          //alert("User not found ");
+          alert("User not found ");
+          console.log("User not found");
         })
         
     })
@@ -249,6 +270,11 @@ cancel() {
   this.signingUp = false;
 }
 
+cancel2() {
+  this.signingUp = false;
+  this.userCreated = false;
+}
+
 /**
  * 
  * 
@@ -261,5 +287,10 @@ ngOnInit() {
       this.findUser();
     }) 
     .catch(error => console.log("Not logged in " + error));
+    application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData)=> { 
+      if (this.router.isActive("/login" , false)) {
+        data.cancel = true; 
+      }
+    })
   }
 }
