@@ -21,7 +21,7 @@ export class Photo {
     server: Server = new Server();
     albumPath: string;
     userName: string;
-    urlCommon = "http://188.166.127.207:8000/uploads/";
+    urlCommon = "http://188.166.127.207/uploads/";
 
     /**
      * Creates an instance of Photo.

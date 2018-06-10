@@ -77,8 +77,8 @@ export class NewEventComponent {
                     "role" : "Admin",
                     "description" : this.event.description,
                     "type" : type,
-                    "photo_url" : this.wedding ?  'http://sergphoto.com:8000/uploads/events/wedding.jpeg' 
-                    : 'http://sergphoto.com:8000/uploads/events/party.jped',
+                    "photo_url" : this.wedding ?  'http://sergphoto.com/uploads/events/wedding.jpeg' 
+                    : 'http://sergphoto.com/uploads/events/party.jped',
                     "privacy" : privacy
                 }
             }; 

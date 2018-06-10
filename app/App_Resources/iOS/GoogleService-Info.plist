@@ -7,22 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>716416607535-09cq30s9k6c4mtdc6pj2f5ks29p9l13l.apps.googleusercontent.com</string>
+	<string>214558979005-0a6na4ossf9ahvtkq597k8ph90os2561.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.716416607535-09cq30s9k6c4mtdc6pj2f5ks29p9l13l</string>
+	<string>com.googleusercontent.apps.214558979005-0a6na4ossf9ahvtkq597k8ph90os2561</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCu9kS1UBLJKpTg7M8ngDgjSY70Rk6mIlI</string>
+	<string>AIzaSyBF5_XrKInLK8nymVsmaT3xJeLffH9_zKw</string>
 	<key>GCM_SENDER_ID</key>
-	<string>716416607535</string>
+	<string>214558979005</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>org.nativescript.Sergphoto</string>
+	<string>org.nativescript.sergphoto</string>
 	<key>PROJECT_ID</key>
 	<string>sergphoto-4d8c4</string>
-	<!--create ios app on firebase + replace this string with the one generated there-->
 	<key>STORAGE_BUCKET</key>
-	<string>photogram-e54b4.appspot.com</string>
+	<string>sergphoto-4d8c4.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -34,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:716416607535:ios:ca739e3fa1e447f1</string>
+	<string>1:214558979005:ios:a0914f8b977ec1fd</string>
 	<key>DATABASE_URL</key>
 	<string>https://sergphoto-4d8c4.firebaseio.com</string>
 </dict>

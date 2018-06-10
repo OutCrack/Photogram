@@ -55,17 +55,17 @@ export class SearchComponent {
      */
     public onSubmit(args) {
         let searchBar = <SearchBar>args.object;
-        if (searchBar.text.length < 3) {
-            /*
+        /*if (searchBar.text.length < 3) {
+            
             this.users = [];
             this.events = [];
             this.search = false;
-            alert("The search phrase must be at least 3 characters long");*/
-        } else {
+            alert("The search phrase must be at least 3 characters long");
+        } else {*/
             this.search = true;
             this.users = this.server.getUsersByHint(searchBar.text, this.data.storage["id"]);
             this.events = this.server.getEventsByHint(searchBar.text);
-        }
+        //}
         
     }
 
@@ -77,14 +77,14 @@ export class SearchComponent {
      */
     public onTextChanged(args) {
         let searchBar = <SearchBar>args.object;
-        if (searchBar.text.length < 3) {
+        /*if (searchBar.text.length < 3) {
             this.users = [];
             this.events = [];
             this.search = false;
-        } else {
+        } else {*/
             this.users = this.server.getUsersByHint(searchBar.text, this.data.storage["id"]);
             this.events = this.server.getEventsByHint(searchBar.text);
-        }
+        /*}*/
     }
 
 }

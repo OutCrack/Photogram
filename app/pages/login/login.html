@@ -31,6 +31,9 @@
     <TextField hint="last name" autocorrect="false" [(ngModel)]="userData.lastName"></TextField>
     <TextField hint="location" autocorrect="false" [(ngModel)]="userData.location"></TextField>
     <TextField hint="profession" autocorrect="false" [(ngModel)]="userData.profession"></TextField>
-    <Button text="Save data" (tap)="saveData()" class="sign-up-btn"></Button>
+    <StackLayout orientation="horizontal" class="btn-container">
+      <Button text="Cancel" col="0" row ="0" class="submit-button" (tap)="cancel2()"> </Button>
+      <Button text="Save data" (tap)="saveData()" class="sign-up-btn"></Button>
+    </StackLayout>
   </StackLayout>
   </StackLayout>

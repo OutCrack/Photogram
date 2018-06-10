@@ -21,13 +21,13 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>Sergphoto</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>Sergphoto</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -69,21 +69,21 @@
    			<string>REVERSED_CLIENT_ID</string>
    			<key>CFBundleURLSchemes</key>
    			<array>
-   				<string>com.googleusercontent.apps.716416607535-09cq30s9k6c4mtdc6pj2f5ks29p9l13l</string>
+   				<string>com.googleusercontent.apps.214558979005-0a6na4ossf9ahvtkq597k8ph90os2561</string>
    			</array>
 			</dict>
 
 			<dict>
-    	<key>CFBundleURLSchemes</key>
-    	<array>
-      	<string>fb163605604272974</string>
-    	</array>
-  		</dict>
-		</array>
-	<key>FacebookAppID</key>
-	<string>2089952534621105</string>
-	<key>FacebookDisplayName</key>
-	<string>Sergphoto</string>
+  <key>CFBundleURLSchemes</key>
+  <array>
+    <string>fb2089952534621105</string>
+  </array>
+  </dict>
+</array>
+<key>FacebookAppID</key>
+<string>2089952534621105</string>
+<key>FacebookDisplayName</key>
+<string>Sergphoto</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
   	<string>fbapi</string>

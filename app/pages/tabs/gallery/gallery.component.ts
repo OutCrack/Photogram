@@ -38,6 +38,7 @@ export class GalleryComponent{
      */
     constructor(private router: Router, private data: Data) {
         this.server = new Server();
+        this.myAlbums = this.server.getAlbums(this.data.storage["id"]);
     }
 
     /**
